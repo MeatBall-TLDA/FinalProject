@@ -56,11 +56,13 @@ USERINFO|TABLE|
 VOTE|TABLE|
 
 ### Author
-👤 Dongbeom Kim
+👤 JongSung Kim
 
-👤 Kyungwon Kim
+👤 WongTae Kim
 
-👤 Seyoung Nam
+👤 YoungWook Cho
+
+👤 DongBeom Kim
 
 ## Example
 ![Choice](https://user-images.githubusercontent.com/52446213/64935195-c85aef80-d88a-11e9-8e74-8343b5ac3e44.PNG)
