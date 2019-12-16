@@ -9,7 +9,7 @@
 
 ````JAVA
 public static void main(String [] args){
-  System.out.println("Hellow My Servlet-JspProject");
+  System.out.println(" 틀 다 ");
 }
 ``````
 
