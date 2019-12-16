@@ -13,7 +13,7 @@ public static void main(String [] args){
 }
 ``````
 
-GitHub Hyperlink : [URL](https://github.com/MeatBall-TLDA/FinalProject/blob/master/README.md)
+GitHub Hyperlink : [URL](https://github.com/MeatBall-TLDA/FinalProject)
 
 ### USED
 * JAVA
