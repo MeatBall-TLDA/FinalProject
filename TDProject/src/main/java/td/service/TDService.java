@@ -54,10 +54,22 @@ public class TDService {
 		return hRepo.findAll(pageable);
 	}
 
+	// hashtagSearch
+	public Slice<HiddenBoardDTO> hashtagSearch(Pageable pageable, String hashtag) {
+		return hRepo.findByHashtagContaining(pageable, hashtag);
+	}
+
+	// categorySearch
+	public Slice<HiddenBoardDTO> categorySearch(Pageable pageable, String category) {
+//		System.out.println(hRepo.findAllHashtag());
+		return hRepo.findByCategoryContaining(pageable, category);
+	}
+
 	public long getCount() {
 		return hRepo.count();
 	}
 
+	// 테스트 데이터 삽입
 	public int randomRange(int n1, int n2) {
 		return (int) (Math.random() * (n2 - n1 + 1)) + n1;
 	}
@@ -65,12 +77,11 @@ public class TDService {
 	public void makeTest() {
 		String[] category = { "A", "B", "C", "D" };
 		String[] hashtag = { "#a", "#b", "#c", "#d" };
-		
-		
+
 		for (int i = 0; i < 502; i++) {
 			String a = String.valueOf(i);
 			HiddenBoardDTO v = new HiddenBoardDTO();
-			
+
 			v.setCategory(category[randomRange(0, 3)]);
 			v.setClaim(0);
 			v.setContents(a);
@@ -80,7 +91,7 @@ public class TDService {
 			v.setNickname(a);
 			v.setOpenDate("20191218");
 			v.setPostingDate("20191217");
-			
+
 			hRepo.save(v);
 		}
 	}

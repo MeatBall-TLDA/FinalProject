@@ -33,7 +33,6 @@ public class TDContoller {
 	// =================================================================
 	
 	// 미공개 게시판 정보
-	
 	// 페이지 넘버에 따라 게시글 조회
 	@GetMapping("/getHidden")
 	public Slice<HiddenBoardDTO> findAll(@PageableDefault(size = 10) Pageable pageable) {
@@ -46,6 +45,8 @@ public class TDContoller {
 		return service.getCount();
 	}
 	
+
+	// 테스트 데이터 삽입
 	@GetMapping("/makeTest")
 	public void makeTest() {
 		service.makeTest();
@@ -74,6 +75,19 @@ public class TDContoller {
 		return service.findByIdOpenReplyDTO(id);
 	}
 	
+
+	// 동범 search =================================================================	
+	@GetMapping("/hashtagSearch")
+	public Slice<HiddenBoardDTO> hashtagSearch(@PageableDefault(size = 10) Pageable pageable) {
+		return service.hashtagSearch(pageable, "c");
+	}
+	
+	@GetMapping("/categorySearch")
+	public Slice<HiddenBoardDTO> categorySearch(@PageableDefault(size = 10) Pageable pageable) {
+		return service.categorySearch(pageable, "A");
+	}
+	
+	// ========================================================================
 
 	@GetMapping("/getReply")
 	public ReplyDTO getReply(String userId, String boardId) {
