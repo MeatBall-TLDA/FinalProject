@@ -72,5 +72,10 @@ public class TDContoller {
 	public Optional<ReplyDTO> findByIdOpenReplyDTO(String id) {
 		return service.findByIdOpenReplyDTO(id);
 	}
+	
+	@GetMapping("/makeTest")
+	   public void makeTest() {
+	      service.makeTest();
+	   }
 
 }

@@ -10,4 +10,5 @@ public interface HiddenBoardRepository extends ElasticsearchRepository<HiddenBoa
 	
 	Page<HiddenBoardDTO> findAllOrderByHeart(Pageable pageable);
 	long count();
+	
 }
