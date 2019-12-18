@@ -13,13 +13,14 @@ public interface HiddenBoardRepository extends ElasticsearchRepository<HiddenBoa
 	
 	Page<HiddenBoardDTO> findAll(Pageable pageable);
 	long count();
-	
+
 	Page<HiddenBoardDTO> findByHashtagContaining(Pageable pageable, String hastag);
 	
 	Page<HiddenBoardDTO> findByCategoryContaining(Pageable pageable, String category);
 	
 //	@Query(value = "{\"query\":{\"match_all\":{}},\"_source\":[\"hashtag\"]}")
 //	String findAllHashtag();
+
 }
 
 

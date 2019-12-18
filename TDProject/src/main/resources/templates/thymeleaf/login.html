@@ -5,6 +5,26 @@
 <title>Insert title here</title>
 </head>
 <body>
-asd
+<div id="app" v-on:click="comment">
+    adgdfg
+    <span v-html="tag">
+
+    </span>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    new Vue({
+        el : "#app",
+        data : {
+            tag : ""
+        },
+        methods : {
+					comment : function () {
+						this.tag = "<span>asd</span>"
+					}
+				}
+    })
+
+</script>
 </body>
 </html>

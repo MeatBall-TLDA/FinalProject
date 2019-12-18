@@ -8,6 +8,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import td.model.domain.ClientDTO;
@@ -44,6 +45,7 @@ public class TDContoller {
 		return service.getCount();
 	}
 	
+
 	// 테스트 데이터 삽입
 	@GetMapping("/makeTest")
 	public void makeTest() {
@@ -73,8 +75,8 @@ public class TDContoller {
 		return service.findByIdOpenReplyDTO(id);
 	}
 	
+
 	// 동범 search =================================================================	
-	
 	@GetMapping("/hashtagSearch")
 	public Slice<HiddenBoardDTO> hashtagSearch(@PageableDefault(size = 10) Pageable pageable) {
 		return service.hashtagSearch(pageable, "c");
@@ -85,7 +87,20 @@ public class TDContoller {
 		return service.categorySearch(pageable, "A");
 	}
 	
+	// ========================================================================
+
+	@GetMapping("/getReply")
+	public ReplyDTO getReply(String userId, String boardId) {
+		return service.getReply(userId, boardId);
+	}
 	
-	
+	@PostMapping("/saveReply")
+	public int saveReply(ReplyDTO reply) {
+		int message = 0;
+		if(service.saveReply(reply)) {
+			message = 1;
+		}
+		return message;
+	}
 
 }
