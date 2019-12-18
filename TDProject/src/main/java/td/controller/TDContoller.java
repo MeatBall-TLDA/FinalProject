@@ -8,6 +8,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import td.model.domain.ClientDTO;
@@ -45,10 +46,10 @@ public class TDContoller {
 		return service.getCount();
 	}
 	
-//	@GetMapping("/makeTest")
-//	public void makeTest() {
-//		service.makeTest();
-//	}
+	@GetMapping("/makeTest")
+	public void makeTest() {
+		service.makeTest();
+	}
 
 	
 	// =================================================================
@@ -73,9 +74,19 @@ public class TDContoller {
 		return service.findByIdOpenReplyDTO(id);
 	}
 	
-	@GetMapping("/makeTest")
-	   public void makeTest() {
-	      service.makeTest();
-	   }
+
+	@GetMapping("/getReply")
+	public ReplyDTO getReply(String userId, String boardId) {
+		return service.getReply(userId, boardId);
+	}
+	
+	@PostMapping("/saveReply")
+	public int saveReply(ReplyDTO reply) {
+		int message = 0;
+		if(service.saveReply(reply)) {
+			message = 1;
+		}
+		return message;
+	}
 
 }
