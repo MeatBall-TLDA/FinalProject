@@ -29,72 +29,52 @@
 	</dl> -->
 	<div id="content">
 		<h3>1</h3>
-		<div id="row1" class="row" v-on:click="comment">
-			<span id="child1"></span>
-			<span v-html="tag" v-if="ifflag"></span>
+		<div id="row1" class="row" v-on:click="comment" v-html="tag">
 		</div>
 		<br>
 		<hr>
 		<h3>2</h3>
-		<div id="row2" class="row" v-on:click="comment">
-			<span id="child2"></span>
-			<span v-html="tag" v-if="ifflag"></span>
+		<div id="row2" class="row" v-on:click="comment" v-html="tag">
 		</div>
 		<br>
 		<hr>
 		<h3>3</h3>
-		<div id="row3" class="row" v-on:click="comment">
-			<span id="child3"></span>
-			<span v-html="tag" v-if="ifflag"></span>
+		<div id="row3" class="row" v-on:click="comment" v-html="tag">
 		</div>
 		<br>
 		<hr>
 		<h3>4</h3>
-		<div id="row4" class="row" v-on:click="comment">
-			<span id="child4"></span>
-			<span v-html="tag" v-if="ifflag"></span>
+		<div id="row4" class="row" v-on:click="comment" v-html="tag">
 		</div>
 		<br>
 		<hr>
 		<h3>5</h3>
-		<div id="row5" class="row" v-on:click="comment">
-			<span id="child5"></span>
-			<span v-html="tag" v-if="ifflag"></span>
+		<div id="row5" class="row" v-on:click="comment" v-html="tag">
 		</div>
 		<br>
 		<hr>
 		<h3>6</h3>
-		<div id="row6" class="row" v-on:click="comment">
-			<span id="child6"></span>
-			<span v-html="tag" v-if="ifflag"></span>
+		<div id="row6" class="row" v-on:click="comment" v-html="tag">
 		</div>
 		<br>
 		<hr>
 		<h3>7</h3>
-		<div id="row7" class="row" v-on:click="comment">
-			<span id="child7"></span>
-			<span v-html="tag" v-if="ifflag"></span>
+		<div id="row7" class="row" v-on:click="comment" v-html="tag">
 		</div>
 		<br>
 		<hr>
 		<h3>8</h3>
-		<div id="row8" class="row" v-on:click="comment">
-			<span id="child8"></span>
-			<span v-html="tag" v-if="ifflag"></span>
+		<div id="row8" class="row" v-on:click="comment" v-html="tag">
 		</div>
 		<br>
 		<hr>
 		<h3>9</h3>
-		<div id="row9" class="row" v-on:click="comment">
-			<span id="child9"></span>
-			<span v-html="tag" v-if="ifflag"></span>
+		<div id="row9" class="row" v-on:click="comment" v-html="tag">
 		</div>
 		<br>
 		<hr>
 		<h3>10</h3>
-		<div id="row10" class="row" v-on:click="comment">
-			<span id="child10"></span>
-			<span v-html="tag" v-if="ifflag"></span>
+		<div id="row10" class="row" v-on:click="comment" v-html="tag">
 		</div>
 	</div>
 	<div id="paging">
@@ -116,9 +96,6 @@
 		// 전체 게시글 리스트
 		var boardArray
 
-		// vue객체 받아줄 변수 리스트
-		var vueInstance = []
-
 		// 전체 게시글 수 얻어오기
 		function getCount() {
 			axios.get("http://127.0.0.1:8000/getCount")
@@ -130,6 +107,7 @@
 		}
 
 		function getBoard(pageNum) {
+			console.log(pageNum)
 			axios.get("http://127.0.0.1:8000/getHidden?page=" + pageNum + "&sort=hashtag,desc")
 				.then(resData => {
 					getCount()
@@ -141,76 +119,42 @@
 		}
 
 		function setBoard(boardCount, boardArray, pageNum) {
+			console.log(boardArray[0].id)
 			var forNum = boardCount - pageNum * 10 < 10 ? boardCount - pageNum * 10 : 10
 			for (let i = 0; i < forNum; i++) {
-				vueInstance[i].tag = ""
-				document.getElementById("child" + (i + 1)).innerHTML =
-					"id : " + boardArray[i].id + "<br>"
-					+ "contents : " + boardArray[i].contents + "<br>"
-					+ "hashtag : " + boardArray[i].hashtag + "<br>"
-					+ "postingDate : " + boardArray[i].postingDate + "<br>"
-					+ "openDate : " + boardArray[i].openDate + "<br>"
-					+ "heart : " + boardArray[i].heart + "<br>"
-					+ "claim : " + boardArray[i].claim + "<br>"
-					+ "nickname : " + boardArray[i].nickname + "<br>"
-					+ "category : " + boardArray[i].category + "<br>"
+				new Vue({
+					el: "#row" + (i + 1),
+					data: {
+						tag: "<span>"
+							+ "id : " + boardArray[i].id + "<br>"
+							+ "contents : " + boardArray[i].contents + "<br>"
+							+ "hashtag : " + boardArray[i].hashtag + "<br>"
+							+ "postingDate : " + boardArray[i].postingDate + "<br>"
+							+ "openDate : " + boardArray[i].openDate + "<br>"
+							+ "heart : " + boardArray[i].heart + "<br>"
+							+ "claim : " + boardArray[i].claim + "<br>"
+							+ "nickname : " + boardArray[i].nickname + "<br>"
+							+ "category : " + boardArray[i].category + "<br>"
+							+ "</span>"
+					},
+					methods: {
+						comment: function () {
+							axios.get("http://127.0.0.1:8000/getReply?userId=" + "young" + "&boardId=" + boardArray[i].id)
+								.then(resData => {
+									console.log(boardArray[i].id)
+									if (!resData.data == "" && !this.tag.includes("<input>")) {
+										this.tag += "<input></input><button onclick='makeReply()'></button>"
+									}
+								}).catch(error => {
+									console.log(error)
+								})
+						}
+					}
+				})
 			}
 			for (let j = forNum; j < 10; j++) {
-				vueInstance[j].tag = ""
-				document.getElementById("child" + (j + 1)).innerHTML = "<span></span>"
+				document.getElementById("row" + (j + 1)).innerHTML = "<span></span>"
 			}
-		}
-
-		for (let i = 1; i <= 10; i++) {
-			vueInstance[i - 1] = new Vue({
-				el: "#row" + i,
-				data: {
-					tag: "",
-					inputTag: "",
-					ifflag: false
-				},
-				methods: {
-					comment: function () {
-						axios.get("http://127.0.0.1:8000/getReply?userId=" + "young" + "&boardId=" + boardArray[i - 1].id)
-							.then(resData => {
-								console.log(resData.data)
-								if (resData.data == "") {
-									this.ifflag = true
-									this.tag = "<input id='input" + i + "' placeholder='5자이상 입력해주세요'></input><button onclick='makeReply(" + i + ")'>댓글 남기기</button>"
-								} else {
-									this.ifflag = !this.ifflag
-									this.tag = "<br>유저아이디 : " + resData.data.userId + "<br>"
-										+ "댓글 내용 : " + resData.data.repContents + "<br>"
-										+ "게시 날짜 : " + resData.data.repPostingDate + "<br>"
-										+ "좋아요 : " + resData.data.repHeart + "<br>"
-										+ "신고 횟수 : " + resData.data.repClaim + "<br>"
-								}
-							}).catch(error => {
-								console.log(error)
-							})
-					}
-				}
-			})
-		}
-
-		function makeReply(replyNum) {
-			console.log(1)
-			var repContent = document.getElementById("input" + replyNum).value
-			axios.post("http://127.0.0.1:8000/saveReply?userId=" + "young" + "&repBoardId=" + boardArray[replyNum - 1].id + "&repContents=" + repContent
-				+ "&repPostingDate=" + "20191218" + "&repHeart=" + 0 + "&repClaim=" + 0)
-				.then(resData => {
-					if(resData.data == 1){
-						vueInstance[replyNum - 1].tag = "<br>유저아이디 : " + "young" + "<br>"
-						+ "댓글 내용 : " + repContent + "<br>"
-						+ "게시 날짜 : " + "20191218" + "<br>"
-						+ "좋아요 : " + 0 + "<br>"
-						+ "신고 횟수 : " + 0 + "<br>"
-					}else{
-						alert("저장에 실패했습니다")
-					}
-				}).catch(error => {
-					console.log(error)
-				})
 		}
 
 		// 페이징 처리 로직
@@ -274,6 +218,9 @@
 				console.log(error)
 			})
 
+		var localCmp = {
+			template: "<input></input>"
+		}
 
 	</script>
 </body>
