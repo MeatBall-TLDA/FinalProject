@@ -1,6 +1,7 @@
 package td.service;
 
 import java.io.IOException;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -161,5 +162,32 @@ public class TDService {
 		// 추후 fail 뷰로 던짐
 		return "login";
 	}
+	
+	   public void makeTest() {
+		      String[] category = { "A", "B", "C", "D" };
+		      String[] hashtag = { "#a", "#b", "#c", "#d" };
+		      
+		      
+		      for (int i = 0; i < 502; i++) {
+		         String a = String.valueOf(i);
+		         HiddenBoardDTO v = new HiddenBoardDTO();
+		         
+		         v.setCategory(category[randomRange(0, 3)]);
+		         v.setClaim(0);
+		         v.setContents(a);
+		         v.setHashtag(hashtag[randomRange(0, 3)]);
+		         v.setHeart(0);
+		         v.setId(a);
+		         v.setNickname(a);
+		         v.setOpenDate("20191218");
+		         v.setPostingDate("20191217");
+		         
+		         hRepo.save(v);
+		      }
+		   }
+	   
+	   public int randomRange(int n1, int n2) {
+		      return (int) (Math.random() * (n2 - n1 + 1)) + n1;
+		   }
 
 }
