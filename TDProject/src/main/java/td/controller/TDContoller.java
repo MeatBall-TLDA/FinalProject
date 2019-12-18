@@ -74,6 +74,7 @@ public class TDContoller {
 		return service.findByIdOpenReplyDTO(id);
 	}
 	
+
 	@GetMapping("/getReply")
 	public ReplyDTO getReply(String userId, String boardId) {
 		return service.getReply(userId, boardId);

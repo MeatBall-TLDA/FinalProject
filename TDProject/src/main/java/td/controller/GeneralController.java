@@ -28,6 +28,12 @@ public class GeneralController {
 		return "/thymeleaf/HiddenBoard";
 	}
 	
+	@RequestMapping("/travel")
+	public String goTotravel() {
+		return "/thymeleaf/travel.html";
+	}
+	
+	
 	// 미공개 게시판 게시글 작성
 	@PostMapping("/saveHidden")
 	public String saveHiddenBoardDTO(HiddenBoardDTO board) {
