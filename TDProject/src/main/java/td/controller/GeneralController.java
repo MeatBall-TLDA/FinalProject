@@ -21,8 +21,6 @@ public class GeneralController {
 	@Autowired
 	private TDService service;
 	
-	
-	
 	@RequestMapping("/hidden")
 	public String goToHidden() {
 		return "/thymeleaf/HiddenBoard";

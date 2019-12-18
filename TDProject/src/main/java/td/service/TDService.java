@@ -55,25 +55,47 @@ public class TDService {
 		return hRepo.findAll(pageable);
 	}
 
+	// hashtagSearch
+	public Slice<HiddenBoardDTO> hashtagSearch(Pageable pageable, String hashtag) {
+		return hRepo.findByHashtagContaining(pageable, hashtag);
+	}
+
+	// categorySearch
+	public Slice<HiddenBoardDTO> categorySearch(Pageable pageable, String category) {
+//		System.out.println(hRepo.findAllHashtag());
+		return hRepo.findByCategoryContaining(pageable, category);
+	}
+
 	public long getCount() {
 		return hRepo.count();
 	}
 
-//	public void makeTest() {
-//		for(int i = 0; i < 101; i++) {
-//			HiddenBoardDTO v = new HiddenBoardDTO();
-//			v.setCategory(String.valueOf(i));
-//			v.setClaim(i);
-//			v.setContents(String.valueOf(i));
-//			v.setHashtag(String.valueOf(i));
-//			v.setHeart(i);
-//			v.setId(String.valueOf(i));
-//			v.setNickname(String.valueOf(i));
-//			v.setOpenDate(String.valueOf(i));
-//			v.setPostingDate(String.valueOf(i));
-//			hRepo.save(v);
-//		}
-//	}
+	// 테스트 데이터 삽입
+	public int randomRange(int n1, int n2) {
+		return (int) (Math.random() * (n2 - n1 + 1)) + n1;
+	}
+
+	public void makeTest() {
+		String[] category = { "A", "B", "C", "D" };
+		String[] hashtag = { "#a", "#b", "#c", "#d" };
+
+		for (int i = 0; i < 502; i++) {
+			String a = String.valueOf(i);
+			HiddenBoardDTO v = new HiddenBoardDTO();
+
+			v.setCategory(category[randomRange(0, 3)]);
+			v.setClaim(0);
+			v.setContents(a);
+			v.setHashtag(hashtag[randomRange(0, 3)]);
+			v.setHeart(0);
+			v.setId(a);
+			v.setNickname(a);
+			v.setOpenDate("20191218");
+			v.setPostingDate("20191217");
+
+			hRepo.save(v);
+		}
+	}
 
 	// 미공개 게시판 게시글 작성
 	public boolean saveHiddenBoardDTO(HiddenBoardDTO board) {
@@ -123,8 +145,7 @@ public class TDService {
 		return "login";
 	}
 
-	public String naverLogin(String code, String state, HttpSession session)
-			throws IOException {
+	public String naverLogin(String code, String state, HttpSession session) throws IOException {
 
 		if (login.token(session, state) == true) {
 			String access_Token = login.getNaverAccessToken(code);
