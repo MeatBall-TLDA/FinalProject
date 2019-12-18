@@ -56,7 +56,7 @@ USERINFO|TABLE|
 VOTE|TABLE|
 
 ### Author
-👤 JongSung Kim
+(👤 JongSung Kim)[https://github.com/SEJSCloud]
 
 👤 WongTae Kim
 
