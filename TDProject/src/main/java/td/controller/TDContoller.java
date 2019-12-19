@@ -1,7 +1,6 @@
 package td.controller;
 
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -10,12 +9,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import td.model.domain.ClientDTO;
 import td.model.domain.HiddenBoardDTO;
 import td.model.domain.OpenBoardDTO;
 import td.model.domain.ReplyDTO;
 import td.service.TDService;
+
+
 
 @CrossOrigin(origins = "http://localhost:8000")
 @RestController
@@ -35,9 +35,16 @@ public class TDContoller {
 	// 미공개 게시판 정보
 	// 페이지 넘버에 따라 게시글 조회
 	@GetMapping("/getHidden")
-	public Slice<HiddenBoardDTO> findAll(@PageableDefault(size = 10) Pageable pageable) {
+	public Slice<HiddenBoardDTO> postHidden(@PageableDefault(size = 10) Pageable pageable) {
 		return service.findAll(pageable);
 	}
+	
+	
+//	@GetMapping("/getOpen")
+//	public Slice<HiddenBoardDTO> postOpen(@PageableDefault(size = 10) Pageable pageable) {
+//		return service.findAll(pageable);
+//	}
+	
 	
 	// 전체 게시글 수 조회
 	@GetMapping("/getCount")
@@ -86,6 +93,8 @@ public class TDContoller {
 	public Slice<HiddenBoardDTO> categorySearch(@PageableDefault(size = 10) Pageable pageable) {
 		return service.categorySearch(pageable, "A");
 	}
+	
+	
 	
 	// ========================================================================
 

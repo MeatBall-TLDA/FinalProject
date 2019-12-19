@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -49,7 +50,6 @@ public class TDService {
 
 	// =================================================================
 	// 미공개 게시판 정보
-
 	public Slice<HiddenBoardDTO> findAll(Pageable pageable) {
 		return hRepo.findAll(pageable);
 	}
@@ -61,9 +61,46 @@ public class TDService {
 
 	// categorySearch
 	public Slice<HiddenBoardDTO> categorySearch(Pageable pageable, String category) {
-//		System.out.println(hRepo.findAllHashtag());
 		return hRepo.findByCategoryContaining(pageable, category);
 	}
+
+	// 공개 날짜에 맞추어 게시글 공개 메소드
+	public void moveToOpen() {
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
+		Date time = new Date();
+		String today = format1.format(time);
+
+		for (HiddenBoardDTO v : hRepo.findByOpenDate(today)) {
+			oRepo.save(new OpenBoardDTO(v.getId(), v.getContents(), v.getHashtag(), v.getOpenDate(), v.getHeart(),
+					v.getClaim(), v.getNickname(), v.getCategory()));
+			//hRepo.deleteById(v.getId());
+		}
+	}
+	
+	// 오늘의 메세지 구현 중
+//	public void sendMessage() {
+//		Random r = new Random();
+//
+//		// hiddenboard 카운팅
+//		int hiddenboardCount = (int) getCount();
+//		int a [] = new int[hiddenboardCount];
+//		
+//		// 회원 수 카운팅
+//		int clientCount = 10;
+//		
+//		// 회원수 만큼 for을 돌린다. 
+//		for(int i=0; i<clientCount; i++) {
+//			a[i] = r.nextInt(hiddenboardCount)+1;
+//			while(true) {
+//				
+//			}
+//			if(10 == a[i])
+//		}
+//		
+//		for(HiddenBoardDTO aa : hRepo.findByid(1)) {
+//			System.out.println(aa);
+//		}
+//	}
 
 	public long getCount() {
 		return hRepo.count();
@@ -78,6 +115,10 @@ public class TDService {
 		String[] category = { "A", "B", "C", "D" };
 		String[] hashtag = { "#a", "#b", "#c", "#d" };
 
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
+		Date time = new Date();
+		String time1 = format1.format(time);
+
 		for (int i = 0; i < 502; i++) {
 			String a = String.valueOf(i);
 			HiddenBoardDTO v = new HiddenBoardDTO();
@@ -89,8 +130,8 @@ public class TDService {
 			v.setHeart(0);
 			v.setId(a);
 			v.setNickname(a);
-			v.setOpenDate("20191218");
-			v.setPostingDate("20191217");
+			v.setOpenDate(time1);
+			v.setPostingDate(time1);
 
 			hRepo.save(v);
 		}
@@ -125,16 +166,16 @@ public class TDService {
 	public Optional<ReplyDTO> findByIdOpenReplyDTO(String id) {
 		return rRepo.findById(id);
 	}
-	
+
 	// 유저 ID와 게시판ID로 리플 가져오기
 	public ReplyDTO getReply(String userId, String boardId) {
 		return rRepo.findByUserIdAndRepBoardId(userId, boardId);
 	}
-	
+
 	public boolean saveReply(ReplyDTO reply) {
 		boolean result = false;
 		String content = reply.getRepContents();
-		if(content != null && content.trim().length() > 5) {
+		if (content != null && content.trim().length() > 5) {
 			result = true;
 			rRepo.save(reply);
 		}
@@ -196,32 +237,5 @@ public class TDService {
 		// 추후 fail 뷰로 던짐
 		return "login";
 	}
-	
-	   public void makeTest() {
-		      String[] category = { "A", "B", "C", "D" };
-		      String[] hashtag = { "#a", "#b", "#c", "#d" };
-		      
-		      
-		      for (int i = 0; i < 502; i++) {
-		         String a = String.valueOf(i);
-		         HiddenBoardDTO v = new HiddenBoardDTO();
-		         
-		         v.setCategory(category[randomRange(0, 3)]);
-		         v.setClaim(0);
-		         v.setContents(a);
-		         v.setHashtag(hashtag[randomRange(0, 3)]);
-		         v.setHeart(0);
-		         v.setId(a);
-		         v.setNickname(a);
-		         v.setOpenDate("20191218");
-		         v.setPostingDate("20191217");
-		         
-		         hRepo.save(v);
-		      }
-		   }
-	   
-	   public int randomRange(int n1, int n2) {
-		      return (int) (Math.random() * (n2 - n1 + 1)) + n1;
-		   }
 
 }
