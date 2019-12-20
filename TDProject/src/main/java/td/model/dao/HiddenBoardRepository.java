@@ -1,7 +1,5 @@
 package td.model.dao;
 
-
-
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -13,9 +11,8 @@ import td.model.domain.HiddenBoardDTO;
 
 public interface HiddenBoardRepository extends ElasticsearchRepository<HiddenBoardDTO, String> {
 	
-	Page<HiddenBoardDTO> findAllOrderByHeart(Pageable pageable);
+	Page<HiddenBoardDTO> findAll(Pageable pageable);
 	long count();
-
 
 	Page<HiddenBoardDTO> findByHashtagContaining(Pageable pageable, String hastag);
 	
@@ -25,4 +22,5 @@ public interface HiddenBoardRepository extends ElasticsearchRepository<HiddenBoa
 //	String findAllHashtag();
 
 }
+
 
