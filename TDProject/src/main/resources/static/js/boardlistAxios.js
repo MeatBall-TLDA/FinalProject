@@ -56,8 +56,14 @@
 				   +"<div class=\"half order-md-last text-md-right\">"
 					+"<p class=\"meta\">"
 					+"<span><i class=\"icon-heart\"></i>"+ board.heart + "</span>"
-					+"<span><i class=\"icon-comment\"></i>"+ "300" + "</span>"
-					+"</p></div><div class=\"half\"></div></div></div>"
+               +"<span><i class=\"icon-comment\"></i>"+ "300" + "</span>"
+               +"<span><i class=\"icon-error\"></i>"+ "300" + "</span>"
+               +"</p></div><div class=\"half\"></div></div></div>"
+               +"<div><div class=\"form-group\">"
+               +"<textarea name id cols=\"30\" rows=\"7\" class=\"form-control-cho\" placeholder=\"Message\"></textarea>"
+               +"</div><div class=\"form-group\">"
+               +"<input type=\"submit\" value=\"댓글 남기기\" class=\"btn btn-primary py-3 px-5\">"
+               +"</div></div>"
          }
          for (let j = forNum; j < 10; j++) {
             document.getElementById("row" + (j + 1)).innerHTML = "<span></span>"

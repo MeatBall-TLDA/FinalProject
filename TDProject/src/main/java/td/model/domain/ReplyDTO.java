@@ -24,5 +24,4 @@ public class ReplyDTO {
 	private Integer repHeart;
 	private Integer repClaim;
 	private ArrayList<String> plusHeartUserId;
-
 }

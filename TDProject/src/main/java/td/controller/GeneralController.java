@@ -30,7 +30,22 @@ public class GeneralController {
 	public String goTotravel() {
 		return "/thymeleaf/travel.html";
 	}
+  
+	//세션 만드는 로직
+	@RequestMapping({"/session"})
+    String index(HttpSession session) {
+        session.setAttribute("id", "yyy2410");
+        session.setAttribute("pw", "123456");
+        return "/thymeleaf/session.html";
+    }
 	
+	//세션 삭제 로직
+	@RequestMapping({"/session2"})
+    String index2(HttpSession session) {
+        session.invalidate();
+        return "/thymeleaf/session.html";
+    }
+
 	
 	// 미공개 게시판 게시글 작성
 	@PostMapping("/saveHidden")

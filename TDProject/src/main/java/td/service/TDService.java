@@ -98,7 +98,7 @@ public class TDService {
 			hRepo.save(v);
 		}
 	}
-	
+
 	// 게시글 좋아요 추가
 	public Integer plusBoardHeart(String userId, String BoardId) {
 		ReplyDTO entity = rRepo.findByRepBoardId(BoardId);
@@ -167,7 +167,7 @@ public class TDService {
 		}
 		return result;
 	}
-	
+
 	// 리플 좋아요 누른 사람인지 판별
 	public boolean judge(ArrayList<String> plusHeartUserList, String userId) {
 		boolean result = true;
@@ -212,6 +212,7 @@ public class TDService {
 	public Iterable<ReplyDTO> getReplyByPlusHeartUserId(String plusHeartUserId) {
 		return rRepo.findByPlusHeartUserId(plusHeartUserId);
 	}
+
 
 
 	// =================================================================
@@ -269,6 +270,6 @@ public class TDService {
 		// 추후 fail 뷰로 던짐
 		return "login";
 	}
+	   
 	
-
 }

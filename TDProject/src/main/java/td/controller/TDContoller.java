@@ -45,6 +45,7 @@ public class TDContoller {
 		return service.getCount();
 	}
 	
+
 //	@PostMapping("/plusBoardHeart")
 //	public
 	
@@ -52,6 +53,7 @@ public class TDContoller {
 //	public void makeTest() {
 //		service.makeTest();
 //	}
+
 
 
 	
@@ -76,7 +78,7 @@ public class TDContoller {
 	public Optional<ReplyDTO> findByIdOpenReplyDTO(String id) {
 		return service.findByIdOpenReplyDTO(id);
 	}
-
+	
 
 	@GetMapping("/getReply")
 	public ReplyDTO getReply(String userId, String boardId) {
@@ -91,6 +93,7 @@ public class TDContoller {
 		}
 		return message;
 	}
+
 
 //	좋아요 누를 때 +1 이미 눌렀으면 -1
 	@PostMapping("/plusHeart")
