@@ -10,7 +10,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Document(indexName = "hidden_board", type = "_doc")
 public class HiddenBoardDTO {
@@ -24,5 +23,10 @@ public class HiddenBoardDTO {
 	  private Integer claim;
 	  private String nickname;
 	  private String category;
+	  
+	  public HiddenBoardDTO(String hashtag) {
+			super();
+			this.hashtag = hashtag;
+		}
 }
 

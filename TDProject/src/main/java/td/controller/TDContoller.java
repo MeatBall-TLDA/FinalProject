@@ -73,4 +73,40 @@ public class TDContoller {
 		return service.findByIdOpenReplyDTO(id);
 	}
 
+
+	// 동범 search =================================================================	
+	@GetMapping("/hashtagSearch")
+	public Slice<HiddenBoardDTO> hashtagSearch(@PageableDefault(size = 10) Pageable pageable) {
+		return service.hashtagSearch(pageable, "c");
+	}
+	
+	@GetMapping("/categorySearch")
+	public Slice<HiddenBoardDTO> categorySearch(@PageableDefault(size = 10) Pageable pageable) {
+		return service.categorySearch(pageable, "A");
+	}
+	
+	// ========================================================================
+
+	@GetMapping("/getReply")
+	public ReplyDTO getReply(String userId, String repBoardId) {
+		return service.getReply(userId, repBoardId);
+	}
+	
+	@PostMapping("/saveReply")
+	public int saveReply(ReplyDTO reply) {
+		int message = 0;
+		if(service.saveReply(reply)) {
+			message = 1;
+		}
+		return message;
+	}
+	
+//	http://127.0.0.1:8000/plusHeart?userId=young&repBoardId=5
+	@PostMapping("/plusHeart")
+	public Integer plusHeart(String userId, String repBoardId) {
+		System.out.println("===");
+		return service.plusHeart(userId, repBoardId);
+	}
+
+
 }

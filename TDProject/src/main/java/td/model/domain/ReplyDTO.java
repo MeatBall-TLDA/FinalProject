@@ -21,4 +21,5 @@ public class ReplyDTO {
 	private Date repPostingDate;
 	private Integer repHeart;
 	private Integer repClaim;
+	private String[] plusHeartUserId;
 }
