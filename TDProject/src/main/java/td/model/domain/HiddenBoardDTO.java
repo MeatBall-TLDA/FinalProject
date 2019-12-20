@@ -1,12 +1,15 @@
 package td.model.domain;
 
+
 import java.util.ArrayList;
+
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 
 @Data
 @NoArgsConstructor

@@ -1,6 +1,7 @@
 package td.service;
 
 import java.io.IOException;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,6 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
@@ -152,15 +154,14 @@ public class TDService {
 	}
 	
 	// 유저 ID와 게시판ID로 리플 가져오기
-	public ReplyDTO getReply(String userId, String repBoardId) {
-		return rRepo.findByUserIdAndRepBoardId(userId, repBoardId);
+	public ReplyDTO getReply(String userId, String boardId) {
+		return rRepo.findByUserIdAndRepBoardId(userId, boardId);
 	}
 	
-	// 리플 저장
 	public boolean saveReply(ReplyDTO reply) {
 		boolean result = false;
 		String content = reply.getRepContents();
-		if(content != null && content.trim().length() >= 5) {
+		if(content != null && content.trim().length() > 5) {
 			result = true;
 			rRepo.save(reply);
 		}
@@ -211,6 +212,7 @@ public class TDService {
 	public Iterable<ReplyDTO> getReplyByPlusHeartUserId(String plusHeartUserId) {
 		return rRepo.findByPlusHeartUserId(plusHeartUserId);
 	}
+
 
 	// =================================================================
 

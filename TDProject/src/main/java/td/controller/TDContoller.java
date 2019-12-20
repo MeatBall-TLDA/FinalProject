@@ -33,7 +33,6 @@ public class TDContoller {
 	// =================================================================
 	
 	// 미공개 게시판 정보
-	
 	// 페이지 넘버에 따라 게시글 조회
 	@GetMapping("/getHidden")
 	public Slice<HiddenBoardDTO> findAll(@PageableDefault(size = 10) Pageable pageable) {
@@ -53,6 +52,7 @@ public class TDContoller {
 //	public void makeTest() {
 //		service.makeTest();
 //	}
+
 
 	
 	// =================================================================
@@ -77,9 +77,10 @@ public class TDContoller {
 		return service.findByIdOpenReplyDTO(id);
 	}
 
+
 	@GetMapping("/getReply")
-	public ReplyDTO getReply(String userId, String repBoardId) {
-		return service.getReply(userId, repBoardId);
+	public ReplyDTO getReply(String userId, String boardId) {
+		return service.getReply(userId, boardId);
 	}
 	
 	@PostMapping("/saveReply")
@@ -90,7 +91,7 @@ public class TDContoller {
 		}
 		return message;
 	}
-	
+
 //	좋아요 누를 때 +1 이미 눌렀으면 -1
 	@PostMapping("/plusHeart")
 	public Integer plusHeart(String userId, String repBoardId) {
