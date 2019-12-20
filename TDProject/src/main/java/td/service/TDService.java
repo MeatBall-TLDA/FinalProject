@@ -1,12 +1,10 @@
 package td.service;
 
 import java.io.IOException;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Optional;
-import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import td.login.LoginAPI;
 import td.model.dao.ClientRepository;
@@ -54,6 +55,7 @@ public class TDService {
 		return hRepo.findAll(pageable);
 	}
 
+
 	// hashtagSearch
 	public Slice<HiddenBoardDTO> hashtagSearch(Pageable pageable, String hashtag) {
 		return hRepo.findByHashtagContaining(pageable, hashtag);
@@ -68,6 +70,7 @@ public class TDService {
 	public long getCount() {
 		return hRepo.count();
 	}
+
 
 	// 테스트 데이터 삽입
 	public int randomRange(int n1, int n2) {
@@ -95,6 +98,7 @@ public class TDService {
 			hRepo.save(v);
 		}
 	}
+
 
 	// 미공개 게시판 게시글 작성
 	public boolean saveHiddenBoardDTO(HiddenBoardDTO board) {
@@ -208,7 +212,8 @@ public class TDService {
 		return "login";
 	}
 
-	public String naverLogin(String code, String state, HttpSession session) throws IOException {
+	public String naverLogin(String code, String state, HttpSession session)
+			throws IOException {
 
 		if (login.token(session, state) == true) {
 			String access_Token = login.getNaverAccessToken(code);

@@ -39,12 +39,11 @@
 	href="vendor/daterangepicker/daterangepicker.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" href="css/login_util.css">
-<link rel="stylesheet" type="text/css" href="css/login_main.css">
 <link rel="stylesheet" type="text/css" href="css/style-login.css">
 <!--===============================================================================================-->
 
 
-<title></title>
+<title>LoginPage_After</title>
 </head>
 <body>
 	<c:if test="${userId eq null}">
