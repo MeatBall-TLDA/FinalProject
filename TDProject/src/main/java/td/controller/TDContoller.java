@@ -1,6 +1,7 @@
 package td.controller;
 
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -9,13 +10,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import td.model.domain.ClientDTO;
 import td.model.domain.HiddenBoardDTO;
 import td.model.domain.OpenBoardDTO;
 import td.model.domain.ReplyDTO;
 import td.service.TDService;
-
-
 
 @CrossOrigin(origins = "http://localhost:8000")
 @RestController
@@ -35,16 +35,9 @@ public class TDContoller {
 	// 미공개 게시판 정보
 	// 페이지 넘버에 따라 게시글 조회
 	@GetMapping("/getHidden")
-	public Slice<HiddenBoardDTO> postHidden(@PageableDefault(size = 10) Pageable pageable) {
+	public Slice<HiddenBoardDTO> findAll(@PageableDefault(size = 10) Pageable pageable) {
 		return service.findAll(pageable);
 	}
-	
-	
-//	@GetMapping("/getOpen")
-//	public Slice<HiddenBoardDTO> postOpen(@PageableDefault(size = 10) Pageable pageable) {
-//		return service.findAll(pageable);
-//	}
-	
 	
 	// 전체 게시글 수 조회
 	@GetMapping("/getCount")
@@ -94,13 +87,11 @@ public class TDContoller {
 		return service.categorySearch(pageable, "A");
 	}
 	
-	
-	
 	// ========================================================================
 
 	@GetMapping("/getReply")
-	public ReplyDTO getReply(String userId, String boardId) {
-		return service.getReply(userId, boardId);
+	public ReplyDTO getReply(String userId, String repBoardId) {
+		return service.getReply(userId, repBoardId);
 	}
 	
 	@PostMapping("/saveReply")
@@ -110,6 +101,13 @@ public class TDContoller {
 			message = 1;
 		}
 		return message;
+	}
+	
+//	http://127.0.0.1:8000/plusHeart?userId=young&repBoardId=5
+	@PostMapping("/plusHeart")
+	public Integer plusHeart(String userId, String repBoardId) {
+		System.out.println("===");
+		return service.plusHeart(userId, repBoardId);
 	}
 
 }

@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -50,6 +49,7 @@ public class TDService {
 
 	// =================================================================
 	// 미공개 게시판 정보
+
 	public Slice<HiddenBoardDTO> findAll(Pageable pageable) {
 		return hRepo.findAll(pageable);
 	}
@@ -61,46 +61,9 @@ public class TDService {
 
 	// categorySearch
 	public Slice<HiddenBoardDTO> categorySearch(Pageable pageable, String category) {
+//		System.out.println(hRepo.findAllHashtag());
 		return hRepo.findByCategoryContaining(pageable, category);
 	}
-
-	// 공개 날짜에 맞추어 게시글 공개 메소드
-	public void moveToOpen() {
-		SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
-		Date time = new Date();
-		String today = format1.format(time);
-
-		for (HiddenBoardDTO v : hRepo.findByOpenDate(today)) {
-			oRepo.save(new OpenBoardDTO(v.getId(), v.getContents(), v.getHashtag(), v.getOpenDate(), v.getHeart(),
-					v.getClaim(), v.getNickname(), v.getCategory()));
-			//hRepo.deleteById(v.getId());
-		}
-	}
-	
-	// 오늘의 메세지 구현 중
-//	public void sendMessage() {
-//		Random r = new Random();
-//
-//		// hiddenboard 카운팅
-//		int hiddenboardCount = (int) getCount();
-//		int a [] = new int[hiddenboardCount];
-//		
-//		// 회원 수 카운팅
-//		int clientCount = 10;
-//		
-//		// 회원수 만큼 for을 돌린다. 
-//		for(int i=0; i<clientCount; i++) {
-//			a[i] = r.nextInt(hiddenboardCount)+1;
-//			while(true) {
-//				
-//			}
-//			if(10 == a[i])
-//		}
-//		
-//		for(HiddenBoardDTO aa : hRepo.findByid(1)) {
-//			System.out.println(aa);
-//		}
-//	}
 
 	public long getCount() {
 		return hRepo.count();
@@ -115,10 +78,6 @@ public class TDService {
 		String[] category = { "A", "B", "C", "D" };
 		String[] hashtag = { "#a", "#b", "#c", "#d" };
 
-		SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
-		Date time = new Date();
-		String time1 = format1.format(time);
-
 		for (int i = 0; i < 502; i++) {
 			String a = String.valueOf(i);
 			HiddenBoardDTO v = new HiddenBoardDTO();
@@ -130,8 +89,8 @@ public class TDService {
 			v.setHeart(0);
 			v.setId(a);
 			v.setNickname(a);
-			v.setOpenDate(time1);
-			v.setPostingDate(time1);
+			v.setOpenDate("20191218");
+			v.setPostingDate("20191217");
 
 			hRepo.save(v);
 		}
@@ -166,20 +125,69 @@ public class TDService {
 	public Optional<ReplyDTO> findByIdOpenReplyDTO(String id) {
 		return rRepo.findById(id);
 	}
-
+	
 	// 유저 ID와 게시판ID로 리플 가져오기
-	public ReplyDTO getReply(String userId, String boardId) {
-		return rRepo.findByUserIdAndRepBoardId(userId, boardId);
+	public ReplyDTO getReply(String userId, String repBoardId) {
+		return rRepo.findByUserIdAndRepBoardId(userId, repBoardId);
 	}
-
+	
+	// 리플 저장
 	public boolean saveReply(ReplyDTO reply) {
 		boolean result = false;
 		String content = reply.getRepContents();
-		if (content != null && content.trim().length() > 5) {
+		if(content != null && content.trim().length() >= 5) {
 			result = true;
 			rRepo.save(reply);
 		}
 		return result;
+	}
+	
+	// 리플 좋아요 누른 사람인지 판별
+	public boolean judge(String[] plusHeartUserList, String userId) {
+		boolean result = true;
+		if(plusHeartUserList == null) {
+			return true;
+		}
+		for(String plusHeartUser : plusHeartUserList) {
+			System.out.println(plusHeartUser);
+			System.out.println(plusHeartUserList);
+			if(plusHeartUser.equals(userId)) {
+				result = false;
+			}
+		}
+		return result;
+	}
+	
+	// 리플 좋아요 추가
+	public Integer plusHeart(String userId, String repBoardId) {
+		ReplyDTO entity = rRepo.findByRepBoardId(repBoardId);
+		String[] PlusHeartUserList = {""};
+		int PlusHeartUserListLength = 0;
+		
+		if(entity.getPlusHeartUserId() != null) {
+			PlusHeartUserList = entity.getPlusHeartUserId();
+			PlusHeartUserListLength = entity.getPlusHeartUserId().length;
+		}else {
+			PlusHeartUserListLength = 0;
+		}
+		
+		System.out.println(entity);
+		
+		if(judge(PlusHeartUserList, userId)) {
+			PlusHeartUserList[PlusHeartUserListLength] = userId;
+			entity.setRepHeart(entity.getRepHeart() + 1);
+			entity.setPlusHeartUserId(PlusHeartUserList);
+			rRepo.save(entity);
+		}else {
+			entity.setRepHeart(entity.getRepHeart() - 1);
+			rRepo.save(entity);
+		}
+		return entity.getRepHeart();
+	}
+	
+	// 리플에 좋아요 누른 사람들 가져오기
+	public ReplyDTO getReplyByPlusHeartUserId(String plusHeartUserId) {
+		return rRepo.findByPlusHeartUserId(plusHeartUserId);
 	}
 
 	// =================================================================
@@ -237,5 +245,6 @@ public class TDService {
 		// 추후 fail 뷰로 던짐
 		return "login";
 	}
+	
 
 }
