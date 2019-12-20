@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+  <head>
+    <title>Elen - Free Bootstrap 4 Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+
+    <link rel="stylesheet" href="css/aos.css">
+
+    <link rel="stylesheet" href="css/ionicons.min.css">
+
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.timepicker.css">
+
+    
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/icomoon.css">
+	 <link rel="stylesheet" href="css/style.css">
+	 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+  </head>
+  <body>
+  
+
+
+
+	<div id="colorlib-page">
+		<div include="menu.html"></div> <!-- 메뉴 html include 함-->
+		<div id="colorlib-main">
+			<!-- 위에 두가지 화면 사진 부분-->
+			<section class="home-slider js-fullheight owl-carousel">
+	      <div class="slider-item js-fullheight" style="background-image:url(images/bg_2.jpg);">
+	      	<div class="overlay"></div>
+	        <div class="container-fluid">
+	          <div class="row no-gutters slider-text slider-text-2 js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
+	          <div class="col-md-10 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+	            <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Discover the Place</h1>
+	            <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Find great places to stay, eat, shop, or visit from local experts</p>
+	          </div>
+	        </div>
+	        </div>
+	      </div>
+	      
+
+	      <div class="slider-item js-fullheight" style="background-image:url(images/bg_3.jpg);">
+	      	<div class="overlay"></div>
+	        <div class="container-fluid">
+	          <div class="row no-gutters slider-text slider-text-2 js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
+	          <div class="col-md-10 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+	            <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Explore and travel</h1>
+	            <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Find great places to stay, eat, shop, or visit from local experts</p>
+	          </div>
+	        </div>
+	        </div>
+	      </div>
+		</section>
+		<!-- 위에 두가지 화면 사진 부분 끝-->
+		<!--아래 화면단 시작 -->
+			<section class="ftco-section">
+			<p th:text="${session.id}" th:unless="${session == null}"></p>
+			<p th:text="${session.pw}" th:unless="${session == null}"></p>
+	    	<div class="container">
+	    		<div class="row">
+                <div class="cho-1"> <!-- 크기 수정 해둠-->
+                 <div id="row1" class="row" v-on:click="comment">
+                     <div class="col-md-12">
+                        <div class="blog-entry ftco-animate" id="child1">
+                           <span v-html="tag" v-if="ifflag"></span>
+                        </div>
+                     </div>
+                  </div>
+                  <div id="row2" class="row" v-on:click="comment">
+                     <div class="col-md-12">
+                        <div class="blog-entry ftco-animate" id="child2">
+                           <span v-html="tag" v-if="ifflag"></span>
+                        </div>
+                     </div>
+                  </div>
+                  <div id="row3" class="row" v-on:click="comment">
+                     <div class="col-md-12">
+                        <div class="blog-entry ftco-animate" id="child3">
+                           <span v-html="tag" v-if="ifflag"></span>
+                        </div>
+                     </div>
+                  </div>
+                  <div id="row4" class="row" v-on:click="comment">
+                     <div class="col-md-12">
+                        <div class="blog-entry ftco-animate" id="child4">
+                           <span v-html="tag" v-if="ifflag"></span>
+                        </div>
+                     </div>
+                  </div>
+                  <div id="row5" class="row" v-on:click="comment">
+                     <div class="col-md-12">
+                        <div class="blog-entry ftco-animate" id="child5">
+                           <span v-html="tag" v-if="ifflag"></span>
+                        </div>
+                     </div>
+                  </div>
+                  <div id="row6" class="row" v-on:click="comment">
+                     <div class="col-md-12">
+                        <div class="blog-entry ftco-animate" id="child6">
+                           <span v-html="tag" v-if="ifflag"></span>
+                        </div>
+                     </div>
+                  </div>
+                  <div id="row7" class="row" v-on:click="comment">
+                     <div class="col-md-12">
+                        <div class="blog-entry ftco-animate" id="child7">
+                           <span v-html="tag" v-if="ifflag"></span>
+                        </div>
+                     </div>
+                  </div>
+                  <div id="row8" class="row" v-on:click="comment">
+                     <div class="col-md-12">
+                        <div class="blog-entry ftco-animate" id="child8">
+                           <span v-html="tag" v-if="ifflag"></span>
+                        </div>
+                     </div>
+                  </div>
+                  <div id="row9" class="row" v-on:click="comment">
+                     <div class="col-md-12">
+                        <div class="blog-entry ftco-animate" id="child9">
+                           <span v-html="tag" v-if="ifflag"></span>
+                        </div>
+                     </div>
+                  </div>
+                  <div id="row10" class="row" v-on:click="comment">
+                     <div class="col-md-12">
+                        <div class="blog-entry ftco-animate" id="child10">
+                           <span v-html="tag" v-if="ifflag"></span>
+                        </div>
+                     </div>
+                  </div> 
+	    				<div class="col-md-12 chostyle">
+                        <div class="blog-entry ftco-animate">
+                           <div class="text pt-2 mt-3">
+                              <span class="category mb-1 d-block"><a href="#">Technology</a></span>
+                              <!-- 카테고리 클래스 카테고리 하이퍼링크  -->
+                              <h3 class="mb-4"><a href="#">The Newest Technology On This Year 2019</a></h3>
+                              <!-- 제목 하이퍼링크 -->
+                              <p class="mb-4">Even the all-powerful Pointing has no control about the blind texts it is
+                                 an almost
+                                 unorthographic life One day however a small line of blind text by the name of Lorem
+                                 Ipsum
+                                 decided to leave for the far World of Grammar.</p>
+                              <!-- 글 내용 -->
+                              <div class="author mb-4 d-flex align-items-center">
+                                 <div class="ch-3 info">
+                                    <span>작성자</span>
+                                    <h3>조영욱, <span>2019년 12월 17일</span></h3>
+                                 </div>
+                              </div>
+                              <div class="meta-wrap d-md-flex align-items-center">
+                                 <div class="half order-md-last text-md-right">
+                                    <p class="meta">
+                                       <span><i class="icon-heart"></i>3</span>
+                                       <span><i class="icon-eye"></i>100</span>
+                                       <span><i class="icon-comment"></i>5</span>
+                                    </p>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- 덧글 쓰기 -->
+                     <div>
+                           <div class="form-group">
+                              <textarea name id cols="30" rows="7" class="form-control-cho" placeholder="Message" style="width: 650px;"></textarea>
+                           </div>
+                           <div class="form-group">
+                              <input type="submit" value="댓글 남기기" class="btn btn-primary py-3 px-5">
+                           </div>
+                        </div>
+                        <!-- 덧글 내용-->
+                        <div class="blog-entry col-md-12 chostyle">
+                           <div class="text pt-2 mt-3">
+                              <div class="author mb-4 d-flex align-items-center">
+                                 <div class="ch-3 info">
+                                    <h3>킹종성, <span>2019년 12월 17일</span></h3>
+                                    <span>행님들 국밥 한그릇 하시래요? 예 아시겠어요? 예?<span>
+                                    <div class="meta-wrap d-md-flex align-items-center">
+                                       <div class="half order-md-last text-md-right">
+                                          <p class="meta">
+                                             <span><i class="icon-heart"></i>3</span>
+                                          </p>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                        </div>
+                        </div>
+
+	    	
+                      
+
+						</div>
+	    			</div>
+	    		</div>
+   <div class="row mt-5 col block-27">
+      <ul id="paging">
+         <li style="margin-right: 5px;"><a id="pageNum1" onclick="getBoard(0)" href="#">1</a></li>
+         <li style="margin-right: 5px;"><a id="pageNum1" onclick="getBoard(1)" href="#">2</a></li>
+         <li style="margin-right: 5px;"><a id="pageNum1" onclick="getBoard(2)" href="#">3</a></li>
+         <li style="margin-right: 5px;"><a id="pageNum1" onclick="getBoard(3)" href="#">4</a></li>
+         <li style="margin-right: 5px;"><a id="pageNum1" onclick="getBoard(4)" href="#">5</a></li>
+         <li style="margin-right: 5px;"><a id='nextPage' onclick='setPaging(1)' href='#'>&gt;</a></li>
+      </ul>
+   </div>
+ 
+      <!-- 불 들어오는 로직
+<div class="row mt-5 col block-27" id="paginga">
+   <ul>
+     <li><a href="#">&lt;</a></li>
+     <li style="margin-right: 5px;" v-for="c in number" :class="{ active: isActive === c }" @click="isActive = c" id=app1><a href="#" id="pageNum1" onclick="getBoard((0))">{{c}}</a></li>
+     <li><a href="#">&gt;</a></li>
+   </ul>
+</div> 
+
+<script>
+      
+   new Vue({
+       el: "#pagin",
+       data: {
+         isActive: "1",
+         number : ['1','2','3','4','5']
+       },
+       methods: {}
+     })
+
+</script>-->
+
+
+	    </section>
+	    <footer class="ftco-footer ftco-bg-dark ftco-section">
+	      <div class="container px-md-5">
+	        <div class="row">
+	          <div class="col-md-12">
+
+	            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+	  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+	  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+	          </div>
+	        </div>
+	      </div>
+	    </footer>
+		</div><!-- END COLORLIB-MAIN -->
+	</div><!-- END COLORLIB-PAGE -->
+
+  <!-- loader -->
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script type="text/javascript">
+
+     // 전체 게시글 수 받을 변수
+     var count
+
+     // 전체 게시글 리스트
+     var boardArray
+
+     // vue객체 받아줄 변수 리스트
+     var vueInstance = []
+
+     // 전체 게시글 수 얻어오기
+     function getCount() {
+        axios.get("http://127.0.0.1:8000/getCount")
+           .then(resData => {
+              count = resData.data
+           }).catch(error => {
+              console.log(error)
+           })
+     }
+
+     function getBoard(pageNum) {
+        axios.get("http://127.0.0.1:8000/getHidden?page=" + pageNum + "&sort=hashtag,desc")
+           .then(resData => {
+              getCount()
+              boardArray = resData.data.content
+              setBoard(count, resData.data.content, pageNum)
+           }).catch(error => {
+              console.log(error)
+           })
+     }
+
+     function setBoard(boardCount, boardArray, pageNum) {
+        var forNum = boardCount - pageNum * 10 < 10 ? boardCount - pageNum * 10 : 10
+        for (let i = 0; i < forNum; i++) {
+           board = boardArray[i]
+           vueInstance[i].tag = ""
+           document.getElementById("child" + (i + 1)).innerHTML = "<div class=\"text pt-2 mt-3\">"
+               +"<span class=\"category mb-1 d-block\"><a href=\"#\">" + board.category + "</a></span>"
+					+"<h3 class=\"mb-4\">싸늘한바람<a href=\"#\"></a></h3>"
+					+"<p class=\"mb-4\">"+ board.contents+"</p>"
+				   +"<div class=\"author mb-4 d-flex align-items-center\">"
+				   +"<div class=\"ch-3 info\">"
+				   +"<span>작성자</span>"
+				   +"<h3><a href=\"#\">"+ board.nickname + "</a>,<span>"+ board.postingDate +"</span></h3>"
+               +"<h3><span>감성개봉일,"+ board.openDate +"</span></h3>"
+				   +"</div></div>"
+				   +"<div class=\"meta-wrap d-md-flex align-items-center\">"
+				   +"<div class=\"half order-md-last text-md-right\">"
+					+"<p class=\"meta\">"
+               +"<span><i class=\"icon-heart\"></i>"+ board.heart + "</span>"
+               +"<span><i class=\"icon-error\"></i>"+ "300" + "</span>"
+               +"<span><i class=\"icon-comment\"></i>"+ "300" + "</span>"
+               +"</p></div></div></div>"
+        }
+        for (let j = forNum; j < 10; j++) {
+           vueInstance[j].tag = ""
+           document.getElementById("child" + (j + 1)).innerHTML = "<span></span>"
+        }
+     }
+
+     for (let i = 1; i <= 10; i++) {
+        vueInstance[i - 1] = new Vue({
+           el: "#row" + i,
+           data: {
+              tag: "",
+              inputTag: "",
+              ifflag: false
+           },
+           methods: {
+              comment: function () {
+                 axios.get("http://127.0.0.1:8000/getReply?userId=" + "young" + "&boardId=" + boardArray[i - 1].id)
+                    .then(resData => {
+                       console.log(resData.data)
+                       if (resData.data == "") {
+                          this.ifflag = true
+                          this.tag = "<input id='input" + i + "' placeholder='5자이상 입력해주세요'></input><button onclick='makeReply(" + i + ")'>댓글 남기기</button>"
+                       } else {
+                          this.ifflag = !this.ifflag
+                          this.tag = "<br>유저아이디 : " + resData.data.userId + "<br>"
+                             + "댓글 내용 : " + resData.data.repContents + "<br>"
+                             + "게시 날짜 : " + resData.data.repPostingDate + "<br>"
+                             + "좋아요 : " + resData.data.repHeart + "<br>"
+                             + "신고 횟수 : " + resData.data.repClaim + "<br>"
+                       }
+                    }).catch(error => {
+                       console.log(error)
+                    })
+              }
+           }
+        })
+     }
+
+     function makeReply(replyNum) {
+        console.log(1)
+        var repContent = document.getElementById("input" + replyNum).value
+        axios.post("http://127.0.0.1:8000/saveReply?userId=" + "young" + "&repBoardId=" + boardArray[replyNum - 1].id + "&repContents=" + repContent
+           + "&repPostingDate=" + "20191218" + "&repHeart=" + 0 + "&repClaim=" + 0)
+           .then(resData => {
+              if(resData.data == 1){
+                 vueInstance[replyNum - 1].tag = "<br>유저아이디 : " + "young" + "<br>"
+                 + "댓글 내용 : " + repContent + "<br>"
+                 + "게시 날짜 : " + "20191218" + "<br>"
+                 + "좋아요 : " + 0 + "<br>"
+                 + "신고 횟수 : " + 0 + "<br>"
+              }else{
+                 alert("저장에 실패했습니다")
+              }
+           }).catch(error => {
+              console.log(error)
+           })
+     }
+
+     // 페이징 처리 로직
+     function setPaging(direction) {
+        // 실시간 전체 게시글 수 동기화
+        getCount()
+
+        // innerHTML 받아줄 변수 선언
+        var paging = ""
+
+        // 페이징 처리를 위해 기준값 계산
+        var standard = parseInt(document.getElementById('pageNum1').innerText / 5)
+
+        var nowNum = Number(document.getElementById('pageNum1').innerText) + 4
+
+        // 끝나는 페이지값 계산
+        var endPoint = parseInt(count / 10) + 1
+        parseInt(count / 10) + 1
+
+        // 실제로 들어갈 페이지값
+        var nextPage = (standard + 1) * 5
+        var prevPage = (standard - 1) * 5
+
+        // 반복되는 구문 초기화
+        const next = "<li style='margin-right: 5px;'><a id='nextPage' onclick='setPaging(1)' href='#'>&gt;</a></li>"
+        const prev = "<li style='margin-right: 5px;'><a id='prevPage' onclick='setPaging(2)' href='#'>&lt;</a></li>"
+
+        // 다음버튼 클릭시
+        if (direction == 1) {
+           getBoard(nextPage)
+           paging = prev
+           paging += Number(nowNum) + 5 > endPoint ? setPageNumber(nextPage, endPoint - (standard + 1) * 5) : setPageNumber(nextPage, 5) + next
+           // 이전버튼 클릭시   
+        } else {
+           getBoard(prevPage + 4)
+           paging += standard == 1 ? setPageNumber(prevPage, 5) : prev + setPageNumber(prevPage, 5)
+           paging += next
+        }
+        document.getElementById("paging").innerHTML = paging
+     }
+
+     // innerHTML코드 반복문 함수화
+     function setPageNumber(pageNum, loopNum) {
+        paging = ""
+        for (var i = 1; i <= loopNum; i++) {
+           paging += "<li style='margin-right: 5px;'><a id='pageNum" + i + "' onclick='getBoard(" + (pageNum + i - 1) + ")' href='#'>" + (pageNum + i) + "</a></li>"
+        }        
+        return paging
+     }
+
+     // 페이지 로딩시 바로 실행되는 로직
+     axios.get("http://127.0.0.1:8000/getCount")
+        .then(resData => {
+           // 첫번째 페이지 게시글 가져오고 화면에 뿌려주기
+           getBoard(0)
+           if (resData.data <= 50) {
+              // 전체 게시글수가 50 이하일경우 다음 페이지가 나오면 안되기 때문에 조건식 생성
+              document.getElementById("paging").innerHTML = setPageNumber(0, parseInt((resData.data - 1) / 10) + 1)
+           }
+        }).catch(error => {
+           console.log(error)
+        })
+
+
+  </script>
+  
+  
+  
+  
+
+
+   
+  <script src="js/button.js"></script>
+  <script src="js/include.js"></script>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery.easing.1.3.js"></script>
+  <script src="js/jquery.waypoints.min.js"></script>
+  <script src="js/jquery.stellar.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.magnific-popup.min.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="js/jquery.animateNumber.min.js"></script>
+  <script src="js/bootstrap-datepicker.js"></script>
+  <script src="js/jquery.timepicker.min.js"></script>
+  <script src="js/scrollax.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+  <script src="js/google-map.js"></script>
+  <script src="js/main.js"></script>
+    
+  </body>
+</html>

@@ -4,11 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Document</title>
 </head>
 <body>
-    <!-- html button designing and calling the event in javascript -->
-    <input class="btn btn-outline-dark" id="btntest" type="button" value="시작하기" onclick="window.location.href = 'http://127.0.0.1:5500/elen/elen/login.html'" />
+    <script>
+  
+        sessionSet = (id) => {
+            sessionStorage.setItem("id", "yyy2410");
+           }
+
+        sessionGet = ()
+           sessionStorage.getItem("domain");
+            // 키에 저장된 값을 반환. 여기서는 webisfree.com 출력됨
+
+            sessionStorage.removeItem("domain");
+            // domain 키와 데이터 모두 삭제
+
+            sessionStorage.clear();
+            // 저장된 모든 값 삭제  
+        
+        
+        
+    </script>
 </body>
 </html>

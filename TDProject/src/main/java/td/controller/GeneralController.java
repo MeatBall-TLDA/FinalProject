@@ -20,48 +20,67 @@ public class GeneralController {
 
 	@Autowired
 	private TDService service;
-
+	
 	@RequestMapping("/hidden")
 	public String goToHidden() {
 		return "/thymeleaf/HiddenBoard";
 	}
-
+	
+	@RequestMapping("/travel")
+	public String goTotravel() {
+		return "/thymeleaf/travel.html";
+	}
+	
+	//세션 만드는 로직
+	@RequestMapping({"/session"})
+    String index(HttpSession session) {
+        session.setAttribute("id", "yyy2410");
+        session.setAttribute("pw", "123456");
+        return "/thymeleaf/session.html";
+    }
+	
+	//세션 삭제 로직
+	@RequestMapping({"/session2"})
+    String index2(HttpSession session) {
+        session.invalidate();
+        return "/thymeleaf/session.html";
+    }
+	
+	
 	// 미공개 게시판 게시글 작성
 	@PostMapping("/saveHidden")
 	public String saveHiddenBoardDTO(HiddenBoardDTO board) {
 		String url = "";
-		if (service.saveHiddenBoardDTO(board)) {
+		if(service.saveHiddenBoardDTO(board)) {
 			url = "HiddenBoard";
-		} else {
+		}else {
 			url = "Error";
 		}
 		return url;
 	}
-
-
+	
 	// =====================================
-
-
+	
 	// 로그인 API
-	@RequestMapping("/login")
+	@RequestMapping("/")
 	public String view(ModelMap model) {
 		return "/login";
 	}
-
+	
 	@RequestMapping(value = "/kakaoLogin")
 	public String login(@RequestParam("code") String code, HttpSession session) {
 		return service.login(code, session);
 	}
-
+	
 	@RequestMapping(value = "/naverLogin")
 	public String naverLogin(@RequestParam("code") String code, @RequestParam String state, HttpSession session)
 			throws IOException {
 		return service.naverLogin(code, state, session);
 	}
-
+	
 	@RequestMapping(value = "/logout")
 	public String logout(HttpSession session) {
 		return service.logout(session);
 	}
-
+	
 }
