@@ -1,11 +1,10 @@
 package td.model.domain;
 
-import java.util.Date;
+import java.util.ArrayList;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -23,6 +22,8 @@ public class HiddenBoardDTO {
 	  private Integer claim;
 	  private String nickname;
 	  private String category;
+	  private ArrayList<String> plusHeartUserId;
+	  private ArrayList<String> claimHeartUserId;
 	  
 	  public HiddenBoardDTO(String hashtag) {
 			super();

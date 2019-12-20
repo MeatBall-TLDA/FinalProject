@@ -8,6 +8,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import td.model.domain.ClientDTO;
@@ -45,6 +46,9 @@ public class TDContoller {
 		return service.getCount();
 	}
 	
+//	@PostMapping("/plusBoardHeart")
+//	public
+	
 //	@GetMapping("/makeTest")
 //	public void makeTest() {
 //		service.makeTest();
@@ -73,20 +77,6 @@ public class TDContoller {
 		return service.findByIdOpenReplyDTO(id);
 	}
 
-
-	// 동범 search =================================================================	
-	@GetMapping("/hashtagSearch")
-	public Slice<HiddenBoardDTO> hashtagSearch(@PageableDefault(size = 10) Pageable pageable) {
-		return service.hashtagSearch(pageable, "c");
-	}
-	
-	@GetMapping("/categorySearch")
-	public Slice<HiddenBoardDTO> categorySearch(@PageableDefault(size = 10) Pageable pageable) {
-		return service.categorySearch(pageable, "A");
-	}
-	
-	// ========================================================================
-
 	@GetMapping("/getReply")
 	public ReplyDTO getReply(String userId, String repBoardId) {
 		return service.getReply(userId, repBoardId);
@@ -101,12 +91,30 @@ public class TDContoller {
 		return message;
 	}
 	
-//	http://127.0.0.1:8000/plusHeart?userId=young&repBoardId=5
+//	좋아요 누를 때 +1 이미 눌렀으면 -1
 	@PostMapping("/plusHeart")
 	public Integer plusHeart(String userId, String repBoardId) {
-		System.out.println("===");
 		return service.plusHeart(userId, repBoardId);
 	}
+	
+	// 유저 ID로 유저가 좋아요한 모든 댓글정보 가져오기
+//	@GetMapping("/getPlusHeart")
+//	public Iterable<ReplyDTO> getReplyByPlusHeartUserId(String plusHeartUserId){
+//		return service.getReplyByPlusHeartUserId(plusHeartUserId);
+//	}
+	
+	// 동범 search =================================================================	
+	@GetMapping("/hashtagSearch")
+	public Slice<HiddenBoardDTO> hashtagSearch(@PageableDefault(size = 10) Pageable pageable) {
+		return service.hashtagSearch(pageable, "c");
+	}
+	
+	@GetMapping("/categorySearch")
+	public Slice<HiddenBoardDTO> categorySearch(@PageableDefault(size = 10) Pageable pageable) {
+		return service.categorySearch(pageable, "A");
+	}
+	
+	// ========================================================================
 
 
 }

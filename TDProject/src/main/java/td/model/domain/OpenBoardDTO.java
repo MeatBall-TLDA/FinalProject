@@ -1,5 +1,6 @@
 package td.model.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
@@ -23,5 +24,7 @@ public class OpenBoardDTO {
 	  private Integer claim;
 	  private String nickname;
 	  private String category;
+	  private ArrayList<String> plusHeartUserId;
+	  private ArrayList<String> claimHeartUserId;
 }
 

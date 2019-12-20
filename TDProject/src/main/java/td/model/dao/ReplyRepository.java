@@ -8,6 +8,6 @@ public interface ReplyRepository extends ElasticsearchRepository<ReplyDTO, Strin
 
 	ReplyDTO findByUserIdAndRepBoardId(String userId, String repBoardId);
 	ReplyDTO findByRepBoardId(String repBoardId);
-	ReplyDTO findByPlusHeartUserId(String plusHeartUserId);
+	Iterable<ReplyDTO> findByPlusHeartUserId(String plusHeartUserId);
 
 }

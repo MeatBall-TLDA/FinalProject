@@ -2,14 +2,12 @@ package td.model.dao;
 
 
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.elasticsearch.annotations.Query;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 import td.model.domain.HiddenBoardDTO;
+import td.model.domain.ReplyDTO;
 
 public interface HiddenBoardRepository extends ElasticsearchRepository<HiddenBoardDTO, String> {
 	

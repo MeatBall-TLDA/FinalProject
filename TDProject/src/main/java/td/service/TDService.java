@@ -2,8 +2,11 @@ package td.service;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
@@ -12,9 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import td.login.LoginAPI;
 import td.model.dao.ClientRepository;
@@ -55,7 +55,6 @@ public class TDService {
 		return hRepo.findAll(pageable);
 	}
 
-
 	// hashtagSearch
 	public Slice<HiddenBoardDTO> hashtagSearch(Pageable pageable, String hashtag) {
 		return hRepo.findByHashtagContaining(pageable, hashtag);
@@ -70,7 +69,6 @@ public class TDService {
 	public long getCount() {
 		return hRepo.count();
 	}
-
 
 	// 테스트 데이터 삽입
 	public int randomRange(int n1, int n2) {
@@ -98,7 +96,30 @@ public class TDService {
 			hRepo.save(v);
 		}
 	}
-
+	
+	// 게시글 좋아요 추가
+	public Integer plusBoardHeart(String userId, String BoardId) {
+		ReplyDTO entity = rRepo.findByRepBoardId(BoardId);
+		ArrayList<String> PlusHeartUserList = null;
+		if(entity.getPlusHeartUserId() != null && entity.getPlusHeartUserId().size() != 0) {
+			PlusHeartUserList = entity.getPlusHeartUserId();
+		}else {
+			PlusHeartUserList = new ArrayList<>();
+		}
+		
+		if(judge(PlusHeartUserList, userId)) {
+			PlusHeartUserList.add(userId);
+			entity.setRepHeart(entity.getRepHeart() + 1);
+			entity.setPlusHeartUserId(PlusHeartUserList);
+			rRepo.save(entity);
+		}else {
+			PlusHeartUserList.remove(userId);
+			entity.setRepHeart(entity.getRepHeart() - 1);
+			entity.setPlusHeartUserId(PlusHeartUserList);
+			rRepo.save(entity);
+		}
+		return entity.getRepHeart();
+	}
 
 	// 미공개 게시판 게시글 작성
 	public boolean saveHiddenBoardDTO(HiddenBoardDTO board) {
@@ -147,7 +168,7 @@ public class TDService {
 	}
 	
 	// 리플 좋아요 누른 사람인지 판별
-	public boolean judge(String[] plusHeartUserList, String userId) {
+	public boolean judge(ArrayList<String> plusHeartUserList, String userId) {
 		boolean result = true;
 		if(plusHeartUserList == null) {
 			return true;
@@ -165,32 +186,29 @@ public class TDService {
 	// 리플 좋아요 추가
 	public Integer plusHeart(String userId, String repBoardId) {
 		ReplyDTO entity = rRepo.findByRepBoardId(repBoardId);
-		String[] PlusHeartUserList = {""};
-		int PlusHeartUserListLength = 0;
-		
-		if(entity.getPlusHeartUserId() != null) {
+		ArrayList<String> PlusHeartUserList = null;
+		if(entity.getPlusHeartUserId() != null && entity.getPlusHeartUserId().size() != 0) {
 			PlusHeartUserList = entity.getPlusHeartUserId();
-			PlusHeartUserListLength = entity.getPlusHeartUserId().length;
 		}else {
-			PlusHeartUserListLength = 0;
+			PlusHeartUserList = new ArrayList<>();
 		}
 		
-		System.out.println(entity);
-		
 		if(judge(PlusHeartUserList, userId)) {
-			PlusHeartUserList[PlusHeartUserListLength] = userId;
+			PlusHeartUserList.add(userId);
 			entity.setRepHeart(entity.getRepHeart() + 1);
 			entity.setPlusHeartUserId(PlusHeartUserList);
 			rRepo.save(entity);
 		}else {
+			PlusHeartUserList.remove(userId);
 			entity.setRepHeart(entity.getRepHeart() - 1);
+			entity.setPlusHeartUserId(PlusHeartUserList);
 			rRepo.save(entity);
 		}
 		return entity.getRepHeart();
 	}
 	
 	// 리플에 좋아요 누른 사람들 가져오기
-	public ReplyDTO getReplyByPlusHeartUserId(String plusHeartUserId) {
+	public Iterable<ReplyDTO> getReplyByPlusHeartUserId(String plusHeartUserId) {
 		return rRepo.findByPlusHeartUserId(plusHeartUserId);
 	}
 
@@ -212,8 +230,7 @@ public class TDService {
 		return "login";
 	}
 
-	public String naverLogin(String code, String state, HttpSession session)
-			throws IOException {
+	public String naverLogin(String code, String state, HttpSession session) throws IOException {
 
 		if (login.token(session, state) == true) {
 			String access_Token = login.getNaverAccessToken(code);

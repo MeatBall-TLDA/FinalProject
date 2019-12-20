@@ -23,19 +23,16 @@
 </head>
 
 <body>
-	<!-- <dl th:each="HiddenBoardDTO : ${boardList}">
-		<dt>id</dt>
-		<dd th:text="${HiddenBoardDTO.id}"></dd>
-	</dl> -->
 	<div id="content">
 		<h3>1</h3>
 		<div id="row1" class="row">
 			<span id="child1" v-on:click="comment"></span>
-			<heart></heart>
+			<span v-html="boardHeartNum"></span>
+			<span v-html="plusBoardHeart" v-on:click="boardHeart"></span>
 			<span>
 				<span v-html="tag" v-if="ifflag"></span>
-				<span v-html="heartNum" v-if="heartflag"></span>
-				<span v-html="plusHeart" v-on:click="hearts" v-if="heartflag"></span>
+				<span v-html="repHeartNum" v-if="heartflag"></span>
+				<span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
 			</span>
 
 		</div>
@@ -44,11 +41,12 @@
 		<h3>2</h3>
 		<div id="row2" class="row">
 			<span id="child2" v-on:click="comment"></span>
-			<heart></heart>
+			<span v-html="boardHeartNum"></span>
+			<span v-html="plusBoardHeart" v-on:click="boardHeart"></span>
 			<span>
 				<span v-html="tag" v-if="ifflag"></span>
-				<span v-html="heartNum" v-if="heartflag"></span>
-				<span v-html="plusHeart" v-on:click="hearts" v-if="heartflag"></span>
+				<span v-html="repHeartNum" v-if="heartflag"></span>
+				<span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
 			</span>
 
 		</div>
@@ -57,11 +55,12 @@
 		<h3>3</h3>
 		<div id="row3" class="row">
 			<span id="child3" v-on:click="comment"></span>
-			<heart></heart>
+			<span v-html="boardHeartNum"></span>
+			<span v-html="plusBoardHeart" v-on:click="boardHeart"></span>
 			<span>
 				<span v-html="tag" v-if="ifflag"></span>
-				<span v-html="heartNum" v-if="heartflag"></span>
-				<span v-html="plusHeart" v-on:click="hearts" v-if="heartflag"></span>
+				<span v-html="repHeartNum" v-if="heartflag"></span>
+				<span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
 			</span>
 
 		</div>
@@ -70,11 +69,12 @@
 		<h3>4</h3>
 		<div id="row4" class="row">
 			<span id="child4" v-on:click="comment"></span>
-			<heart></heart>
+			<span v-html="boardHeartNum"></span>
+			<span v-html="plusBoardHeart" v-on:click="boardHeart"></span>
 			<span>
 				<span v-html="tag" v-if="ifflag"></span>
-				<span v-html="heartNum" v-if="heartflag"></span>
-				<span v-html="plusHeart" v-on:click="hearts" v-if="heartflag"></span>
+				<span v-html="repHeartNum" v-if="heartflag"></span>
+				<span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
 			</span>
 
 		</div>
@@ -83,11 +83,12 @@
 		<h3>5</h3>
 		<div id="row5" class="row">
 			<span id="child5" v-on:click="comment"></span>
-			<heart></heart>
+			<span v-html="boardHeartNum"></span>
+			<span v-html="plusBoardHeart" v-on:click="boardHeart"></span>
 			<span>
 				<span v-html="tag" v-if="ifflag"></span>
-				<span v-html="heartNum" v-if="heartflag"></span>
-				<span v-html="plusHeart" v-on:click="hearts" v-if="heartflag"></span>
+				<span v-html="repHeartNum" v-if="heartflag"></span>
+				<span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
 			</span>
 
 		</div>
@@ -96,11 +97,12 @@
 		<h3>6</h3>
 		<div id="row6" class="row">
 			<span id="child6" v-on:click="comment"></span>
-			<heart></heart>
+			<span v-html="boardHeartNum"></span>
+			<span v-html="plusBoardHeart" v-on:click="boardHeart"></span>
 			<span>
 				<span v-html="tag" v-if="ifflag"></span>
-				<span v-html="heartNum" v-if="heartflag"></span>
-				<span v-html="plusHeart" v-on:click="hearts" v-if="heartflag"></span>
+				<span v-html="repHeartNum" v-if="heartflag"></span>
+				<span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
 			</span>
 
 		</div>
@@ -109,11 +111,12 @@
 		<h3>7</h3>
 		<div id="row7" class="row">
 			<span id="child7" v-on:click="comment"></span>
-			<heart></heart>
+			<span v-html="boardHeartNum"></span>
+			<span v-html="plusBoardHeart" v-on:click="boardHeart"></span>
 			<span>
 				<span v-html="tag" v-if="ifflag"></span>
-				<span v-html="heartNum" v-if="heartflag"></span>
-				<span v-html="plusHeart" v-on:click="hearts" v-if="heartflag"></span>
+				<span v-html="repHeartNum" v-if="heartflag"></span>
+				<span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
 			</span>
 
 		</div>
@@ -122,11 +125,12 @@
 		<h3>8</h3>
 		<div id="row8" class="row">
 			<span id="child8" v-on:click="comment"></span>
-			<heart></heart>
+			<span v-html="boardHeartNum"></span>
+			<span v-html="plusBoardHeart" v-on:click="boardHeart"></span>
 			<span>
 				<span v-html="tag" v-if="ifflag"></span>
-				<span v-html="heartNum" v-if="heartflag"></span>
-				<span v-html="plusHeart" v-on:click="hearts" v-if="heartflag"></span>
+				<span v-html="repHeartNum" v-if="heartflag"></span>
+				<span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
 			</span>
 
 		</div>
@@ -135,11 +139,12 @@
 		<h3>9</h3>
 		<div id="row9" class="row">
 			<span id="child9" v-on:click="comment"></span>
-			<heart></heart>
+			<span v-html="boardHeartNum"></span>
+			<span v-html="plusBoardHeart" v-on:click="boardHeart"></span>
 			<span>
 				<span v-html="tag" v-if="ifflag"></span>
-				<span v-html="heartNum" v-if="heartflag"></span>
-				<span v-html="plusHeart" v-on:click="hearts" v-if="heartflag"></span>
+				<span v-html="repHeartNum" v-if="heartflag"></span>
+				<span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
 			</span>
 
 		</div>
@@ -148,11 +153,12 @@
 		<h3>10</h3>
 		<div id="row10" class="row">
 			<span id="child10" v-on:click="comment"></span>
-			<heart></heart>
+			<span v-html="boardHeartNum"></span>
+			<span v-html="plusBoardHeart" v-on:click="boardHeart"></span>
 			<span>
 				<span v-html="tag" v-if="ifflag"></span>
-				<span v-html="heartNum" v-if="heartflag"></span>
-				<span v-html="plusHeart" v-on:click="hearts" v-if="heartflag"></span>
+				<span v-html="repHeartNum" v-if="heartflag"></span>
+				<span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
 			</span>
 
 		</div>
@@ -179,8 +185,6 @@
 		// vue객체 받아줄 변수 리스트
 		var vueInstance = []
 
-		var heartList = []
-
 		// 전체 게시글 수 얻어오기
 		function getCount() {
 			axios.get("http://127.0.0.1:8000/getCount")
@@ -201,6 +205,14 @@
 					console.log(error)
 				})
 		}
+
+		// 유저 ID로 유저가 좋아요한 모든 댓글정보 가져오기
+		// axios.get("http://127.0.0.1:8000/getPlusHeart?plusHeartUserId=young")
+		// 		.then(resData => {
+		// 			console.log(resData.data)
+		// 		}).catch(error => {
+		// 			console.log(error)
+		// 		})
 
 		function setBoard(boardCount, boardArray, pageNum) {
 			var forNum = boardCount - pageNum * 10 < 10 ? boardCount - pageNum * 10 : 10
@@ -226,8 +238,7 @@
 		}
 
 		var boardTag = {
-			template: "<button v-on:click='mass.counter = spec'>정보 출력</button>"
-
+			template: `<span v-html="boardHeartNum"></span>`
 		}
 
 		for (let i = 1; i <= 10; i++) {
@@ -237,7 +248,9 @@
 					tag: "",
 					ifflag: false,
 					heartflag: false,
-					heartNum : 0,
+					boardHeartNum: 0,
+					repHeartNum: 0,
+					plusBoardHeart: "<button>좋아요누르기</button>",
 					plusHeart: "<button>좋아요누르기</button>"
 				},
 				components: {
@@ -252,7 +265,7 @@
 									this.heartflag = false
 									this.tag = "<br><input id='input" + i + "' placeholder='5자이상 입력해주세요'></input><button onclick='makeReply(" + i + ")'>댓글 남기기</button>"
 								} else {
-									this.heartNum = resData.data.repHeart
+									this.repHeartNum = resData.data.repHeart
 									this.ifflag = !this.ifflag
 									this.heartflag = !this.heartflag
 									this.tag = "<br>유저아이디 : " + resData.data.userId + "<br>"
@@ -264,10 +277,18 @@
 								console.log(error)
 							})
 					},
-					hearts: function () {
-						axios.post("http://127.0.0.1:8000/plusHeart?userId=" + "young" + "&repBoardId=" + boardArray[i - 1].id)
+					repHeart: function () {
+						axios.post("http://127.0.0.1:8000/plusHeart?userId=" + "dfgdfgfdgdfg" + "&repBoardId=" + boardArray[i - 1].id)
 							.then(resData => {
-								this.heartNum = resData.data
+								this.repHeartNum = resData.data
+							}).catch(error => {
+								console.log(error)
+							})
+					},
+					boardHeart: function () {
+						axios.post("http://127.0.0.1:8000/plusBoardHeart?userId=" + "dfgdfgfdgdfg" + "&repBoardId=" + boardArray[i - 1].id)
+							.then(resData => {
+								this.repHeartNum = resData.data
 							}).catch(error => {
 								console.log(error)
 							})
@@ -287,7 +308,7 @@
 							+ "게시 날짜 : " + "20191218" + "<br>"
 							+ "좋아요 : "
 						vueInstance[replyNum - 1].heartflag = !vueInstance[replyNum - 1].heartflag
-						vueInstance[replyNum - 1].heartNum = 0
+						vueInstance[replyNum - 1].repHeartNum = 0
 					} else {
 						alert("저장에 실패했습니다")
 					}

@@ -1,6 +1,6 @@
 package td.model.domain;
 
-import java.util.Date;
+import java.util.ArrayList;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -16,10 +16,11 @@ import lombok.NoArgsConstructor;
 public class ReplyDTO {
 	@Id
 	private String id;
+	private String userId;
 	private String repBoardId;
 	private String repContents;
-	private Date repPostingDate;
+	private String repPostingDate;
 	private Integer repHeart;
 	private Integer repClaim;
-	private String[] plusHeartUserId;
+	private ArrayList<String> plusHeartUserId;
 }
