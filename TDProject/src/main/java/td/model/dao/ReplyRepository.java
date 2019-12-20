@@ -6,5 +6,4 @@ import td.model.domain.ReplyDTO;
 
 public interface ReplyRepository extends ElasticsearchRepository<ReplyDTO, String> {
 
-	ReplyDTO findByUserIdAndRepBoardId(String userId, String repBoardId);
 }
