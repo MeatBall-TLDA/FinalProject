@@ -30,7 +30,7 @@ public class GeneralController {
 	public String goTotravel() {
 		return "/thymeleaf/travel.html";
 	}
-	
+  
 	//세션 만드는 로직
 	@RequestMapping({"/session"})
     String index(HttpSession session) {
@@ -45,7 +45,7 @@ public class GeneralController {
         session.invalidate();
         return "/thymeleaf/session.html";
     }
-	
+
 	
 	// 미공개 게시판 게시글 작성
 	@PostMapping("/saveHidden")

@@ -1,5 +1,8 @@
 package td.model.domain;
 
+
+import java.util.ArrayList;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
@@ -20,4 +23,5 @@ public class ReplyDTO {
 	private String repPostingDate;
 	private Integer repHeart;
 	private Integer repClaim;
+	private ArrayList<String> plusHeartUserId;
 }

@@ -46,11 +46,15 @@ public class TDContoller {
 	}
 	
 
-	// 테스트 데이터 삽입
-	@GetMapping("/makeTest")
-	public void makeTest() {
-		service.makeTest();
-	}
+//	@PostMapping("/plusBoardHeart")
+//	public
+	
+//	@GetMapping("/makeTest")
+//	public void makeTest() {
+//		service.makeTest();
+//	}
+
+
 
 	
 	// =================================================================
@@ -76,19 +80,6 @@ public class TDContoller {
 	}
 	
 
-	// 동범 search =================================================================	
-	@GetMapping("/hashtagSearch")
-	public Slice<HiddenBoardDTO> hashtagSearch(@PageableDefault(size = 10) Pageable pageable) {
-		return service.hashtagSearch(pageable, "c");
-	}
-	
-	@GetMapping("/categorySearch")
-	public Slice<HiddenBoardDTO> categorySearch(@PageableDefault(size = 10) Pageable pageable) {
-		return service.categorySearch(pageable, "A");
-	}
-	
-	// ========================================================================
-
 	@GetMapping("/getReply")
 	public ReplyDTO getReply(String userId, String boardId) {
 		return service.getReply(userId, boardId);
@@ -102,5 +93,32 @@ public class TDContoller {
 		}
 		return message;
 	}
+
+
+//	좋아요 누를 때 +1 이미 눌렀으면 -1
+	@PostMapping("/plusHeart")
+	public Integer plusHeart(String userId, String repBoardId) {
+		return service.plusHeart(userId, repBoardId);
+	}
+	
+	// 유저 ID로 유저가 좋아요한 모든 댓글정보 가져오기
+//	@GetMapping("/getPlusHeart")
+//	public Iterable<ReplyDTO> getReplyByPlusHeartUserId(String plusHeartUserId){
+//		return service.getReplyByPlusHeartUserId(plusHeartUserId);
+//	}
+	
+	// 동범 search =================================================================	
+	@GetMapping("/hashtagSearch")
+	public Slice<HiddenBoardDTO> hashtagSearch(@PageableDefault(size = 10) Pageable pageable) {
+		return service.hashtagSearch(pageable, "c");
+	}
+	
+	@GetMapping("/categorySearch")
+	public Slice<HiddenBoardDTO> categorySearch(@PageableDefault(size = 10) Pageable pageable) {
+		return service.categorySearch(pageable, "A");
+	}
+	
+	// ========================================================================
+
 
 }
