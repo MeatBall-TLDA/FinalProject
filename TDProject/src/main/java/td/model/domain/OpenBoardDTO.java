@@ -18,7 +18,7 @@ public class OpenBoardDTO {
 	  private String id;
 	  private String contents;
 	  private String hashtag;
-	  private String postingDate;
+	  private Date postingDate;
 	  private Integer heart;
 	  private Integer claim;
 	  private String nickname;
