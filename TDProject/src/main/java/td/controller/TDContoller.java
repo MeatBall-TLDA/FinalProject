@@ -94,6 +94,7 @@ public class TDContoller {
 	}
 
 
+
 	@GetMapping("/getReply")
 	public Iterable<ReplyDTO> getReply(String repBoardId) {
 		return service.getReply(repBoardId);
