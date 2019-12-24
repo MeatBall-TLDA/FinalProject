@@ -23,11 +23,41 @@ public class GeneralController {
 	public String goToHidden() {
 		return "/thymeleaf/HiddenBoard";
 	}
-
+	
+	@RequestMapping("/open")
+	public String goToOpen() {
+		return "/thymeleaf/OpenBoard";
+	}
 	@RequestMapping("/travel")
 	public String goTotravel() {
 		return "/thymeleaf/travel.html";
 	}
+  
+	//세션 만드는 로직
+	@RequestMapping({"/session"})
+    String index(HttpSession session) {
+        session.setAttribute("id", "yyy2410");
+        session.setAttribute("pw", "123456");
+        return "/thymeleaf/session.html";
+    }
+	
+	//세션 삭제 로직
+	@RequestMapping({"/session2"})
+    String index2(HttpSession session) {
+        session.invalidate();
+        return "/thymeleaf/session.html";
+    }
+	
+	// 공개 날짜에 맞추어 게시글 데이터 이동 메소드
+	@Scheduled(cron = "0 0 0 * * *")
+	public void moveToOpen() {
+		service.moveToOpen();
+	}
+
+//	@Scheduled(initialDelay = 30000, fixedDelay = 10000)
+//	public void sendMessage() {
+//		service.sendMessage();
+//	}
 
 	@Scheduled(initialDelay = 10000, fixedDelay = 10000)
 	public void sendMessage() {
@@ -46,7 +76,6 @@ public class GeneralController {
 //		}
 //		return url;
 //	}
-
 	// =====================================
 
 	// 로그인 API

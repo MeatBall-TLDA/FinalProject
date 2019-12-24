@@ -9,6 +9,6 @@ import td.model.domain.OpenBoardDTO;
 
 public interface OpenBoardRepository extends ElasticsearchRepository<OpenBoardDTO, String> {
 
-   Page<OpenBoardDTO> findAll(Pageable pageable);
-   long count();
+	Page<OpenBoardDTO> findAll(Pageable pageable);
+	long count();
 }

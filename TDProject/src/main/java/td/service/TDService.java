@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Optional;
-import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
@@ -42,17 +41,17 @@ public class TDService {
 
 	@Autowired
 	private LoginAPI login;
-
+	
 	// 좋아요나 신고하기를 눌렀던 사람인지 파악
 	public boolean judge(ArrayList<String> userList, String userId) {
-		for (String user : userList) {
-			if (user.equals(userId)) {
+		for(String user : userList) {
+			if(user.equals(userId)) {
 				return false;
 			}
 		}
 		return true;
 	}
-
+  
 	// 고객 정보
 	public Optional<ClientDTO> findByIdClientDTO(String id) {
 		return cRepo.findById(id);
@@ -88,6 +87,44 @@ public class TDService {
 //      System.out.println(hRepo.findAllHashtag());
 		return hRepo.findByCategoryContaining(pageable, category);
 	}
+	
+	// 공개 날짜에 맞추어 게시글 공개 메소드
+	public void moveToOpen() {
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
+		Date time = new Date();
+		String today = format1.format(time);
+
+		for (HiddenBoardDTO v : hRepo.findByOpenDate(today)) {
+			oRepo.save(new OpenBoardDTO(v.getId(), v.getContents(), v.getHashtag(), v.getOpenDate(), v.getHeart(),
+					v.getClaim(), v.getNickname(), v.getCategory(), null, null));
+			//hRepo.deleteById(v.getId());
+		}
+	}
+
+	// 오늘의 메세지 구현 중
+//	public void sendMessage() {
+//		Random r = new Random();
+//
+//		// hiddenboard 카운팅
+//		int hiddenboardCount = (int) getCount();
+//		int a [] = new int[hiddenboardCount];
+//		
+//		// 회원 수 카운팅
+//		int clientCount = 10;
+//		
+//		// 회원수 만큼 for을 돌린다. 
+//		for(int i=0; i<clientCount; i++) {
+//			a[i] = r.nextInt(hiddenboardCount)+1;
+//			while(true) {
+//				
+//			}
+//			if(10 == a[i])
+//		}
+//		
+//		for(HiddenBoardDTO aa : hRepo.findByid(1)) {
+//			System.out.println(aa);
+//		}
+//	}
 
 	// 공개 날짜에 맞추어 게시글 공개 메소드
 	public void moveToOpen() {
@@ -154,41 +191,42 @@ public class TDService {
 		HiddenBoardDTO boardEntity = hRepo.findById(id).get();
 		ArrayList<String> plusClaimUserList = null;
 		String message = null;
-
-		if (boardEntity.getPlusClaimUserId() != null && boardEntity.getPlusClaimUserId().size() != 0) {
+		
+		if(boardEntity.getPlusClaimUserId() != null && boardEntity.getPlusClaimUserId().size() != 0) {
 			plusClaimUserList = boardEntity.getPlusClaimUserId();
-		} else {
+		}else {
 			plusClaimUserList = new ArrayList<>();
 		}
-
-		if (judge(plusClaimUserList, nickname)) {
+		
+		if(judge(plusClaimUserList, nickname)) {
 			plusClaimUserList.add(nickname);
 			boardEntity.setClaim(boardEntity.getClaim() + 1);
 			boardEntity.setPlusClaimUserId(plusClaimUserList);
 			hRepo.save(boardEntity);
 			message = "신고되었습니다";
-		} else {
+		}else {
 			message = "이미 신고하였습니다";
 		}
 		return message;
 	}
-
+  
 	// 게시글 좋아요 추가
 	public Integer plusHiddenBoardHeart(String nickname, String id) {
 		HiddenBoardDTO boardEntity = hRepo.findById(id).get();
 		ArrayList<String> plusHeartUserList = null;
-		if (boardEntity.getPlusHeartUserId() != null && boardEntity.getPlusHeartUserId().size() != 0) {
+    
+		if(boardEntity.getPlusHeartUserId() != null && boardEntity.getPlusHeartUserId().size() != 0) {
 			plusHeartUserList = boardEntity.getPlusHeartUserId();
-		} else {
+		}else {
 			plusHeartUserList = new ArrayList<>();
 		}
-
-		if (judge(plusHeartUserList, nickname)) {
+		
+		if(judge(plusHeartUserList, nickname)) {
 			plusHeartUserList.add(nickname);
 			boardEntity.setHeart(boardEntity.getHeart() + 1);
 			boardEntity.setPlusHeartUserId(plusHeartUserList);
 			hRepo.save(boardEntity);
-		} else {
+		}else {
 			plusHeartUserList.remove(nickname);
 			boardEntity.setHeart(boardEntity.getHeart() - 1);
 			boardEntity.setPlusHeartUserId(plusHeartUserList);
@@ -204,11 +242,12 @@ public class TDService {
 			hRepo.save(board);
 			result = true;
 		}
-//      SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-//      if (Integer.parseInt(board.getOpenDate()) > Integer.parseInt(format.format(new Date()))) {
-//         hRepo.save(board);
-//         result = true;
-//      }
+    
+//		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+//		if (Integer.parseInt(board.getOpenDate()) > Integer.parseInt(format.format(new Date()))) {
+//			hRepo.save(board);
+//			result = true;
+//		}
 		return result;
 	}
 
@@ -235,18 +274,18 @@ public class TDService {
 	public Iterable<ReplyDTO> getReply(String repBoardId) {
 		return rRepo.findByRepBoardId(repBoardId);
 	}
-
+	
 	// 댓글 저장하기
 	public boolean saveReply(ReplyDTO reply) {
 		boolean result = false;
 		String content = reply.getRepContents();
-		if (content != null && content.trim().length() >= 5) {
+		if(content != null && content.trim().length() >= 5) {
 			result = true;
 			rRepo.save(reply);
 		}
 		return result;
 	}
-
+	
 	// 리플 좋아요 추가
 	public Integer plusRepHeart(String userId, String repBoardId) {
 		// 댓글 찾아오는거 닉네임으로 바꿔야됨 // 유저 아이디도 닉네임으로 => 좋아요누르는사람 닉네임 + 댓글 단 사람의 닉네임 2개필요

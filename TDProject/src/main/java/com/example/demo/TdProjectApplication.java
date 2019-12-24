@@ -12,8 +12,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableAutoConfiguration
 @SpringBootApplication
 @ComponentScan({"td.controller", "td.service", "td.login"})
-@EnableJpaRepositories(basePackages="td.model.dao")
-@EnableElasticsearchRepositories(basePackages="td.model.dao")
+@EnableJpaRepositories(basePackages = "td.model.dao")
+@EnableElasticsearchRepositories(basePackages = "td.model.dao")
 @EntityScan("td.model.domain")
 @EnableScheduling
 public class TdProjectApplication {

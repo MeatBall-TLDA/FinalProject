@@ -70,9 +70,6 @@ public class TDContoller {
 	public void makeTest() {
 		service.makeTest();
 	}
-
-
-
 	
 	// =================================================================
 	
@@ -95,7 +92,6 @@ public class TDContoller {
 	public Optional<ReplyDTO> findByIdOpenReplyDTO(String id) {
 		return service.findByIdOpenReplyDTO(id);
 	}
-	
 
 
 	@GetMapping("/getReply")
