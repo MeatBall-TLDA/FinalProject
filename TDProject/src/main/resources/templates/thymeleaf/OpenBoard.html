@@ -55,24 +55,11 @@
 				<a id="sorting3" class="dropdown-item" href="#" onclick="getBoardAndSetPage(0, document.getElementById('sorting3').innerText)">좋아요</a>
 			</div>
 		</div>
-		<!-- <div class="nav-item dropdown px-3">
-			<a class="nav-link dropdown-toggle" id="navbarDropdown2" aria-haspopup="true" aria-expanded="false"
-				data-toggle="dropdown" href="">
-				차순
-			</a>
-			<div class="dropdown-menu" aria-labelledby="navbarDropdown2">
-				<a id="sc1" class="dropdown-item" href="#" onclick="getBoard()">오름차순</a>
-				<a id="sc2" class="dropdown-item" href="#" onclick="getBoard()">내림차순</a>
-			</div>
-		</div> -->
 	</div>
 	<div id="content" class="py-5 text-center">
 		<h3>1</h3>
 		<div id="row1">
-			<span id="child1" v-on:click="comment"></span>
-			<span v-html="boardHeartNum"></span>
-			<span v-html="plusHeart" v-on:click="boardHeart"></span>
-			<span v-html="plusClaim" v-on:click="makeClaim"></span>
+			<component v-bind:is="boardtag"></component>
 			<span>
 				<span v-html="tag" v-if="ifflag"></span>
 				<span v-html="repHeartNum" v-if="heartflag"></span>
@@ -84,10 +71,7 @@
 		<hr>
 		<h3>2</h3>
 		<div id="row2">
-			<span id="child2" v-on:click="comment"></span>
-			<span v-html="boardHeartNum"></span>
-			<span v-html="plusHeart" v-on:click="boardHeart"></span>
-			<span v-html="plusClaim" v-on:click="makeClaim"></span>
+			<component v-bind:is="boardtag"></component>
 			<span>
 				<span v-html="tag" v-if="ifflag"></span>
 				<span v-html="repHeartNum" v-if="heartflag"></span>
@@ -99,10 +83,7 @@
 		<hr>
 		<h3>3</h3>
 		<div id="row3">
-			<span id="child3" v-on:click="comment"></span>
-			<span v-html="boardHeartNum"></span>
-			<span v-html="plusHeart" v-on:click="boardHeart"></span>
-			<span v-html="plusClaim" v-on:click="makeClaim"></span>
+			<component v-bind:is="boardtag"></component>
 			<span>
 				<span v-html="tag" v-if="ifflag"></span>
 				<span v-html="repHeartNum" v-if="heartflag"></span>
@@ -114,10 +95,7 @@
 		<hr>
 		<h3>4</h3>
 		<div id="row4">
-			<span id="child4" v-on:click="comment"></span>
-			<span v-html="boardHeartNum"></span>
-			<span v-html="plusHeart" v-on:click="boardHeart"></span>
-			<span v-html="plusClaim" v-on:click="makeClaim"></span>
+			<component v-bind:is="boardtag"></component>
 			<span>
 				<span v-html="tag" v-if="ifflag"></span>
 				<span v-html="repHeartNum" v-if="heartflag"></span>
@@ -129,10 +107,7 @@
 		<hr>
 		<h3>5</h3>
 		<div id="row5">
-			<span id="child5" v-on:click="comment"></span>
-			<span v-html="boardHeartNum"></span>
-			<span v-html="plusHeart" v-on:click="boardHeart"></span>
-			<span v-html="plusClaim" v-on:click="makeClaim"></span>
+			<component v-bind:is="boardtag"></component>
 			<span>
 				<span v-html="tag" v-if="ifflag"></span>
 				<span v-html="repHeartNum" v-if="heartflag"></span>
@@ -144,10 +119,7 @@
 		<hr>
 		<h3>6</h3>
 		<div id="row6">
-			<span id="child6" v-on:click="comment"></span>
-			<span v-html="boardHeartNum"></span>
-			<span v-html="plusHeart" v-on:click="boardHeart"></span>
-			<span v-html="plusClaim" v-on:click="makeClaim"></span>
+			<component v-bind:is="boardtag"></component>
 			<span>
 				<span v-html="tag" v-if="ifflag"></span>
 				<span v-html="repHeartNum" v-if="heartflag"></span>
@@ -159,10 +131,7 @@
 		<hr>
 		<h3>7</h3>
 		<div id="row7">
-			<span id="child7" v-on:click="comment"></span>
-			<span v-html="boardHeartNum"></span>
-			<span v-html="plusHeart" v-on:click="boardHeart"></span>
-			<span v-html="plusClaim" v-on:click="makeClaim"></span>
+			<component v-bind:is="boardtag"></component>
 			<span>
 				<span v-html="tag" v-if="ifflag"></span>
 				<span v-html="repHeartNum" v-if="heartflag"></span>
@@ -174,10 +143,7 @@
 		<hr>
 		<h3>8</h3>
 		<div id="row8">
-			<span id="child8" v-on:click="comment"></span>
-			<span v-html="boardHeartNum"></span>
-			<span v-html="plusHeart" v-on:click="boardHeart"></span>
-			<span v-html="plusClaim" v-on:click="makeClaim"></span>
+			<component v-bind:is="boardtag"></component>
 			<span>
 				<span v-html="tag" v-if="ifflag"></span>
 				<span v-html="repHeartNum" v-if="heartflag"></span>
@@ -189,10 +155,7 @@
 		<hr>
 		<h3>9</h3>
 		<div id="row9">
-			<span id="child9" v-on:click="comment"></span>
-			<span v-html="boardHeartNum"></span>
-			<span v-html="plusHeart" v-on:click="boardHeart"></span>
-			<span v-html="plusClaim" v-on:click="makeClaim"></span>
+			<component v-bind:is="boardtag"></component>
 			<span>
 				<span v-html="tag" v-if="ifflag"></span>
 				<span v-html="repHeartNum" v-if="heartflag"></span>
@@ -204,10 +167,7 @@
 		<hr>
 		<h3>10</h3>
 		<div id="row10">
-			<span id="child10" v-on:click="comment"></span>
-			<span v-html="boardHeartNum"></span>
-			<span v-html="plusHeart" v-on:click="boardHeart"></span>
-			<span v-html="plusClaim" v-on:click="makeClaim"></span>
+			<component v-bind:is="boardtag"></component>
 			<span>
 				<span v-html="tag" v-if="ifflag"></span>
 				<span v-html="repHeartNum" v-if="heartflag"></span>
@@ -249,73 +209,70 @@
 		var boardArray
 
 		// vue객체 받아줄 변수 리스트
-		var vueInstance = []
+		var vueInstance1 = []
+		var vueInstance2 = []
 
 		// sorting 종류 받을 변수
 		var sortKind
 
-		// 전체 게시글 수 얻어오기
-		function getCount() {
-			axios.get("http://127.0.0.1:8000/getCount")
-				.then(resData => {
-					count = resData.data
-				}).catch(error => {
-					console.log(error)
-				})
+
+
+		// var boardtag = {
+		// 	template : `<span>
+		// 					<span v-html="board" v-on:click="comment"></span>
+		// 					<span v-html="boardHeartNum"></span>
+		// 					<span v-html="plusHeart" v-on:click="boardHeart"></span>
+		// 					<span v-html="plusClaim" v-on:click="makeClaim"></span>
+		// 				</span>`
+		// }
+
+		var repTag = {
+			template : `<span>
+							<span v-html="tag" v-if="ifflag"></span>
+							<span v-html="repHeartNum" v-if="heartflag"></span>
+							<span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
+						</span>`
 		}
+		// <div id="app">
+		// 	<!-- 하위 컴포넌트에 상위 컴포넌트가 갖고 있는 message를 전달함 -->
+		// 	<child-component v-bind:propsdata="message"></child-component>
+		// </div>
 
-		function getBoard(pageNum, sorting) {
-			scKind = "desc"
-			if (sorting == undefined || sorting == "게시날짜") {
-				sortKind = "postingDate"
-			}else if(sorting == "개봉임박"){
-				sortKind = "openDate"
-				scKind = "asc"
-			}else if(sorting == "좋아요"){
-				sortKind = "heart"
-			}
+		Vue.component('boardtag', {
+				data () {
+					return {
+						board: vueInstance2[i - 1].board,
+						boardHeartNum: "가나다",
+						plusHeart: "",
+						plusClaim: ""
+					}
+				},
+				template: `<span>
+								<span v-html="board" v-on:click="comment"></span>
+								<span v-html="boardHeartNum"></span>
+								<span v-html="plusHeart" v-on:click="boardHeart"></span>
+								<span v-html="plusClaim" v-on:click="makeClaim"></span>
+							</span>`,
+				methods:{
+					comment: function(){
 
-			axios.get("http://127.0.0.1:8000/getHidden?page=" + pageNum + "&sort=" + sortKind + "," + scKind)
-				.then(resData => {
-					getCount()
-					boardArray = resData.data.content
-					setBoard(count, resData.data.content, pageNum)
-				}).catch(error => {
-					console.log(error)
-				})
-		}
-
-		function setBoard(boardCount, boardArray, pageNum) {
-			var forNum = boardCount - pageNum * 10 < 10 ? boardCount - pageNum * 10 : 10
-			for (let i = 0; i < forNum; i++) {
-				vueInstance[i].ifflag = false
-				vueInstance[i].heartflag = false
-				document.getElementById("child" + (i + 1)).innerHTML =
-					"id : " + boardArray[i].id + "<br>"
-					+ "contents : " + boardArray[i].contents + "<br>"
-					+ "hashtag : " + boardArray[i].hashtag + "<br>"
-					+ "postingDate : " + boardArray[i].postingDate + "<br>"
-					+ "openDate : " + boardArray[i].openDate + "<br>"
-					+ "claim : " + boardArray[i].claim + "<br>"
-					+ "nickname : " + boardArray[i].nickname + "<br>"
-					+ "category : " + boardArray[i].category + "<br>"
-					+ "좋아요 : "
-				vueInstance[i].boardHeartNum = boardArray[i].heart
-			}
-			for (let j = forNum; j < 10; j++) {
-				vueInstance[j].ifflag = false
-				vueInstance[j].heartflag = false
-				vueInstance[j].boardHeartNum = ""
-				vueInstance[j].plusHeart = ""
-				vueInstance[j].plusClaim = ""
-				document.getElementById("child" + (j + 1)).innerHTML = "<span></span>"
-			}
-		}
-
+					},
+					boardHeart: function(){
+						
+					},
+					makeClaim: function(){
+						
+					}
+				}
+			})
+			
 		for (let i = 1; i <= 10; i++) {
-			vueInstance[i - 1] = new Vue({
+
+			vueInstance2[i - 1] = new Vue({
 				el: "#row" + i,
 				data: {
+					boardtag: "boardtag",
+					board: "",
 					tag: "",
 					ifflag: false,
 					heartflag: false,
@@ -371,6 +328,91 @@
 					}
 				}
 			})
+
+		}
+
+		// 전체 게시글 수 얻어오기
+		function getCount() {
+			axios.get("http://127.0.0.1:8000/getCount")
+				.then(resData => {
+					count = resData.data
+				}).catch(error => {
+					console.log(error)
+				})
+		}
+
+		function getBoard(pageNum, sorting) {
+			scKind = "desc"
+			if (sorting == undefined || sorting == "게시날짜") {
+				sortKind = "postingDate"
+			}else if(sorting == "개봉임박"){
+				sortKind = "openDate"
+				scKind = "asc"
+			}else if(sorting == "좋아요"){
+				sortKind = "heart"
+			}
+
+			axios.get("http://127.0.0.1:8000/getHidden?page=" + pageNum + "&sort=" + sortKind + "," + scKind)
+				.then(resData => {
+					getCount()
+					boardArray = resData.data.content
+					setBoard(count, resData.data.content, pageNum)
+				}).catch(error => {
+					console.log(error)
+				})
+		}
+
+		// vueInstance1[i - 1] = Vue.component('boardtag', {
+		// 		data () {
+		// 			return {
+		// 				board: "asdasdasdasd",
+		// 				boardHeartNum: "가나다",
+		// 				plusHeart: "",
+		// 				plusClaim: ""
+		// 			}
+		// 		},
+		// 		template: `<span>
+		// 						<span v-html="board" v-on:click="comment"></span>
+		// 						<span v-html="boardHeartNum"></span>
+		// 						<span v-html="plusHeart" v-on:click="boardHeart"></span>
+		// 						<span v-html="plusClaim" v-on:click="makeClaim"></span>
+		// 					</span>`,
+		// 		methods:{
+		// 			comment: function(){
+
+		// 			},
+		// 			boardHeart: function(){
+						
+		// 			},
+		// 			makeClaim: function(){
+						
+		// 			}
+		// 		}
+		// 	})
+		
+		function setBoard(boardCount, boardArray, pageNum) {
+			var forNum = boardCount - pageNum * 10 < 10 ? boardCount - pageNum * 10 : 10
+			for (let i = 0; i < forNum; i++) {
+				vueInstance2[i].ifflag = false
+				vueInstance2[i].heartflag = false
+				vueInstance2[i].board = 
+				// // document.getElementById("child" + (i + 1)).innerHTML =
+				// 	"id : " + boardArray[i].id + "<br>"
+				// 	+ "contents : " + boardArray[i].contents + "<br>"
+				// 	+ "hashtag : " + boardArray[i].hashtag + "<br>"
+				// 	+ "postingDate : " + boardArray[i].postingDate + "<br>"
+				// 	+ "openDate : " + boardArray[i].openDate + "<br>"
+				// 	+ "claim : " + boardArray[i].claim + "<br>"
+				// 	+ "nickname : " + boardArray[i].nickname + "<br>"
+				// 	+ "category : " + boardArray[i].category + "<br>"
+				// 	+ "좋아요 : "
+				vueInstance2[i].boardHeartNum = boardArray[i].heart
+			}
+			for (let j = forNum; j < 10; j++) {
+				vueInstance2[j].ifflag = false
+				vueInstance2[j].heartflag = false
+				document.getElementById("child" + (j + 1)).innerHTML = "<span></span>"
+			}
 		}
 		
 		// innerHTML코드 반복문 함수화
@@ -452,12 +494,12 @@
 				+ "&repPostingDate=" + "20191218" + "&repHeart=" + 0 + "&repClaim=" + 0)
 				.then(resData => {
 					if (resData.data == 1) {
-						vueInstance[replyNum - 1].tag = "<br>유저아이디 : " + "young" + "<br>"
+						vueInstance2[replyNum - 1].tag = "<br>유저아이디 : " + "young" + "<br>"
 							+ "댓글 내용 : " + repContent + "<br>"
 							+ "게시 날짜 : " + "20191218" + "<br>"
 							+ "좋아요 : "
-						vueInstance[replyNum - 1].heartflag = !vueInstance[replyNum - 1].heartflag
-						vueInstance[replyNum - 1].repHeartNum = 0
+						vueInstance2[replyNum - 1].heartflag = !vueInstance2[replyNum - 1].heartflag
+						vueInstance2[replyNum - 1].repHeartNum = 0
 					} else {
 						alert("저장에 실패했습니다")
 					}

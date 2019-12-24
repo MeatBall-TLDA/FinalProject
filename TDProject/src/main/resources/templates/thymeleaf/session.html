@@ -5,7 +5,19 @@
 <title>Insert title here</title>
 </head>
 <body>
-<p th:text="${session.id}" th:unless="${session == null}"></p>
-<p th:text="${session.pw}" th:unless="${session == null}"></p>
+	<p th:text="${session.nickname}" th:unless="${session == null}"></p>
+	<p th:text="${session.email}" th:unless="${session == null}"></p>
+	<p th:text="${session.id}" th:unless="${session == null}"></p>
+
+	<form action="serviceName" method="post">
+		ServiceName:<br> <input id="serviceName" type="text" name="serviceName" value="틀다에서 사용할 닉네임을 입력 해주세요">
+		<button type="submit">완료</button>
+	</form>
+
+
+	<script th:inline="javascript">
+    var query =  [[${session.id}]];
+
+</script>
 </body>
 </html>

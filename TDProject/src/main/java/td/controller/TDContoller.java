@@ -2,13 +2,18 @@ package td.controller;
 
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import td.model.domain.ClientDTO;
@@ -30,6 +35,10 @@ public class TDContoller {
 		return service.findByIdClientDTO(id);
 	}
 	
+	@PostMapping("/serviceName")
+	public void saveClientDTO(@RequestParam("serviceName")String serviceName, HttpSession session) {
+		service.saveClientDTO(serviceName, session);
+	}
 	// =================================================================
 	
 	// 미공개 게시판 정보
@@ -61,9 +70,6 @@ public class TDContoller {
 	public void makeTest() {
 		service.makeTest();
 	}
-
-
-
 	
 	// =================================================================
 	
@@ -86,12 +92,12 @@ public class TDContoller {
 	public Optional<ReplyDTO> findByIdOpenReplyDTO(String id) {
 		return service.findByIdOpenReplyDTO(id);
 	}
-	
+
 
 
 	@GetMapping("/getReply")
-	public ReplyDTO getReply(String userId, String repBoardId) {
-		return service.getReply(userId, repBoardId);
+	public Iterable<ReplyDTO> getReply(String repBoardId) {
+		return service.getReply(repBoardId);
 	}
 	
 	@PostMapping("/saveReply")
@@ -126,8 +132,4 @@ public class TDContoller {
 	public Slice<HiddenBoardDTO> categorySearch(@PageableDefault(size = 10) Pageable pageable) {
 		return service.categorySearch(pageable, "A");
 	}
-	
-	// ========================================================================
-
-
 }
