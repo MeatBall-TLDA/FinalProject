@@ -1,7 +1,7 @@
 
 body {
     margin: 0;
-    font-family: 'Nanum Myeongjo', serif;
+    font-family: 'Nanum Pen Script', cursive;
     font-size: 1rem;
     font-weight: 900;
     line-height: 1.5;
@@ -21,7 +21,7 @@ body {
 	width:200px;
 }
 .container-login100{
-	font-family: 'Nanum Myeongjo', serif;
+	font-family: 'Nanum Pen Script', cursive;
 	opacity:0.8;
 	background: white;
 	width: 100%;
@@ -44,14 +44,17 @@ body {
 	box-sizing: border-box;
 }
 .p-b-40{
-	font-family: 'Nanum Myeongjo', serif;
+	font-family: 'Nanum Pen Script', cursive;
     font-weight: 900;
     color: black;
     font-size: 50px;
 }
  .txt1{
- font-family: 'Nanum Myeongjo', serif;
+ font-family: 'Nanum Pen Script', cursive;
     font-weight: 900;
     color: black;
     font-size: 22px;
- } 
+ }
+ .text-white{
+    color: white;
+ }

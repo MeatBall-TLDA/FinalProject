@@ -42,9 +42,7 @@
 <link rel="stylesheet" type="text/css" href="css/login_main.css">
 <link rel="stylesheet" type="text/css" href="css/style-login.css">
 <!--===============================================================================================-->
-
-
-<title></title>
+<title>LoginPage_After</title>
 </head>
 <body>
 	<c:if test="${userId eq null}">
@@ -83,8 +81,6 @@
 						<div class="text-center p-t-55 p-b-30">
 							<span class="txt1"> Not a wrong just different </span>
 						</div>
-
-
 					</form>
 				</div>
 			</div>

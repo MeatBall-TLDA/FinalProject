@@ -15,13 +15,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Document(indexName = "reply", type = "_doc")
 public class ReplyDTO {
-	@Id
-	private String id;
-	private String userId;
-	private String repBoardId;
-	private String repContents;
-	private String repPostingDate;
-	private Integer repHeart;
-	private Integer repClaim;
-	private ArrayList<String> plusHeartUserId;
+   @Id
+   private String id;
+   private String userId;
+   private String repBoardId;
+   private String repContents;
+   private String repPostingDate;
+   private Integer repHeart;
+   private Integer repClaim;
+   private ArrayList<String> plusHeartUserId;
 }

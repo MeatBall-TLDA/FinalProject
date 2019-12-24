@@ -460,6 +460,10 @@ pre {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto; }
+  .container-kim {
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto; }
   @media (min-width: 576px) {
     .container {
       max-width: 540px; } }
@@ -8035,8 +8039,7 @@ textarea.form-control {
   height: inherit !important; }
 
 textarea.form-control-cho {
-  height: 140px !important; 
-  width: -webkit-fill-available;}
+  height: 140px !important; }
 
 .ftco-animate {
   opacity: 0;

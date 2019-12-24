@@ -17,13 +17,11 @@
   });
 
 
-	var fullHeight = function() {
-
-		$('.js-fullheight').css('height', $(window).height());
-		$(window).resize(function(){
-			$('.js-fullheight').css('height', $(window).height());
-		});
-
+	function fullHeight() {
+		var btnHeigt = $(".loginbtn-1-kim").height();
+		var fullHeight = $(window).height();
+		
+		$('.js-fullheight').css({'height':(fullHeight-btnHeigt)+'px'});
 	};
 	fullHeight();
 
