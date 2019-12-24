@@ -11,20 +11,21 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 import td.model.domain.HiddenBoardDTO;
 
 public interface HiddenBoardRepository extends ElasticsearchRepository<HiddenBoardDTO, String> {
-	
-	Page<HiddenBoardDTO> findAll(Pageable pageable);
-	
-	long count();
+   
+   Page<HiddenBoardDTO> findAll(Pageable pageable);
+   
+   long count();
 
-	Page<HiddenBoardDTO> findByHashtagContaining(Pageable pageable, String hastag);
-	
-	Page<HiddenBoardDTO> findByCategoryContaining(Pageable pageable, String category);
-	
-	List<HiddenBoardDTO> findByOpenDate(String today);
+   Page<HiddenBoardDTO> findByHashtagContaining(Pageable pageable, String hastag);
+   
+   Page<HiddenBoardDTO> findByCategoryContaining(Pageable pageable, String category);
+   
+   List<HiddenBoardDTO> findByOpenDate(String today);
 
-	List<HiddenBoardDTO> findByid(int id);
-	
-	Optional<HiddenBoardDTO> findById(String id);
+   List<HiddenBoardDTO> findByid(int id);
+   
+   Optional<HiddenBoardDTO> findById(String id);
+   
+   Optional<HiddenBoardDTO> findById(int id);
 }
-
 

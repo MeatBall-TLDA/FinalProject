@@ -51,11 +51,23 @@ public class TDService {
 		}
 		return true;
 	}
-	
-	
+  
 	// 고객 정보
 	public Optional<ClientDTO> findByIdClientDTO(String id) {
 		return cRepo.findById(id);
+	}
+
+	public void saveClientDTO(String serviceName, HttpSession session) {
+		int id = Integer.parseInt((String) session.getAttribute("id"));
+		String nickName = session.getAttribute("nickname").toString();
+		String serviceName1 = serviceName.toString();
+		String email = session.getAttribute("email").toString();
+		boolean gg = true;
+
+		ClientDTO client = new ClientDTO(id, nickName, serviceName1, email, gg);
+		cRepo.save(client);
+
+		System.out.println(client);
 	}
 
 	// =================================================================
@@ -72,7 +84,7 @@ public class TDService {
 
 	// categorySearch
 	public Slice<HiddenBoardDTO> categorySearch(Pageable pageable, String category) {
-//		System.out.println(hRepo.findAllHashtag());
+//      System.out.println(hRepo.findAllHashtag());
 		return hRepo.findByCategoryContaining(pageable, category);
 	}
 	
@@ -113,6 +125,35 @@ public class TDService {
 //			System.out.println(aa);
 //		}
 //	}
+
+	// 공개 날짜에 맞추어 게시글 공개 메소드
+	public void moveToOpen() {
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
+		Date time = new Date();
+		String today = format1.format(time);
+
+		for (HiddenBoardDTO v : hRepo.findByOpenDate(today)) {
+			oRepo.save(new OpenBoardDTO(v.getId(), v.getContents(), v.getHashtag(), v.getOpenDate(), v.getHeart(),
+					v.getClaim(), v.getNickname(), v.getCategory(), null, null));
+			// hRepo.deleteById(v.getId());
+		}
+	}
+
+	// 오늘의 메세지 구현 중
+	public void sendMessage() {
+		Random r = new Random();
+
+		int hiddenboardCount = (int) hRepo.count();
+		int clientCount = (int) cRepo.count();
+		
+		int a[] = new int[hiddenboardCount];
+
+		// 회원수 만큼 for을 돌린다.
+		for (int i = 0; i < clientCount; i++) {
+			a[i] = r.nextInt(hiddenboardCount) + 1;
+			System.out.println(hRepo.findById(a[i]).get().getId());
+		}
+	}
 
 	public long getCount() {
 		return hRepo.count();
@@ -168,11 +209,12 @@ public class TDService {
 		}
 		return message;
 	}
-	
+  
 	// 게시글 좋아요 추가
 	public Integer plusHiddenBoardHeart(String nickname, String id) {
 		HiddenBoardDTO boardEntity = hRepo.findById(id).get();
 		ArrayList<String> plusHeartUserList = null;
+    
 		if(boardEntity.getPlusHeartUserId() != null && boardEntity.getPlusHeartUserId().size() != 0) {
 			plusHeartUserList = boardEntity.getPlusHeartUserId();
 		}else {
@@ -200,6 +242,7 @@ public class TDService {
 			hRepo.save(board);
 			result = true;
 		}
+    
 //		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 //		if (Integer.parseInt(board.getOpenDate()) > Integer.parseInt(format.format(new Date()))) {
 //			hRepo.save(board);
@@ -226,7 +269,7 @@ public class TDService {
 	public Optional<ReplyDTO> findByIdOpenReplyDTO(String id) {
 		return rRepo.findById(id);
 	}
-	
+
 	// 유저 ID와 게시판ID로 리플 가져오기
 	public Iterable<ReplyDTO> getReply(String repBoardId) {
 		return rRepo.findByRepBoardId(repBoardId);
@@ -249,18 +292,18 @@ public class TDService {
 		ReplyDTO entity = rRepo.findByUserIdAndRepBoardId(userId, repBoardId);
 		System.out.println(entity);
 		ArrayList<String> PlusHeartUserList = null;
-		if(entity.getPlusHeartUserId() != null && entity.getPlusHeartUserId().size() != 0) {
+		if (entity.getPlusHeartUserId() != null && entity.getPlusHeartUserId().size() != 0) {
 			PlusHeartUserList = entity.getPlusHeartUserId();
-		}else {
+		} else {
 			PlusHeartUserList = new ArrayList<>();
 		}
-		
-		if(judge(PlusHeartUserList, userId)) {
+
+		if (judge(PlusHeartUserList, userId)) {
 			PlusHeartUserList.add(userId);
 			entity.setRepHeart(entity.getRepHeart() + 1);
 			entity.setPlusHeartUserId(PlusHeartUserList);
 			rRepo.save(entity);
-		}else {
+		} else {
 			PlusHeartUserList.remove(userId);
 			entity.setRepHeart(entity.getRepHeart() - 1);
 			entity.setPlusHeartUserId(PlusHeartUserList);
@@ -268,19 +311,20 @@ public class TDService {
 		}
 		return entity.getRepHeart();
 	}
-	
+
 	// 리플에 좋아요 누른 사람들 가져오기
 	public Iterable<ReplyDTO> getReplyByPlusHeartUserId(String plusHeartUserId) {
 		return rRepo.findByPlusHeartUserId(plusHeartUserId);
 	}
-
 	// =================================================================
 
 	// 로그인 API
-	public String login(String code, HttpSession session) {
-		String access_Token = login.getAccessToken(code);
-		HashMap<String, Object> userInfo = login.getUserInfo(access_Token);
-		System.out.println("login Controller : " + userInfo);
+	public String kakaoLogin(String code, HttpSession session) {
+		String access_Token = login.getKakaoAccessToken(code);
+		HashMap<String, Object> userInfo = login.getKakaoUserInfo(access_Token);
+		session.setAttribute("id", userInfo.get("id"));
+		session.setAttribute("nickname", userInfo.get("nickname"));
+		session.setAttribute("email", userInfo.get("email"));
 		session.setAttribute("platform", "kakao");
 
 		// 클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
@@ -288,25 +332,27 @@ public class TDService {
 			session.setAttribute("userId", userInfo.get("email"));
 			session.setAttribute("access_Token", access_Token);
 		}
-		return "login";
+		return "/thymeleaf/session.html";
 	}
 
 	public String naverLogin(String code, String state, HttpSession session) throws IOException {
-
 		if (login.token(session, state) == true) {
 			String access_Token = login.getNaverAccessToken(code);
 			HashMap<String, Object> userInfo = login.getNaverUserInfo(access_Token);
-			System.out.println("login Controller : " + userInfo);
+			session.setAttribute("id", userInfo.get("id"));
+			session.setAttribute("nickname", userInfo.get("nickName"));
+			session.setAttribute("email", userInfo.get("email"));
 			session.setAttribute("platform", "naver");
+
 			// 클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
 			if (userInfo.get("email") != null) {
 				session.setAttribute("userId", userInfo.get("email"));
 				session.setAttribute("access_Token", access_Token);
 			}
-			return "login";
+			return "/thymeleaf/session.html";
 		}
 		// 추후 fail 뷰로 던짐
-		return "login";
+		return "/thymeleaf/session.html";
 	}
 
 	public String logout(HttpSession session) {
@@ -328,6 +374,5 @@ public class TDService {
 		// 추후 fail 뷰로 던짐
 		return "login";
 	}
-	   
-	
+
 }

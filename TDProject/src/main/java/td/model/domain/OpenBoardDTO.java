@@ -27,4 +27,3 @@ public class OpenBoardDTO {
 	  private ArrayList<String> plusHeartUserId;
 	  private ArrayList<String> claimHeartUserId;
 }
-

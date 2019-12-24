@@ -7,11 +7,13 @@ import java.util.ArrayList;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 @Document(indexName = "hidden_board", type = "_doc")
 public class HiddenBoardDTO {
@@ -33,4 +35,3 @@ public class HiddenBoardDTO {
 			this.hashtag = hashtag;
 		}
 }
-
