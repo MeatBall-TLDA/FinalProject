@@ -48,21 +48,21 @@ public class GeneralController {
 
 	
 	// 미공개 게시판 게시글 작성
-	@PostMapping("/saveHidden")
-	public String saveHiddenBoardDTO(HiddenBoardDTO board) {
-		String url = "";
-		if(service.saveHiddenBoardDTO(board)) {
-			url = "HiddenBoard";
-		}else {
-			url = "Error";
-		}
-		return url;
-	}
+//	@PostMapping("/saveHidden")
+//	public String saveHiddenBoardDTO(HiddenBoardDTO board) {
+//		String url = "";
+//		if(service.saveHiddenBoardDTO(board)) {
+//			url = "HiddenBoard";
+//		}else {
+//			url = "Error";
+//		}
+//		return url;
+//	}
 	
 	// =====================================
 	
 	// 로그인 API
-	@RequestMapping("/")
+	@RequestMapping("/login")
 	public String view(ModelMap model) {
 		return "/login";
 	}

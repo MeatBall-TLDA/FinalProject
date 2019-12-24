@@ -66,7 +66,6 @@
 				<div class="wrap-login100 p-t-90 p-b-30">
 					<form class="login100-form validate-form">
 						<span class="login100-form-title p-b-40"> 틀다 </span>
-
 						<div class="loginContainer">
 							<!-- 카카오 로그인 배너 -->
 							<a
@@ -82,8 +81,6 @@
 						<div class="text-center p-t-55 p-b-30">
 							<span class="txt1"> Not a wrong just different </span>
 						</div>
-
-
 					</form>
 				</div>
 			</div>

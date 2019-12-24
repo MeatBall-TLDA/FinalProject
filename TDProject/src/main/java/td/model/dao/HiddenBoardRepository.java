@@ -1,12 +1,13 @@
 package td.model.dao;
 
 
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 import td.model.domain.HiddenBoardDTO;
-import td.model.domain.ReplyDTO;
 
 public interface HiddenBoardRepository extends ElasticsearchRepository<HiddenBoardDTO, String> {
 	
@@ -20,6 +21,7 @@ public interface HiddenBoardRepository extends ElasticsearchRepository<HiddenBoa
 //	@Query(value = "{\"query\":{\"match_all\":{}},\"_source\":[\"hashtag\"]}")
 //	String findAllHashtag();
 
+	Optional<HiddenBoardDTO> findById(String id);
 }
 
 
