@@ -1,18 +1,16 @@
 package td.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import td.model.domain.HiddenBoardDTO;
 import td.service.TDService;
 
 @Controller
@@ -24,6 +22,11 @@ public class GeneralController {
 	@RequestMapping("/hidden")
 	public String goToHidden() {
 		return "/thymeleaf/HiddenBoard";
+	}
+	
+	@RequestMapping("/open")
+	public String goToOpen() {
+		return "/thymeleaf/OpenBoard";
 	}
 	
 	@RequestMapping("/travel")
@@ -45,19 +48,30 @@ public class GeneralController {
         session.invalidate();
         return "/thymeleaf/session.html";
     }
+	
+	// 공개 날짜에 맞추어 게시글 데이터 이동 메소드
+	@Scheduled(cron = "0 0 0 * * *")
+	public void moveToOpen() {
+		service.moveToOpen();
+	}
+
+//	@Scheduled(initialDelay = 30000, fixedDelay = 10000)
+//	public void sendMessage() {
+//		service.sendMessage();
+//	}
 
 	
 	// 미공개 게시판 게시글 작성
-	@PostMapping("/saveHidden")
-	public String saveHiddenBoardDTO(HiddenBoardDTO board) {
-		String url = "";
-		if(service.saveHiddenBoardDTO(board)) {
-			url = "HiddenBoard";
-		}else {
-			url = "Error";
-		}
-		return url;
-	}
+//	@PostMapping("/saveHidden")
+//	public String saveHiddenBoardDTO(HiddenBoardDTO board) {
+//		String url = "";
+//		if(service.saveHiddenBoardDTO(board)) {
+//			url = "HiddenBoard";
+//		}else {
+//			url = "Error";
+//		}
+//		return url;
+//	}
 	
 	// =====================================
 	
