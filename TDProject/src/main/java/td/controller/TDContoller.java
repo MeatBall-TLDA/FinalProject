@@ -45,17 +45,22 @@ public class TDContoller {
 		return service.getCount();
 	}
 	
-
-//	@PostMapping("/plusBoardHeart")
-//	public
+	// 게시글 좋아요 누를 때 +1 이미 눌렀으면 -1
+	@PostMapping("/plusBoardHeart")
+	public Integer plusHiddenBoardHeart(String nickname, String id) {
+		return service.plusHiddenBoardHeart(nickname, id);
+	}
 	
-//	@GetMapping("/makeTest")
-//	public void makeTest() {
-//		service.makeTest();
-//	}
-
-
-
+	// 게시글 신고하기 누를때 +1 이미 눌렀으면 이미신고했다는 메시지 반환
+	@PostMapping("/plusBoardClaim")
+	public String plusHiddenBoardClaim(String nickname, String id) {
+		return service.plusHiddenBoardClaim(nickname, id);
+	}
+	
+	@GetMapping("/makeTest")
+	public void makeTest() {
+		service.makeTest();
+	}
 	
 	// =================================================================
 	
@@ -78,11 +83,10 @@ public class TDContoller {
 	public Optional<ReplyDTO> findByIdOpenReplyDTO(String id) {
 		return service.findByIdOpenReplyDTO(id);
 	}
-	
 
 	@GetMapping("/getReply")
-	public ReplyDTO getReply(String userId, String boardId) {
-		return service.getReply(userId, boardId);
+	public Iterable<ReplyDTO> getReply(String repBoardId) {
+		return service.getReply(repBoardId);
 	}
 	
 	@PostMapping("/saveReply")
@@ -95,10 +99,10 @@ public class TDContoller {
 	}
 
 
-//	좋아요 누를 때 +1 이미 눌렀으면 -1
+//	댓글 좋아요 누를 때 +1 이미 눌렀으면 -1
 	@PostMapping("/plusHeart")
-	public Integer plusHeart(String userId, String repBoardId) {
-		return service.plusHeart(userId, repBoardId);
+	public Integer plusRepHeart(String userId, String repBoardId) {
+		return service.plusRepHeart(userId, repBoardId);
 	}
 	
 	// 유저 ID로 유저가 좋아요한 모든 댓글정보 가져오기

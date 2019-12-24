@@ -1,382 +1,484 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
+
    <meta charset="UTF-8">
    <title>Insert title here</title>
+
    <style type="text/css">
-      h3,
+      /* h3,
       div.row,
       div.notRow {
          padding-left: 30px;
          padding-top: 5px;
+      } */
+
+      /* div#content {
+         text-align: center;
+      } */
+
+      /* body {
+         text-align: center;
+      } */
+      /* #topheader .pagination li>a {
+         text-transform: capitalize;
+         color: #333;
+         transition: background-color .2s, color .2s;
+         text-align: justify;
+            justify-content: center;
+
       }
 
-      div#paging {
-         text-align: center;
-      }
-
-      div#content {
-         text-align: center;
-      }
+      #topheader .pagination li.active>a {
+         background-color: #333;
+         color: #fff;
+      } */
    </style>
+
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+
 </head>
+
 <body>
-	<div id="content">
-		<h3>1</h3>
-		<div id="row1" class="row">
-			<span id="child1" v-on:click="comment"></span>
-			<span v-html="boardHeartNum"></span>
-			<span v-html="plusBoardHeart" v-on:click="boardHeart"></span>
-			<span>
-				<span v-html="tag" v-if="ifflag"></span>
-				<span v-html="repHeartNum" v-if="heartflag"></span>
-				<span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
-			</span>
+   <div id="dropdown" class="navbar-nav d-flex flex-row ml-3">
+      <div class="nav-item dropdown">
+         <a class="nav-link dropdown-toggle" id="navbarDropdown1" aria-haspopup="true" aria-expanded="false"
+            data-toggle="dropdown" href="">
+            정렬하기
+         </a>
+         <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+            <a id="sorting1" class="dropdown-item" href="#" onclick="getBoardAndSetPage(0, document.getElementById('sorting1').innerText)">개봉임박</a>
+            <a id="sorting2" class="dropdown-item" href="#" onclick="getBoardAndSetPage(0, document.getElementById('sorting2').innerText)">게시날짜</a>
+            <a id="sorting3" class="dropdown-item" href="#" onclick="getBoardAndSetPage(0, document.getElementById('sorting3').innerText)">좋아요</a>
+         </div>
+      </div>
+      <!-- <div class="nav-item dropdown px-3">
+         <a class="nav-link dropdown-toggle" id="navbarDropdown2" aria-haspopup="true" aria-expanded="false"
+            data-toggle="dropdown" href="">
+            차순
+         </a>
+         <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+            <a id="sc1" class="dropdown-item" href="#" onclick="getBoard()">오름차순</a>
+            <a id="sc2" class="dropdown-item" href="#" onclick="getBoard()">내림차순</a>
+         </div>
+      </div> -->
+   </div>
+   <div id="content" class="py-5 text-center">
+      <h3>1</h3>
+      <div id="row1">
+         <span id="child1" v-on:click="comment"></span>
+         <span v-html="boardHeartNum"></span>
+         <span v-html="plusHeart" v-on:click="boardHeart"></span>
+         <span v-html="plusClaim" v-on:click="makeClaim"></span>
+         <span>
+            <span v-html="tag" v-if="ifflag"></span>
+            <span v-html="repHeartNum" v-if="heartflag"></span>
+            <span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
+         </span>
 
-		</div>
-		<br>
-		<hr>
-		<h3>2</h3>
-		<div id="row2" class="row">
-			<span id="child2" v-on:click="comment"></span>
-			<span v-html="boardHeartNum"></span>
-			<span v-html="plusBoardHeart" v-on:click="boardHeart"></span>
-			<span>
-				<span v-html="tag" v-if="ifflag"></span>
-				<span v-html="repHeartNum" v-if="heartflag"></span>
-				<span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
-			</span>
+      </div>
+      <br>
+      <hr>
+      <h3>2</h3>
+      <div id="row2">
+         <span id="child2" v-on:click="comment"></span>
+         <span v-html="boardHeartNum"></span>
+         <span v-html="plusHeart" v-on:click="boardHeart"></span>
+         <span v-html="plusClaim" v-on:click="makeClaim"></span>
+         <span>
+            <span v-html="tag" v-if="ifflag"></span>
+            <span v-html="repHeartNum" v-if="heartflag"></span>
+            <span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
+         </span>
 
-		</div>
-		<br>
-		<hr>
-		<h3>3</h3>
-		<div id="row3" class="row">
-			<span id="child3" v-on:click="comment"></span>
-			<span v-html="boardHeartNum"></span>
-			<span v-html="plusBoardHeart" v-on:click="boardHeart"></span>
-			<span>
-				<span v-html="tag" v-if="ifflag"></span>
-				<span v-html="repHeartNum" v-if="heartflag"></span>
-				<span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
-			</span>
+      </div>
+      <br>
+      <hr>
+      <h3>3</h3>
+      <div id="row3">
+         <span id="child3" v-on:click="comment"></span>
+         <span v-html="boardHeartNum"></span>
+         <span v-html="plusHeart" v-on:click="boardHeart"></span>
+         <span v-html="plusClaim" v-on:click="makeClaim"></span>
+         <span>
+            <span v-html="tag" v-if="ifflag"></span>
+            <span v-html="repHeartNum" v-if="heartflag"></span>
+            <span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
+         </span>
 
-		</div>
-		<br>
-		<hr>
-		<h3>4</h3>
-		<div id="row4" class="row">
-			<span id="child4" v-on:click="comment"></span>
-			<span v-html="boardHeartNum"></span>
-			<span v-html="plusBoardHeart" v-on:click="boardHeart"></span>
-			<span>
-				<span v-html="tag" v-if="ifflag"></span>
-				<span v-html="repHeartNum" v-if="heartflag"></span>
-				<span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
-			</span>
+      </div>
+      <br>
+      <hr>
+      <h3>4</h3>
+      <div id="row4">
+         <span id="child4" v-on:click="comment"></span>
+         <span v-html="boardHeartNum"></span>
+         <span v-html="plusHeart" v-on:click="boardHeart"></span>
+         <span v-html="plusClaim" v-on:click="makeClaim"></span>
+         <span>
+            <span v-html="tag" v-if="ifflag"></span>
+            <span v-html="repHeartNum" v-if="heartflag"></span>
+            <span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
+         </span>
 
-		</div>
-		<br>
-		<hr>
-		<h3>5</h3>
-		<div id="row5" class="row">
-			<span id="child5" v-on:click="comment"></span>
-			<span v-html="boardHeartNum"></span>
-			<span v-html="plusBoardHeart" v-on:click="boardHeart"></span>
-			<span>
-				<span v-html="tag" v-if="ifflag"></span>
-				<span v-html="repHeartNum" v-if="heartflag"></span>
-				<span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
-			</span>
+      </div>
+      <br>
+      <hr>
+      <h3>5</h3>
+      <div id="row5">
+         <span id="child5" v-on:click="comment"></span>
+         <span v-html="boardHeartNum"></span>
+         <span v-html="plusHeart" v-on:click="boardHeart"></span>
+         <span v-html="plusClaim" v-on:click="makeClaim"></span>
+         <span>
+            <span v-html="tag" v-if="ifflag"></span>
+            <span v-html="repHeartNum" v-if="heartflag"></span>
+            <span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
+         </span>
 
-		</div>
-		<br>
-		<hr>
-		<h3>6</h3>
-		<div id="row6" class="row">
-			<span id="child6" v-on:click="comment"></span>
-			<span v-html="boardHeartNum"></span>
-			<span v-html="plusBoardHeart" v-on:click="boardHeart"></span>
-			<span>
-				<span v-html="tag" v-if="ifflag"></span>
-				<span v-html="repHeartNum" v-if="heartflag"></span>
-				<span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
-			</span>
+      </div>
+      <br>
+      <hr>
+      <h3>6</h3>
+      <div id="row6">
+         <span id="child6" v-on:click="comment"></span>
+         <span v-html="boardHeartNum"></span>
+         <span v-html="plusHeart" v-on:click="boardHeart"></span>
+         <span v-html="plusClaim" v-on:click="makeClaim"></span>
+         <span>
+            <span v-html="tag" v-if="ifflag"></span>
+            <span v-html="repHeartNum" v-if="heartflag"></span>
+            <span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
+         </span>
 
-		</div>
-		<br>
-		<hr>
-		<h3>7</h3>
-		<div id="row7" class="row">
-			<span id="child7" v-on:click="comment"></span>
-			<span v-html="boardHeartNum"></span>
-			<span v-html="plusBoardHeart" v-on:click="boardHeart"></span>
-			<span>
-				<span v-html="tag" v-if="ifflag"></span>
-				<span v-html="repHeartNum" v-if="heartflag"></span>
-				<span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
-			</span>
+      </div>
+      <br>
+      <hr>
+      <h3>7</h3>
+      <div id="row7">
+         <span id="child7" v-on:click="comment"></span>
+         <span v-html="boardHeartNum"></span>
+         <span v-html="plusHeart" v-on:click="boardHeart"></span>
+         <span v-html="plusClaim" v-on:click="makeClaim"></span>
+         <span>
+            <span v-html="tag" v-if="ifflag"></span>
+            <span v-html="repHeartNum" v-if="heartflag"></span>
+            <span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
+         </span>
 
-		</div>
-		<br>
-		<hr>
-		<h3>8</h3>
-		<div id="row8" class="row">
-			<span id="child8" v-on:click="comment"></span>
-			<span v-html="boardHeartNum"></span>
-			<span v-html="plusBoardHeart" v-on:click="boardHeart"></span>
-			<span>
-				<span v-html="tag" v-if="ifflag"></span>
-				<span v-html="repHeartNum" v-if="heartflag"></span>
-				<span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
-			</span>
+      </div>
+      <br>
+      <hr>
+      <h3>8</h3>
+      <div id="row8">
+         <span id="child8" v-on:click="comment"></span>
+         <span v-html="boardHeartNum"></span>
+         <span v-html="plusHeart" v-on:click="boardHeart"></span>
+         <span v-html="plusClaim" v-on:click="makeClaim"></span>
+         <span>
+            <span v-html="tag" v-if="ifflag"></span>
+            <span v-html="repHeartNum" v-if="heartflag"></span>
+            <span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
+         </span>
 
-		</div>
-		<br>
-		<hr>
-		<h3>9</h3>
-		<div id="row9" class="row">
-			<span id="child9" v-on:click="comment"></span>
-			<span v-html="boardHeartNum"></span>
-			<span v-html="plusBoardHeart" v-on:click="boardHeart"></span>
-			<span>
-				<span v-html="tag" v-if="ifflag"></span>
-				<span v-html="repHeartNum" v-if="heartflag"></span>
-				<span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
-			</span>
+      </div>
+      <br>
+      <hr>
+      <h3>9</h3>
+      <div id="row9">
+         <span id="child9" v-on:click="comment"></span>
+         <span v-html="boardHeartNum"></span>
+         <span v-html="plusHeart" v-on:click="boardHeart"></span>
+         <span v-html="plusClaim" v-on:click="makeClaim"></span>
+         <span>
+            <span v-html="tag" v-if="ifflag"></span>
+            <span v-html="repHeartNum" v-if="heartflag"></span>
+            <span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
+         </span>
 
-		</div>
-		<br>
-		<hr>
-		<h3>10</h3>
-		<div id="row10" class="row">
-			<span id="child10" v-on:click="comment"></span>
-			<span v-html="boardHeartNum"></span>
-			<span v-html="plusBoardHeart" v-on:click="boardHeart"></span>
-			<span>
-				<span v-html="tag" v-if="ifflag"></span>
-				<span v-html="repHeartNum" v-if="heartflag"></span>
-				<span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
-			</span>
+      </div>
+      <br>
+      <hr>
+      <h3>10</h3>
+      <div id="row10">
+         <span id="child10" v-on:click="comment"></span>
+         <span v-html="boardHeartNum"></span>
+         <span v-html="plusHeart" v-on:click="boardHeart"></span>
+         <span v-html="plusClaim" v-on:click="makeClaim"></span>
+         <span>
+            <span v-html="tag" v-if="ifflag"></span>
+            <span v-html="repHeartNum" v-if="heartflag"></span>
+            <span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
+         </span>
+      </div>
+   </div>
 
-		</div>
-	</div>
-	<div id="paging">
-		<a id="pageNum1" onclick="getBoard(0)" href="javascript:void(0)">1</a>
-		<a id="pageNum1" onclick="getBoard(1)" href="javascript:void(0)">2</a>
-		<a id="pageNum1" onclick="getBoard(2)" href="javascript:void(0)">3</a>
-		<a id="pageNum1" onclick="getBoard(3)" href="javascript:void(0)">4</a>
-		<a id="pageNum1" onclick="getBoard(4)" href="javascript:void(0)">5</a>
-		<a id='nextPage' onclick='setPaging(1)' href='javascript:void(0)'>다음</a>
-	</div>
+   <div id="topheader">
+      <ul id="paging" class="pagination justify-content-center">
+         <li class="page-item active"><a class="page-link" id="pageNum1" onclick="getBoard(0)" href="javascript:void(0)">1</a></li>
+         <li class="page-item"><a class="page-link" id="pageNum2" onclick="getBoard(1)" href="javascript:void(0)">2</a></li>
+         <li class="page-item"><a class="page-link" id="pageNum3" onclick="getBoard(2)" href="javascript:void(0)">3</a></li>
+         <li class="page-item"><a class="page-link" id="pageNum4" onclick="getBoard(3)" href="javascript:void(0)">4</a></li>
+         <li class="page-item"><a class="page-link" id="pageNum5" onclick="getBoard(4)" href="javascript:void(0)">5</a></li>
+         <li class="page-item"><a class="page-link" onclick="setPaging(1)" href="javascript:void(0)">다음</a></li>
+      </ul>
+   </div>
 
 
-	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-	<script type="text/javascript">
-		// 전체 게시글 수 받을 변수
-		var count
+   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+   <script src="../../js/axios.js"></script>
+   <script type="text/javascript">
 
-		// 전체 게시글 리스트
-		var boardArray
 
-		// vue객체 받아줄 변수 리스트
-		var vueInstance = []
+      // 전체 게시글 수 받을 변수
+      var count
 
-		// 전체 게시글 수 얻어오기
-		function getCount() {
-			axios.get("http://127.0.0.1:8000/getCount")
-				.then(resData => {
-					count = resData.data
-				}).catch(error => {
-					console.log(error)
-				})
-		}
+      // 전체 게시글 리스트
+      var boardArray
 
-		function getBoard(pageNum) {
-			axios.get("http://127.0.0.1:8000/getHidden?page=" + pageNum + "&sort=hashtag,desc")
-				.then(resData => {
-					getCount()
-					boardArray = resData.data.content
-					setBoard(count, resData.data.content, pageNum)
-				}).catch(error => {
-					console.log(error)
-				})
-		}
+      // vue객체 받아줄 변수 리스트
+      var vueInstance = []
 
-		// 유저 ID로 유저가 좋아요한 모든 댓글정보 가져오기
-		// axios.get("http://127.0.0.1:8000/getPlusHeart?plusHeartUserId=young")
-		// 		.then(resData => {
-		// 			console.log(resData.data)
-		// 		}).catch(error => {
-		// 			console.log(error)
-		// 		})
+      // sorting 종류 받을 변수
+      var sortKind
 
-		function setBoard(boardCount, boardArray, pageNum) {
-			var forNum = boardCount - pageNum * 10 < 10 ? boardCount - pageNum * 10 : 10
-			for (let i = 0; i < forNum; i++) {
-				vueInstance[i].ifflag = false
-				vueInstance[i].heartflag = false
-				document.getElementById("child" + (i + 1)).innerHTML =
-					"id : " + boardArray[i].id + "<br>"
-					+ "contents : " + boardArray[i].contents + "<br>"
-					+ "hashtag : " + boardArray[i].hashtag + "<br>"
-					+ "postingDate : " + boardArray[i].postingDate + "<br>"
-					+ "openDate : " + boardArray[i].openDate + "<br>"
-					+ "heart : " + boardArray[i].heart + "<br>"
-					+ "claim : " + boardArray[i].claim + "<br>"
-					+ "nickname : " + boardArray[i].nickname + "<br>"
-					+ "category : " + boardArray[i].category + "<br>"
-			}
-			for (let j = forNum; j < 10; j++) {
-				vueInstance[j].ifflag = false
-				vueInstance[j].heartflag = false
-				document.getElementById("child" + (j + 1)).innerHTML = "<span></span>"
-			}
-		}
+      // 전체 게시글 수 얻어오기
+      function getCount() {
+         axios.get("http://127.0.0.1:8000/getCount")
+            .then(resData => {
+               count = resData.data
+            }).catch(error => {
+               console.log(error)
+            })
+      }
 
-		var boardTag = {
-			template: `<span v-html="boardHeartNum"></span>`
-		}
+      function getBoard(pageNum, sorting) {
+         scKind = "desc"
+         if (sorting == undefined || sorting == "게시날짜") {
+            sortKind = "postingDate"
+         }else if(sorting == "개봉임박"){
+            sortKind = "openDate"
+            scKind = "asc"
+         }else if(sorting == "좋아요"){
+            sortKind = "heart"
+         }
 
-		for (let i = 1; i <= 10; i++) {
-			vueInstance[i - 1] = new Vue({
-				el: "#row" + i,
-				data: {
-					tag: "",
-					ifflag: false,
-					heartflag: false,
-					boardHeartNum: 0,
-					repHeartNum: 0,
-					plusBoardHeart: "<button>좋아요누르기</button>",
-					plusHeart: "<button>좋아요누르기</button>"
-				},
-				components: {
-					"heart": boardTag
-				},
-				methods: {
-					comment: function () {
-						axios.get("http://127.0.0.1:8000/getReply?userId=" + "young" + "&repBoardId=" + boardArray[i - 1].id)
-							.then(resData => {
-								if (resData.data == "") {
-									this.ifflag = true
-									this.heartflag = false
-									this.tag = "<br><input id='input" + i + "' placeholder='5자이상 입력해주세요'></input><button onclick='makeReply(" + i + ")'>댓글 남기기</button>"
-								} else {
-									this.repHeartNum = resData.data.repHeart
-									this.ifflag = !this.ifflag
-									this.heartflag = !this.heartflag
-									this.tag = "<br>유저아이디 : " + resData.data.userId + "<br>"
-										+ "댓글 내용 : " + resData.data.repContents + "<br>"
-										+ "게시 날짜 : " + resData.data.repPostingDate + "<br>"
-										+ "좋아요 : "
-								}
-							}).catch(error => {
-								console.log(error)
-							})
-					},
-					repHeart: function () {
-						axios.post("http://127.0.0.1:8000/plusHeart?userId=" + "dfgdfgfdgdfg" + "&repBoardId=" + boardArray[i - 1].id)
-							.then(resData => {
-								this.repHeartNum = resData.data
-							}).catch(error => {
-								console.log(error)
-							})
-					},
-					boardHeart: function () {
-						axios.post("http://127.0.0.1:8000/plusBoardHeart?userId=" + "dfgdfgfdgdfg" + "&repBoardId=" + boardArray[i - 1].id)
-							.then(resData => {
-								this.repHeartNum = resData.data
-							}).catch(error => {
-								console.log(error)
-							})
-					}
-				}
-			})
-		}
+         axios.get("http://127.0.0.1:8000/getHidden?page=" + pageNum + "&sort=" + sortKind + "," + scKind)
+            .then(resData => {
+               getCount()
+               boardArray = resData.data.content
+               setBoard(count, resData.data.content, pageNum)
+            }).catch(error => {
+               console.log(error)
+            })
+      }
 
-		function makeReply(replyNum) {
-			var repContent = document.getElementById("input" + replyNum).value
-			axios.post("http://127.0.0.1:8000/saveReply?userId=" + "young" + "&repBoardId=" + boardArray[replyNum - 1].id + "&repContents=" + repContent
-				+ "&repPostingDate=" + "20191218" + "&repHeart=" + 0 + "&repClaim=" + 0)
-				.then(resData => {
-					if (resData.data == 1) {
-						vueInstance[replyNum - 1].tag = "<br>유저아이디 : " + "young" + "<br>"
-							+ "댓글 내용 : " + repContent + "<br>"
-							+ "게시 날짜 : " + "20191218" + "<br>"
-							+ "좋아요 : "
-						vueInstance[replyNum - 1].heartflag = !vueInstance[replyNum - 1].heartflag
-						vueInstance[replyNum - 1].repHeartNum = 0
-					} else {
-						alert("저장에 실패했습니다")
-					}
-				}).catch(error => {
-					console.log(error)
-				})
-		}
+      function setBoard(boardCount, boardArray, pageNum) {
+         var forNum = boardCount - pageNum * 10 < 10 ? boardCount - pageNum * 10 : 10
+         for (let i = 0; i < forNum; i++) {
+            vueInstance[i].ifflag = false
+            vueInstance[i].heartflag = false
+            document.getElementById("child" + (i + 1)).innerHTML =
+               "id : " + boardArray[i].id + "<br>"
+               + "contents : " + boardArray[i].contents + "<br>"
+               + "hashtag : " + boardArray[i].hashtag + "<br>"
+               + "postingDate : " + boardArray[i].postingDate + "<br>"
+               + "openDate : " + boardArray[i].openDate + "<br>"
+               + "claim : " + boardArray[i].claim + "<br>"
+               + "nickname : " + boardArray[i].nickname + "<br>"
+               + "category : " + boardArray[i].category + "<br>"
+               + "좋아요 : "
+            vueInstance[i].boardHeartNum = boardArray[i].heart
+         }
+         for (let j = forNum; j < 10; j++) {
+            vueInstance[j].ifflag = false
+            vueInstance[j].heartflag = false
+            document.getElementById("child" + (j + 1)).innerHTML = "<span></span>"
+         }
+      }
 
-		// 페이징 처리 로직
-		function setPaging(direction) {
-			// 실시간 전체 게시글 수 동기화
-			getCount()
+      for (let i = 1; i <= 10; i++) {
+         vueInstance[i - 1] = new Vue({
+            el: "#row" + i,
+            data: {
+               tag: "",
+               ifflag: false,
+               heartflag: false,
+               boardHeartNum: 0,
+               repHeartNum: 0,
+               plusHeart: "<button>좋아요누르기</button>",
+               plusClaim: "<button>신고하기</button>"
+            },
+            methods: {
+               comment: function () {
+                  axios.get("http://127.0.0.1:8000/getReply?repBoardId=" + boardArray[i - 1].id)
+                     .then(resData => {
+                        if (resData.data.length == 0) {
+                           this.ifflag = true
+                           this.heartflag = false
+                           this.tag = "<br><input id='input" + i + "' placeholder='5자이상 입력해주세요'></input><button onclick='makeReply(" + i + ")'>댓글 남기기</button>"
+                        } else {
+                           this.repHeartNum = resData.data[0].repHeart
+                           this.ifflag = !this.ifflag
+                           this.heartflag = !this.heartflag
+                           this.tag = "<br>유저아이디 : " + resData.data[0].userId + "<br>"
+                              + "댓글 내용 : " + resData.data[0].repContents + "<br>"
+                              + "게시 날짜 : " + resData.data[0].repPostingDate + "<br>"
+                              + "좋아요 : "
+                        }
+                     }).catch(error => {
+                        console.log(error)
+                     })
+               },
+               repHeart: function () {
+                  axios.post("http://127.0.0.1:8000/plusHeart?userId=" + "young" + "&repBoardId=" + boardArray[i - 1].id)
+                     .then(resData => {
+                        this.repHeartNum = resData.data
+                     }).catch(error => {
+                        console.log(error)
+                     })
+               },
+               boardHeart: function () {
+                  axios.post("http://127.0.0.1:8000/plusBoardHeart?nickname=" + "young" + "&id=" + boardArray[i - 1].id)
+                     .then(resData => {
+                        this.boardHeartNum = resData.data
+                     }).catch(error => {
+                        console.log(error)
+                     })
+               },
+               makeClaim: function () {
+                  axios.post("http://127.0.0.1:8000/plusBoardClaim?nickname=" + "young" + "&id=" + boardArray[i - 1].id)
+                     .then(resData => {
+                        alert(resData.data)
+                     }).catch(error => {
+                        console.log(error)
+                     })
+               }
+            }
+         })
+      }
+      
+      // innerHTML코드 반복문 함수화
+      function setPageNumber(direction, pageNum, loopNum) {
+         paging = ""
+         for (var i = 1; i <= loopNum; i++) {
+            if (i == 1 && direction == 1) {
+               paging += " <li class='page-item active'><a class='page-link' id='pageNum" + i + "' onclick='getBoard(" + (pageNum + i - 1) + ",\"sortKind\")' href='javascript:void(0)'>" + (pageNum + i) + "</a></li>"
+            } else if (i == loopNum && direction == 2) {
+               paging += " <li class='page-item active'><a class='page-link' id='pageNum" + i + "' onclick='getBoard(" + (pageNum + i - 1) + ",\"sortKind\")' href='javascript:void(0)'>" + (pageNum + i) + "</a></li>"
+            } else {
+               paging += " <li class='page-item'><a class='page-link' id='pageNum" + i + "' onclick='getBoard(" + (pageNum + i - 1) + ",\"sortKind\")' href='javascript:void(0)'>" + (pageNum + i) + "</a></li>"
+            }
+         }
+         return paging
+      }
+      
+      // 페이징 처리 로직
+      function setPaging(direction) {
+         // 실시간 전체 게시글 수 동기화
+         getCount()
 
-			// innerHTML 받아줄 변수 선언
-			var paging = ""
+         // innerHTML 받아줄 변수 선언
+         var paging = ""
 
-			// 페이징 처리를 위해 기준값 계산
-			var standard = parseInt(document.getElementById('pageNum1').innerText / 5)
+         // 페이징 처리를 위해 기준값 계산
+         var standard = parseInt(document.getElementById('pageNum1').innerText / 5)
+         var nowNum = Number(document.getElementById('pageNum1').innerText) + 4
 
-			var nowNum = Number(document.getElementById('pageNum1').innerText) + 4
+         // 끝나는 페이지값 계산
+         var endPoint = parseInt(count / 10) + 1
+         parseInt(count / 10) + 1
 
-			// 끝나는 페이지값 계산
-			var endPoint = parseInt(count / 10) + 1
-			parseInt(count / 10) + 1
+         // 실제로 들어갈 페이지값
+         var nextPage = (standard + 1) * 5
+         var prevPage = (standard - 1) * 5
 
-			// 실제로 들어갈 페이지값
-			var nextPage = (standard + 1) * 5
-			var prevPage = (standard - 1) * 5
+         // 반복되는 구문 초기화
+         const next = " <li class='page-item'><a class='page-link' onclick='setPaging(1)' href='javascript:void(0)'>다음</a></li>"
+         const prev = "<li class='page-item'><a class='page-link' onclick='setPaging(2)' href='javascript:void(0)'>이전</a></li>"
 
-			// 반복되는 구문 초기화
-			const next = " <a id='nextPage' onclick='setPaging(1)' href='javascript:void(0)'>다음</a>"
-			const prev = "<a id='prevPage' onclick='setPaging(2)' href='javascript:void(0)'>이전</a>"
+         // 다음버튼 클릭시
+         if (direction == 1) {
+            getBoard(nextPage)
+            paging = prev
+            paging += Number(nowNum) + 5 > endPoint ? setPageNumber(direction, nextPage, endPoint - (standard + 1) * 5) : setPageNumber(direction, nextPage, 5) + next
+         // 이전버튼 클릭시   
+         } else {
+            getBoard(prevPage + 4)
+            paging += standard == 1 ? setPageNumber(direction, prevPage, 5) : prev + setPageNumber(direction, prevPage, 5)
+            paging += next
+         }
+         document.getElementById("paging").innerHTML = paging
+      }
 
-			// 다음버튼 클릭시
-			if (direction == 1) {
-				getBoard(nextPage)
-				paging = prev
-				paging += Number(nowNum) + 5 > endPoint ? setPageNumber(nextPage, endPoint - (standard + 1) * 5) : setPageNumber(nextPage, 5) + next
-				// 이전버튼 클릭시	
-			} else {
-				getBoard(prevPage + 4)
-				paging += standard == 1 ? setPageNumber(prevPage, 5) : prev + setPageNumber(prevPage, 5)
-				paging += next
-			}
-			document.getElementById("paging").innerHTML = paging
-		}
+      function getBoardAndSetPage(pageNum, sorting){
+         getBoard(pageNum, sorting)
+         if(count < 50){
+            document.getElementById("paging").innerHTML = setPageNumber(1, 0, parseInt((count - 1) / 10) + 1)
+         }else{
+            document.getElementById("paging").innerHTML = `<li class="page-item active"><a class="page-link" id="pageNum1" onclick="getBoard(0)" href="javascript:void(0)">1</a></li>
+         <li class="page-item"><a class="page-link" id="pageNum2" onclick="getBoard(1)" href="javascript:void(0)">2</a></li>
+         <li class="page-item"><a class="page-link" id="pageNum3" onclick="getBoard(2)" href="javascript:void(0)">3</a></li>
+         <li class="page-item"><a class="page-link" id="pageNum4" onclick="getBoard(3)" href="javascript:void(0)">4</a></li>
+         <li class="page-item"><a class="page-link" id="pageNum5" onclick="getBoard(4)" href="javascript:void(0)">5</a></li>
+         <li class="page-item"><a class="page-link" onclick="setPaging(1)" href="javascript:void(0)">다음</a></li>`
+         }
+      }
+      
+      // 페이징 처리 이벤트 추가
+      $(document).on("click", "#topheader .pagination a", function () {
+         $("#topheader .pagination").find("li.active").removeClass("active");
+         $(this).parent("li").addClass("active");
+      });
 
-		// innerHTML코드 반복문 함수화
-		function setPageNumber(pageNum, loopNum) {
-			paging = ""
-			for (var i = 1; i <= loopNum; i++) {
-				paging += " <a id='pageNum" + i + "' onclick='getBoard(" + (pageNum + i - 1) + ")' href='javascript:void(0)'>" + (pageNum + i) + "</a>"
-			}
-			return paging
-		}
+      function makeReply(replyNum) {
+         var repContent = document.getElementById("input" + replyNum).value
+         axios.post("http://127.0.0.1:8000/saveReply?userId=" + "young" + "&repBoardId=" + boardArray[replyNum - 1].id + "&repContents=" + repContent
+            + "&repPostingDate=" + "20191218" + "&repHeart=" + 0 + "&repClaim=" + 0)
+            .then(resData => {
+               if (resData.data == 1) {
+                  vueInstance[replyNum - 1].tag = "<br>유저아이디 : " + "young" + "<br>"
+                     + "댓글 내용 : " + repContent + "<br>"
+                     + "게시 날짜 : " + "20191218" + "<br>"
+                     + "좋아요 : "
+                  vueInstance[replyNum - 1].heartflag = !vueInstance[replyNum - 1].heartflag
+                  vueInstance[replyNum - 1].repHeartNum = 0
+               } else {
+                  alert("저장에 실패했습니다")
+               }
+            }).catch(error => {
+               console.log(error)
+            })
+      }
 
-		// 페이지 로딩시 바로 실행되는 로직
-		axios.get("http://127.0.0.1:8000/getCount")
-			.then(resData => {
-				// 첫번째 페이지 게시글 가져오고 화면에 뿌려주기
-				getBoard(0)
-				if (resData.data <= 50) {
-					// 전체 게시글수가 50 이하일경우 다음 페이지가 나오면 안되기 때문에 조건식 생성
-					document.getElementById("paging").innerHTML = setPageNumber(0, parseInt((resData.data - 1) / 10) + 1)
-				}
-			}).catch(error => {
-				console.log(error)
-			})
 
-	</script>
+      // 페이지 로딩시 바로 실행되는 로직
+      axios.get("http://127.0.0.1:8000/getCount")
+         .then(resData => {
+            // 첫번째 페이지 게시글 가져오고 화면에 뿌려주기
+            getBoard(0)
+            if (resData.data <= 50) {
+               // 전체 게시글수가 50 이하일경우 다음 페이지가 나오면 안되기 때문에 조건식 생성
+               document.getElementById("paging").innerHTML = setPageNumber(1, 0, parseInt((resData.data - 1) / 10) + 1)
+            }
+         }).catch(error => {
+            console.log(error)
+         })
+
+   </script>
+
 </body>
+
 </html>
