@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EnableAutoConfiguration
 @SpringBootApplication
@@ -14,6 +15,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories(basePackages="td.model.dao")
 @EnableElasticsearchRepositories(basePackages="td.model.dao")
 @EntityScan("td.model.domain")
+@EnableScheduling
 public class TdProjectApplication {
 
 	public static void main(String[] args) {

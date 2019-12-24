@@ -19,7 +19,7 @@ import com.google.gson.JsonParser;
 @Component
 public class LoginAPI {
 
-   public String getAccessToken(String authorize_code) {
+   public String getKakaoAccessToken(String authorize_code) {
       String access_Token = "";
       String refresh_Token = "";
       String reqURL = "https://kauth.kakao.com/oauth/token";
@@ -76,7 +76,7 @@ public class LoginAPI {
       return access_Token;
    }
 
-   public static HashMap<String, Object> getUserInfo(String access_Token) {
+   public static HashMap<String, Object> getKakaoUserInfo(String access_Token) {
 
       // 요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
       HashMap<String, Object> userInfo = new HashMap<>();
@@ -108,9 +108,11 @@ public class LoginAPI {
          JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
          JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 
+         String id = element.getAsJsonObject().get("id").getAsString();
          String nickname = properties.getAsJsonObject().get("nickname").getAsString();
          String email = kakao_account.getAsJsonObject().get("email").getAsString();
 
+         userInfo.put("id", id);
          userInfo.put("nickname", nickname);
          userInfo.put("email", email);
 
@@ -165,7 +167,7 @@ public class LoginAPI {
 
          access_Token = element.getAsJsonObject().get("access_token").getAsString();
          refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
-
+         
          System.out.println("access_token : " + access_Token);
          System.out.println("refresh_token : " + refresh_Token);
 
@@ -223,11 +225,13 @@ public class LoginAPI {
 
          JsonObject properties = element.getAsJsonObject().get("response").getAsJsonObject();
 
+         String nickName = properties.getAsJsonObject().get("nickname").getAsString();
          String email = properties.getAsJsonObject().get("email").getAsString();
-         String nickname = properties.getAsJsonObject().get("nickname").getAsString();
+         String id = properties.getAsJsonObject().get("id").getAsString();
 
-         userInfo.put("nickname", nickname);
+         userInfo.put("nickName", nickName);
          userInfo.put("email", email);
+         userInfo.put("id", id);
 
       } catch (IOException e) {
          // TODO Auto-generated catch block
