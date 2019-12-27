@@ -112,8 +112,8 @@ public class TDContoller {
 
 //	댓글 좋아요 누를 때 +1 이미 눌렀으면 -1
 	@PostMapping("/plusHeart")
-	public Integer plusRepHeart(String userId, String repBoardId) {
-		return service.plusRepHeart(userId, repBoardId);
+	public Integer plusRepHeart(String repUserId, String repBoardId, @RequestParam(required=false) String nickName) {
+		return service.plusRepHeart(repUserId, repBoardId, nickName);
 	}
 	
 	// 유저 ID로 유저가 좋아요한 모든 댓글정보 가져오기

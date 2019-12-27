@@ -76,7 +76,7 @@
 			<span>
 				<span v-html="tag" v-if="ifflag"></span>
 				<span v-html="repHeartNum" v-if="heartflag"></span>
-				<span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
+				<span v-html="repPlusHeart" v-on:click="repHeart" v-if="heartflag"></span>
 			</span>
 
 		</div>
@@ -91,7 +91,7 @@
 			<span>
 				<span v-html="tag" v-if="ifflag"></span>
 				<span v-html="repHeartNum" v-if="heartflag"></span>
-				<span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
+				<span v-html="repPlusHeart" v-on:click="repHeart" v-if="heartflag"></span>
 			</span>
 
 		</div>
@@ -106,7 +106,7 @@
 			<span>
 				<span v-html="tag" v-if="ifflag"></span>
 				<span v-html="repHeartNum" v-if="heartflag"></span>
-				<span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
+				<span v-html="repPlusHeart" v-on:click="repHeart" v-if="heartflag"></span>
 			</span>
 
 		</div>
@@ -121,7 +121,7 @@
 			<span>
 				<span v-html="tag" v-if="ifflag"></span>
 				<span v-html="repHeartNum" v-if="heartflag"></span>
-				<span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
+				<span v-html="repPlusHeart" v-on:click="repHeart" v-if="heartflag"></span>
 			</span>
 
 		</div>
@@ -136,7 +136,7 @@
 			<span>
 				<span v-html="tag" v-if="ifflag"></span>
 				<span v-html="repHeartNum" v-if="heartflag"></span>
-				<span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
+				<span v-html="repPlusHeart" v-on:click="repHeart" v-if="heartflag"></span>
 			</span>
 
 		</div>
@@ -151,7 +151,7 @@
 			<span>
 				<span v-html="tag" v-if="ifflag"></span>
 				<span v-html="repHeartNum" v-if="heartflag"></span>
-				<span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
+				<span v-html="repPlusHeart" v-on:click="repHeart" v-if="heartflag"></span>
 			</span>
 
 		</div>
@@ -166,7 +166,7 @@
 			<span>
 				<span v-html="tag" v-if="ifflag"></span>
 				<span v-html="repHeartNum" v-if="heartflag"></span>
-				<span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
+				<span v-html="repPlusHeart" v-on:click="repHeart" v-if="heartflag"></span>
 			</span>
 
 		</div>
@@ -181,7 +181,7 @@
 			<span>
 				<span v-html="tag" v-if="ifflag"></span>
 				<span v-html="repHeartNum" v-if="heartflag"></span>
-				<span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
+				<span v-html="repPlusHeart" v-on:click="repHeart" v-if="heartflag"></span>
 			</span>
 
 		</div>
@@ -196,7 +196,7 @@
 			<span>
 				<span v-html="tag" v-if="ifflag"></span>
 				<span v-html="repHeartNum" v-if="heartflag"></span>
-				<span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
+				<span v-html="repPlusHeart" v-on:click="repHeart" v-if="heartflag"></span>
 			</span>
 
 		</div>
@@ -211,7 +211,7 @@
 			<span>
 				<span v-html="tag" v-if="ifflag"></span>
 				<span v-html="repHeartNum" v-if="heartflag"></span>
-				<span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
+				<span v-html="repPlusHeart" v-on:click="repHeart" v-if="heartflag"></span>
 			</span>
 		</div>
 	</div>
@@ -301,6 +301,8 @@
 					+ "category : " + boardArray[i].category + "<br>"
 					+ "좋아요 : "
 				vueInstance[i].boardHeartNum = boardArray[i].heart
+				vueInstance[i].plusHeart = "<button>좋아요누르기</button>"
+				vueInstance[i].plusClaim = "<button>신고하기</button>"
 			}
 			for (let j = forNum; j < 10; j++) {
 				vueInstance[j].ifflag = false
@@ -322,6 +324,7 @@
 					boardHeartNum: 0,
 					repHeartNum: 0,
 					plusHeart: "<button>좋아요누르기</button>",
+					repPlusHeart: "<button>좋아요누르기</button>",
 					plusClaim: "<button>신고하기</button>"
 				},
 				methods: {
@@ -401,7 +404,7 @@
 			var nowNum = Number(document.getElementById('pageNum1').innerText) + 4
 
 			// 끝나는 페이지값 계산
-			var endPoint = parseInt(count / 10) + 1
+			var endPoint = count % 10 == 0 ? parseInt(count / 10) : parseInt(count / 10) + 1
 			parseInt(count / 10) + 1
 
 			// 실제로 들어갈 페이지값
@@ -416,7 +419,7 @@
 			if (direction == 1) {
 				getBoard(nextPage)
 				paging = prev
-				paging += Number(nowNum) + 5 > endPoint ? setPageNumber(direction, nextPage, endPoint - (standard + 1) * 5) : setPageNumber(direction, nextPage, 5) + next
+				paging += Number(nowNum) + 5 >= endPoint ? setPageNumber(direction, nextPage, endPoint - (standard + 1) * 5) : setPageNumber(direction, nextPage, 5) + next
 			// 이전버튼 클릭시	
 			} else {
 				getBoard(prevPage + 4)

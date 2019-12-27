@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Optional;
+import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import td.login.LoginAPI;
 import td.model.dao.ClientRepository;
@@ -88,19 +90,6 @@ public class TDService {
 		return hRepo.findByCategoryContaining(pageable, category);
 	}
 	
-	// 공개 날짜에 맞추어 게시글 공개 메소드
-	public void moveToOpen() {
-		SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
-		Date time = new Date();
-		String today = format1.format(time);
-
-		for (HiddenBoardDTO v : hRepo.findByOpenDate(today)) {
-			oRepo.save(new OpenBoardDTO(v.getId(), v.getContents(), v.getHashtag(), v.getOpenDate(), v.getHeart(),
-					v.getClaim(), v.getNickname(), v.getCategory(), null, null));
-			//hRepo.deleteById(v.getId());
-		}
-	}
-
 	// 오늘의 메세지 구현 중
 //	public void sendMessage() {
 //		Random r = new Random();
@@ -168,7 +157,7 @@ public class TDService {
 		String[] category = { "A", "B", "C", "D" };
 		String[] hashtag = { "#a", "#b", "#c", "#d" };
 
-		for (int i = 32; i <= 53; i++) {
+		for (int i = 1; i <= 99; i++) {
 			String a = String.valueOf(i);
 			HiddenBoardDTO v = new HiddenBoardDTO();
 
@@ -286,10 +275,12 @@ public class TDService {
 		return result;
 	}
 	
+
 	// 리플 좋아요 추가
-	public Integer plusRepHeart(String userId, String repBoardId) {
+	public Integer plusRepHeart(String repUserId, String repBoardId, String nickName) {
 		// 댓글 찾아오는거 닉네임으로 바꿔야됨 // 유저 아이디도 닉네임으로 => 좋아요누르는사람 닉네임 + 댓글 단 사람의 닉네임 2개필요
-		ReplyDTO entity = rRepo.findByUserIdAndRepBoardId(userId, repBoardId);
+		ReplyDTO entity = rRepo.findByUserIdAndRepBoardId(repUserId, repBoardId);
+		repUserId = nickName == null ? repUserId : nickName;
 		System.out.println(entity);
 		ArrayList<String> PlusHeartUserList = null;
 		if (entity.getPlusHeartUserId() != null && entity.getPlusHeartUserId().size() != 0) {
@@ -298,13 +289,13 @@ public class TDService {
 			PlusHeartUserList = new ArrayList<>();
 		}
 
-		if (judge(PlusHeartUserList, userId)) {
-			PlusHeartUserList.add(userId);
+		if (judge(PlusHeartUserList, repUserId)) {
+			PlusHeartUserList.add(repUserId);
 			entity.setRepHeart(entity.getRepHeart() + 1);
 			entity.setPlusHeartUserId(PlusHeartUserList);
 			rRepo.save(entity);
 		} else {
-			PlusHeartUserList.remove(userId);
+			PlusHeartUserList.remove(repUserId);
 			entity.setRepHeart(entity.getRepHeart() - 1);
 			entity.setPlusHeartUserId(PlusHeartUserList);
 			rRepo.save(entity);

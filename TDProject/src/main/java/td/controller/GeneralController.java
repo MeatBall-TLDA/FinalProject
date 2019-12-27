@@ -18,6 +18,11 @@ public class GeneralController {
 
 	@Autowired
 	private TDService service;
+	
+	@RequestMapping("/")
+	public String asd() {
+		return "/thymeleaf/HiddenBoard";
+	}
 
 	@RequestMapping("/hidden")
 	public String goToHidden() {
@@ -59,11 +64,11 @@ public class GeneralController {
 //		service.sendMessage();
 //	}
 
-	@Scheduled(initialDelay = 10000, fixedDelay = 10000)
-	public void sendMessage() {
-		System.out.println("gggg");
-		service.sendMessage();
-	}
+//	@Scheduled(initialDelay = 10000, fixedDelay = 10000)
+//	public void sendMessage() {
+//		System.out.println("gggg");
+//		service.sendMessage();
+//	}
 
 	// 미공개 게시판 게시글 작성
 //	@PostMapping("/saveHidden")
