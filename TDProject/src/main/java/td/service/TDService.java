@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Optional;
+import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
@@ -88,18 +89,6 @@ public class TDService {
 		return hRepo.findByCategoryContaining(pageable, category);
 	}
 	
-	// 공개 날짜에 맞추어 게시글 공개 메소드
-	public void moveToOpen() {
-		SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
-		Date time = new Date();
-		String today = format1.format(time);
-
-		for (HiddenBoardDTO v : hRepo.findByOpenDate(today)) {
-			oRepo.save(new OpenBoardDTO(v.getId(), v.getContents(), v.getHashtag(), v.getOpenDate(), v.getHeart(),
-					v.getClaim(), v.getNickname(), v.getCategory(), null, null));
-			//hRepo.deleteById(v.getId());
-		}
-	}
 
 	// 오늘의 메세지 구현 중
 //	public void sendMessage() {
@@ -165,10 +154,10 @@ public class TDService {
 	}
 
 	public void makeTest() {
-		String[] category = { "A", "B", "C", "D" };
-		String[] hashtag = { "#a", "#b", "#c", "#d" };
+		String[] category = { "축구", "야구", "배구", "농구" };
+		String[] hashtag = { "#SCA", "#PL", "#MLB", "#NBA" };
 
-		for (int i = 32; i <= 53; i++) {
+		for (int i = 1; i <= 99; i++) {
 			String a = String.valueOf(i);
 			HiddenBoardDTO v = new HiddenBoardDTO();
 
