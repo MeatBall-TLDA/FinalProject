@@ -3863,7 +3863,7 @@ input[type="button"].btn-block {
   padding: 0.5rem 0.75rem;
   margin-left: -1px;
   line-height: 1.25;
-  color: #78d5ef;
+  color: #f05d23;
   background-color: #fff;
   border: 1px solid #dee2e6; }
   .page-link:hover {
@@ -8578,4 +8578,23 @@ textarea.form-control-cho {
 }
 .cho-font{
   font-family: 'Nanum Pen Script', cursive;
+}
+
+.heart {
+  font-size: 15px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.heart:hover {
+  color: red;
+}
+
+.report-cho{
+  font-size: 15px;
+  cursor: pointer;
+  user-select: none;
+}
+.report-cho:hover{
+  color: darkgray;
 }

@@ -34,18 +34,28 @@
 </head>
 <body>
 	<div id="colorlib-page">
-		<div include="menu.html"></div>
+		<div include="/menu"></div>
 		<div id="colorlib-main">
+			<h2 class="h2 font-weight-bold text-center mt-5">My Page</h2>
 			<section class="ftco-section contact-section">
 				<div class="container">
-					<div class="row d-flex mb-5 contact-info">
+					<div class="row d-flex mb-5 contact-info text-center">
 						<div class="col-md-12 mb-4">
-							<h2 class="h2 font-weight-bold text-center">My Page</h2>
-							<h3 class="nickname h3 text-center">" " 님</h3><a href="#">닉네임 수정</a>
+							<form action="serviceName" method="post">
+								<input
+									class="text-center btn btn-primary form-group my-3 btn-md border-3 btn-outline-secondary"
+									id="serviceName" type="text" name="serviceName" value="">
+								<input
+									class="btn btn-primary form-group my-3 btn-md border-3 btn-outline-secondary"
+									type="submit" name="submit" value="닉네임 수정 ">
+							</form>
 						</div>
-						<div class="w-100"></div>
-						</section>
-						</div>
+					</div>
+				</div>
+				<div class="w-100"></div>
+			</section>
+		</div>
+	</div>
 	<script src="js/include.js"></script>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery-migrate-3.0.1.min.js"></script>
@@ -61,9 +71,18 @@
 	<script src="js/bootstrap-datepicker.js"></script>
 	<script src="js/jquery.timepicker.min.js"></script>
 	<script src="js/scrollax.min.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 	<script src="js/google-map.js"></script>
 	<script src="js/main.js"></script>
+	<script type="text/javascript">
+		document.getElementById("serviceName").value = sessionStorage
+				.getItem("serviceName");
+	</script>
+	<script th:inline="javascript">
+    var query = [[${session.serviceName}]];
+    sessionStorage.setItem("serviceName", query)
+</script>
 
 </body>
 </html>
