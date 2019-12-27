@@ -35,7 +35,6 @@ public class TDContoller {
 		return service.findByIdClientDTO(id);
 	}
 	
-
 	// =================================================================
 	
 	// 미공개 게시판 정보

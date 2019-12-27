@@ -43,6 +43,7 @@
 </head>
 
 <body>
+<div include="/menu"></div> 
 	<div id="dropdown" class="navbar-nav d-flex flex-row ml-3">
 		<div class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle" id="navbarDropdown1" aria-haspopup="true" aria-expanded="false"
@@ -238,8 +239,11 @@
 		// 	<child-component v-bind:propsdata="message"></child-component>
 		// </div>
 
-		Vue.component('boardtag', {
-				data () {
+
+
+		for (let i = 1; i <= 10; i++) {
+			vueInstance1[i - 1] = Vue.component('boardtag', {
+				data : function() {
 					return {
 						board: vueInstance2[i - 1].board,
 						boardHeartNum: "가나다",
@@ -265,9 +269,6 @@
 					}
 				}
 			})
-			
-		for (let i = 1; i <= 10; i++) {
-
 			vueInstance2[i - 1] = new Vue({
 				el: "#row" + i,
 				data: {
@@ -330,7 +331,7 @@
 			})
 
 		}
-
+		console.log(vueInstance1[0].data) 
 		// 전체 게시글 수 얻어오기
 		function getCount() {
 			axios.get("http://127.0.0.1:8000/getCount")
@@ -523,7 +524,7 @@
 			})
 
 	</script>
-
+<script src="js/include.js"></script>
 </body>
 
 </html>

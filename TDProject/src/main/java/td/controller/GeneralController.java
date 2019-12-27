@@ -20,20 +20,83 @@ public class GeneralController {
    @Autowired
    private TDService service;
 
-   @RequestMapping("/intro")
-   public String goToIntro() {
-      return "/thymeleaf/intro";
-   }
+	@RequestMapping("/intro")
+	public String goToIntro() {
+		return "/thymeleaf/intro";
+	}
+
+	@RequestMapping("/hidden")
+	public String goToHidden() {
+		return "/thymeleaf/HiddenBoard";
+	}
+
+	@RequestMapping("/open")
+	public String goToOpen() {
+		return "/thymeleaf/OpenBoard";
+	}
+
+	@RequestMapping("/menu")
+	public String goToMenu() {
+		return "/thymeleaf/menu";
+	}
+
+	@RequestMapping("/mypage")
+	public String goToMyPage(HttpSession session) {
+		return "/thymeleaf/mypage";
+	}
+
+	@RequestMapping("/search")
+	public String goToSearch() {
+		return "/thymeleaf/search";
+	}
+
+	@RequestMapping("/todaymessage")
+	public String goToTodayMessage() {
+		return "/thymeleaf/todaymessage";
+	}
+
+	@PostMapping("/serviceName")
+	public String goToi(@RequestParam("serviceName") String serviceName, HttpSession session) {
+		service.saveClientDTO(serviceName, session);
+		return "/thymeleaf/CloseBoard";
+	}
+
+	// 세션 확인하는 로직 index.html
+	@RequestMapping("/index")
+	public String sessionCheck(HttpSession session) {
+		System.out.println(session.getAttribute("id"));
+		if (session.getAttribute("id") == null) {
+
+			return "/thymeleaf/intro";
+		} else {
+			return "/thymeleaf/CloseBoard";
+		}
+	}
+
+
+	// 세션 삭제 로직
+	@RequestMapping({ "/session2" })
+	String index2(HttpSession session) {
+		session.invalidate();
+		return "/thymeleaf/session.html";
+	}
+
+	// 공개 날짜에 맞추어 게시글 데이터 이동 메소드
+	@Scheduled(cron = "0 0 0 * * *")
+	public void moveToOpen() {
+		service.moveToOpen();
+	}
 
    @RequestMapping("/hidden")
    public String goToHidden() {
       return "/thymeleaf/HiddenBoard";
    }
 
-   @RequestMapping("/open")
-   public String goToOpen() {
-      return "/thymeleaf/OpenBoard";
-   }
+//	@Scheduled(initialDelay = 10000, fixedDelay = 10000)
+//	public void sendMessage() {
+//		System.out.println("gggg");
+//		service.sendMessage();
+//	}
 
    @RequestMapping("/menu")
    public String goToMenu() {
@@ -45,10 +108,17 @@ public class GeneralController {
       return "/thymeleaf/mypage";
    }
 
-   @RequestMapping("/search")
-   public String goToSearch() {
-      return "/thymeleaf/search";
-   }
+	@RequestMapping(value = "/naverLogin")
+	public String naverLogin(@RequestParam("code") String code, @RequestParam String state, HttpSession session) {
+		try {
+			return service.naverLogin(code, state, session);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			// 에러 페이지로 보내야함
+			return "/intro";
+		}
+	}
    
    @RequestMapping("/close")
    public String goToCloseBoard() {

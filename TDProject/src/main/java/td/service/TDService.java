@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import td.login.LoginAPI;
 import td.model.dao.ClientRepository;
@@ -42,17 +43,17 @@ public class TDService {
 
 	@Autowired
 	private LoginAPI login;
-	
+
 	// 좋아요나 신고하기를 눌렀던 사람인지 파악
 	public boolean judge(ArrayList<String> userList, String userId) {
-		for(String user : userList) {
-			if(user.equals(userId)) {
+		for (String user : userList) {
+			if (user.equals(userId)) {
 				return false;
 			}
 		}
 		return true;
 	}
-  
+
 	// 고객 정보
 	public Optional<ClientDTO> findByIdClientDTO(String id) {
 		return cRepo.findById(id);
@@ -62,15 +63,22 @@ public class TDService {
 		int id = Integer.parseInt((String) session.getAttribute("id"));
 		String nickName = session.getAttribute("nickname").toString();
 		String serviceName1 = serviceName.toString();
+		session.setAttribute("serviceName", serviceName1);
 		String email = session.getAttribute("email").toString();
 		boolean gg = true;
 
 		ClientDTO client = new ClientDTO(id, nickName, serviceName1, email, gg);
 		cRepo.save(client);
-
 		System.out.println(client);
 	}
-
+	// 세션 만드는 로직
+	@RequestMapping({ "/session" })
+	String index(HttpSession session) {
+		session.setAttribute("id", "yyy2410");
+		session.setAttribute("pw", "123456");
+		return "/thymeleaf/session.html";
+	}
+	
 	// =================================================================
 	// 미공개 게시판 정보
 
@@ -88,7 +96,6 @@ public class TDService {
 //      System.out.println(hRepo.findAllHashtag());
 		return hRepo.findByCategoryContaining(pageable, category);
 	}
-	
 
 	// 오늘의 메세지 구현 중
 //	public void sendMessage() {
@@ -134,7 +141,7 @@ public class TDService {
 
 		int hiddenboardCount = (int) hRepo.count();
 		int clientCount = (int) cRepo.count();
-		
+
 		int a[] = new int[hiddenboardCount];
 
 		// 회원수 만큼 for을 돌린다.
@@ -180,42 +187,42 @@ public class TDService {
 		HiddenBoardDTO boardEntity = hRepo.findById(id).get();
 		ArrayList<String> plusClaimUserList = null;
 		String message = null;
-		
-		if(boardEntity.getPlusClaimUserId() != null && boardEntity.getPlusClaimUserId().size() != 0) {
+
+		if (boardEntity.getPlusClaimUserId() != null && boardEntity.getPlusClaimUserId().size() != 0) {
 			plusClaimUserList = boardEntity.getPlusClaimUserId();
-		}else {
+		} else {
 			plusClaimUserList = new ArrayList<>();
 		}
-		
-		if(judge(plusClaimUserList, nickname)) {
+
+		if (judge(plusClaimUserList, nickname)) {
 			plusClaimUserList.add(nickname);
 			boardEntity.setClaim(boardEntity.getClaim() + 1);
 			boardEntity.setPlusClaimUserId(plusClaimUserList);
 			hRepo.save(boardEntity);
 			message = "신고되었습니다";
-		}else {
+		} else {
 			message = "이미 신고하였습니다";
 		}
 		return message;
 	}
-  
+
 	// 게시글 좋아요 추가
 	public Integer plusHiddenBoardHeart(String nickname, String id) {
 		HiddenBoardDTO boardEntity = hRepo.findById(id).get();
 		ArrayList<String> plusHeartUserList = null;
-    
-		if(boardEntity.getPlusHeartUserId() != null && boardEntity.getPlusHeartUserId().size() != 0) {
+
+		if (boardEntity.getPlusHeartUserId() != null && boardEntity.getPlusHeartUserId().size() != 0) {
 			plusHeartUserList = boardEntity.getPlusHeartUserId();
-		}else {
+		} else {
 			plusHeartUserList = new ArrayList<>();
 		}
-		
-		if(judge(plusHeartUserList, nickname)) {
+
+		if (judge(plusHeartUserList, nickname)) {
 			plusHeartUserList.add(nickname);
 			boardEntity.setHeart(boardEntity.getHeart() + 1);
 			boardEntity.setPlusHeartUserId(plusHeartUserList);
 			hRepo.save(boardEntity);
-		}else {
+		} else {
 			plusHeartUserList.remove(nickname);
 			boardEntity.setHeart(boardEntity.getHeart() - 1);
 			boardEntity.setPlusHeartUserId(plusHeartUserList);
@@ -231,7 +238,7 @@ public class TDService {
 			hRepo.save(board);
 			result = true;
 		}
-    
+
 //		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 //		if (Integer.parseInt(board.getOpenDate()) > Integer.parseInt(format.format(new Date()))) {
 //			hRepo.save(board);
@@ -263,18 +270,18 @@ public class TDService {
 	public Iterable<ReplyDTO> getReply(String repBoardId) {
 		return rRepo.findByRepBoardId(repBoardId);
 	}
-	
+
 	// 댓글 저장하기
 	public boolean saveReply(ReplyDTO reply) {
 		boolean result = false;
 		String content = reply.getRepContents();
-		if(content != null && content.trim().length() >= 5) {
+		if (content != null && content.trim().length() >= 5) {
 			result = true;
 			rRepo.save(reply);
 		}
 		return result;
 	}
-	
+
 	// 리플 좋아요 추가
 	public Integer plusRepHeart(String userId, String repBoardId) {
 		// 댓글 찾아오는거 닉네임으로 바꿔야됨 // 유저 아이디도 닉네임으로 => 좋아요누르는사람 닉네임 + 댓글 단 사람의 닉네임 2개필요
