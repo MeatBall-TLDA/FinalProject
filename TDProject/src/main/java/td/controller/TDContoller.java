@@ -35,10 +35,7 @@ public class TDContoller {
 		return service.findByIdClientDTO(id);
 	}
 	
-	@PostMapping("/serviceName")
-	public void saveClientDTO(@RequestParam("serviceName")String serviceName, HttpSession session) {
-		service.saveClientDTO(serviceName, session);
-	}
+
 	// =================================================================
 	
 	// 미공개 게시판 정보
