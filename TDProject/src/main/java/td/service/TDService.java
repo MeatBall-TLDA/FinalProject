@@ -161,10 +161,10 @@ public class TDService {
 	}
 
 	public void makeTest() {
-		String[] category = { "A", "B", "C", "D" };
-		String[] hashtag = { "#a", "#b", "#c", "#d" };
+		String[] category = { "축구", "야구", "배구", "농구" };
+		String[] hashtag = { "#SCA", "#PL", "#MLB", "#NBA" };
 
-		for (int i = 32; i <= 53; i++) {
+		for (int i = 1; i <= 99; i++) {
 			String a = String.valueOf(i);
 			HiddenBoardDTO v = new HiddenBoardDTO();
 
