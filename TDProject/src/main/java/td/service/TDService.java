@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import td.login.LoginAPI;
@@ -283,9 +284,10 @@ public class TDService {
 	}
 
 	// 리플 좋아요 추가
-	public Integer plusRepHeart(String userId, String repBoardId) {
+	public Integer plusRepHeart(String repUserId, String repBoardId, String nickName) {
 		// 댓글 찾아오는거 닉네임으로 바꿔야됨 // 유저 아이디도 닉네임으로 => 좋아요누르는사람 닉네임 + 댓글 단 사람의 닉네임 2개필요
-		ReplyDTO entity = rRepo.findByUserIdAndRepBoardId(userId, repBoardId);
+		ReplyDTO entity = rRepo.findByUserIdAndRepBoardId(repUserId, repBoardId);
+		repUserId = nickName == null ? repUserId : nickName;
 		System.out.println(entity);
 		ArrayList<String> PlusHeartUserList = null;
 		if (entity.getPlusHeartUserId() != null && entity.getPlusHeartUserId().size() != 0) {
@@ -294,13 +296,13 @@ public class TDService {
 			PlusHeartUserList = new ArrayList<>();
 		}
 
-		if (judge(PlusHeartUserList, userId)) {
-			PlusHeartUserList.add(userId);
+		if (judge(PlusHeartUserList, repUserId)) {
+			PlusHeartUserList.add(repUserId);
 			entity.setRepHeart(entity.getRepHeart() + 1);
 			entity.setPlusHeartUserId(PlusHeartUserList);
 			rRepo.save(entity);
 		} else {
-			PlusHeartUserList.remove(userId);
+			PlusHeartUserList.remove(repUserId);
 			entity.setRepHeart(entity.getRepHeart() - 1);
 			entity.setPlusHeartUserId(PlusHeartUserList);
 			rRepo.save(entity);

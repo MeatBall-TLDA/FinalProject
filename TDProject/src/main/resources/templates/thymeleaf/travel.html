@@ -25,11 +25,9 @@
     
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
-	 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script> 
-    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+	<link rel="stylesheet" href="css/style.css">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+ 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
   <body>
   
@@ -68,154 +66,107 @@
 		</section>
 		<!-- 위에 두가지 화면 사진 부분 끝-->
 		<!--아래 화면단 시작 -->
-			<section class="ftco-section-cho ftco-section">
+			<section class="ftco-section">
 	    	<div class="container">
 	    		<div class="row">
                 <div class="cho-1"> <!-- 크기 수정 해둠-->
-                 <div id="row1" class="row" v-on:click="comment">
+                 <div class="row" v-on:click="comment">
                      <div class="col-md-12">
-                        <div class="blog-entry ftco-animate" id="child1">
-                           <span v-html="tag" v-if="ifflag"></span>
+                        <div class="blog-entry ftco-animate" id="row1">
                         </div>
-                     </div>
-                  </div>
-
-                  <div id="row1">
-                     <span id="child1" v-on:click="comment"></span>
-                     <span v-html="boardHeartNum"></span>
-                     <span v-html="plusHeart" v-on:click="boardHeart"></span>
-                     <span v-html="plusClaim" v-on:click="makeClaim"></span>
-                     <span>
-                        <span v-html="tag" v-if="ifflag"></span>
-                        <span v-html="repHeartNum" v-if="heartflag"></span>
-                        <span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
-                     </span>
-                  </div>
-
-
-                  <div id="row2" class="row" v-on:click="comment">
-                     <div class="col-md-12">
-                        <div class="blog-entry ftco-animate" id="child2">
-                           <span v-html="tag" v-if="ifflag"></span>
-                        </div>
-                     </div>
-                  </div>
-                  <div id="row3" class="row" v-on:click="comment">
-                     <div class="col-md-12">
-                        <div class="blog-entry ftco-animate" id="child3">
-                           <span v-html="tag" v-if="ifflag"></span>
-                        </div>
-                     </div>
-                  </div>
-                  <div id="row4" class="row" v-on:click="comment">
-                     <div class="col-md-12">
-                        <div class="blog-entry ftco-animate" id="child4">
-                           <span v-html="tag" v-if="ifflag"></span>
-                        </div>
-                     </div>
-                  </div>
-                  <div id="row5" class="row" v-on:click="comment">
-                     <div class="col-md-12">
-                        <div class="blog-entry ftco-animate" id="child5">
-                           <span v-html="tag" v-if="ifflag"></span>
-                        </div>
-                     </div>
-                  </div>
-                  <div id="row6" class="row" v-on:click="comment">
-                     <div class="col-md-12">
-                        <div class="blog-entry ftco-animate" id="child6">
-                           <span v-html="tag" v-if="ifflag"></span>
-                        </div>
-                     </div>
-                  </div>
-                  <div id="row7" class="row" v-on:click="comment">
-                     <div class="col-md-12">
-                        <div class="blog-entry ftco-animate" id="child7">
-                           <span v-html="tag" v-if="ifflag"></span>
-                        </div>
-                     </div>
-                  </div>
-                  <div id="row8" class="row" v-on:click="comment">
-                     <div class="col-md-12">
-                        <div class="blog-entry ftco-animate" id="child8">
-                           <span v-html="tag" v-if="ifflag"></span>
-                        </div>
-                     </div>
-                  </div>
-                  <div id="row9" class="row" v-on:click="comment">
-                     <div class="col-md-12">
-                        <div class="blog-entry ftco-animate" id="child9">
-                           <span v-html="tag" v-if="ifflag"></span>
-                        </div>
-                     </div>
-                  </div>
-                  <div id="row10" class="row" v-on:click="comment">
-                     <div class="col-md-12">
-                        <div class="blog-entry ftco-animate" id="child10">
-                           <span v-html="tag" v-if="ifflag"></span>
-                        </div>
-                     </div>
-                  </div>
-               <div class="container">
-	    				<div class="col-6 col-md-8 col-xl-8 mb-3">
-                        <div class="blog-entry ftco-animate">
-                           <div class="text pt-2 mt-3">
-                              <span class="category mb-1 d-block"><a href="#">Technology</a></span>
-                              <!-- 카테고리 클래스 카테고리 하이퍼링크  -->
-                              <h3 class="mb-4"><a href="#">The Newest Technology On This Year 2019</a></h3>
-                              <!-- 제목 하이퍼링크 -->
-                              <p class="h5 mb-4 cho-font" style="color:darkgray">Even the all-powerful Pointing has no control about the blind texts it is
-                                 an almost
-                                 unorthographic life One day however a small line of blind text by the name of Lorem
-                                 Ipsum
-                                 decided to leave for the far World of Grammar.</p>
-                              <!-- 글 내용 -->
-                              <div class="author mb-4 d-flex align-items-center">
-                                 <div class="ch-3 info">
-                                    <span>작성자</span>
-                                    <h3>조영욱, <span>2019년 12월 17일</span></h3>
-                                 </div>
-                              </div>
-                              <div class="meta-wrap d-md-flex align-items-center">
-                                 <div class="half order-md-last text-md-right">
-                                    <p class="meta">
-                                       <span><i class="icon-heart"></i>3</span>
-                                       <span><i class="fas fa-exclamation-triangle">10</i></span>
-                                    </p>
-                                 </div>
-                              </div>
-                              <!-- 덧글 쓰기 -->
-                     <div>
-                        <div class="form-group">
-                           <textarea class="form-control-cho col-12 col-md-12 col-xl-12 rounded" placeholder="Message" style="width: 650px; resize: none;"></textarea>
-                        </div>
-                        <div class="form-group">
-                           <input type="submit" value="댓글 남기기" class="btn btn-outline-secondary py-3 px-5">
-                        </div>
-                     </div>
+                        <div>
+                           <div class="form-group">
+                              <textarea name id cols="30" rows="7" class="form-control-cho" placeholder="Message"></textarea>
+                           </div>
+                           <div class="form-group">
+                              <input type="submit" value="댓글 남기기" class="btn btn-primary py-3 px-5">
                            </div>
                         </div>
                      </div>
-                        <!-- 덧글 내용-->
-                        <div class="blog-entry">
-                           <div class="text pt-2 mt-3">
-                              <div class="author mb-4 d-flex align-items-center">
-                                 <div class="col-6">
-                                    <h3>킹종성, <span>2019년 12월 17일</span></h3>
-                                    <span>행님들 국밥 한그릇 하시래요? 예 아시겠어요? 예?<span>
-                                    <div class="meta-wrap d-md-flex align-items-center">
-                                       <div class="half order-md-last text-md-right">
-                                          <p class="meta">
-                                             <span><i class="icon-heart"></i>3</span>
-                                             <span><i class="fas fa-exclamation-triangle">10</i></span>
-                                          </p>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                        </div>
+                  </div>
+                  <div class="row" v-on:click="comment">
+                     <div class="col-md-12">
+                        <div class="blog-entry ftco-animate" id="row2">
                         </div>
                      </div>
+                  </div>
+                  <div class="row" v-on:click="comment">
+                     <div class="col-md-12">
+                        <div class="blog-entry ftco-animate" id="row3">
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row" v-on:click="comment">
+                     <div class="col-md-12">
+                        <div class="blog-entry ftco-animate" id="row4">
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row" v-on:click="comment">
+                     <div class="col-md-12">
+                        <div class="blog-entry ftco-animate" id="row5">
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row" v-on:click="comment">
+                     <div class="col-md-12">
+                        <div class="blog-entry ftco-animate" id="row6">
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row" v-on:click="comment">
+                     <div class="col-md-12">
+                        <div class="blog-entry ftco-animate" id="row7">
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row" v-on:click="comment">
+                     <div class="col-md-12">
+                        <div class="blog-entry ftco-animate" id="row8">
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row" v-on:click="comment">
+                     <div class="col-md-12">
+                        <div class="blog-entry ftco-animate" id="row9">
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row" v-on:click="comment">
+                     <div class="col-md-12">
+                        <div class="blog-entry ftco-animate" id="row10">
+                        </div>
+                     </div>
+                  </div> 
+	    				<!-- <div class="col-md-12">
+	    						<div class="blog-entry ftco-animate">
+	    							<div class="text pt-2 mt-3">
+								  <span class="category mb-1 d-block"><a href="#">Technology</a></span>
+								  <!-- 카테고리 클래스 카테고리 하이퍼링크 
+							  <h3 class="mb-4"><a href="#">The Newest Technology On This Year 2019</a></h3>
+							  <!-- 제목 하이퍼링크
+							  <p class="mb-4">Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
+							  <!-- 글 내용
+				              <div class="author mb-4 d-flex align-items-center">
+				            		<div class="ch-3 info">
+				            			<span>작성자</span>
+				            			<h3>조영욱, <span>2019년 12월 17일</span></h3>
+				            		</div>
+				            	</div>
+				              <div class="meta-wrap d-md-flex align-items-center">
+				              	<div class="half order-md-last text-md-right">
+					              	<p class="meta">
+					              		<span><i class="icon-heart"></i>3</span>
+					              		<span><i class="icon-eye"></i>100</span>
+					              		<span><i class="icon-comment"></i>5</span>
+					              	</p>
+				              	</div>
+				              	<div class="half">
+				              	</div>
+				              </div>
+				            </div>
+	    						</div>
+	    					</div> -->
 
 	    	
                       
@@ -223,40 +174,14 @@
 						</div>
 	    			</div>
 	    		</div>
-   <div class="row mt-5 col block-27">
-      <ul id="paging">
-         <li style="margin-right: 5px;"><a id="pageNum1" onclick="getBoard(0)" href="#">1</a></li>
-         <li style="margin-right: 5px;"><a id="pageNum1" onclick="getBoard(1)" href="#">2</a></li>
-         <li style="margin-right: 5px;"><a id="pageNum1" onclick="getBoard(2)" href="#">3</a></li>
-         <li style="margin-right: 5px;"><a id="pageNum1" onclick="getBoard(3)" href="#">4</a></li>
-         <li style="margin-right: 5px;"><a id="pageNum1" onclick="getBoard(4)" href="#">5</a></li>
-         <li style="margin-right: 5px;"><a id='nextPage' onclick='setPaging(1)' href='#'>&gt;</a></li>
-      </ul>
+	    	<div id="paging">
+      <a id="pageNum1" onclick="getBoard(0)" href="#">1</a>
+      <a id="pageNum1" onclick="getBoard(1)" href="#">2</a>
+      <a id="pageNum1" onclick="getBoard(2)" href="#">3</a>
+      <a id="pageNum1" onclick="getBoard(3)" href="#">4</a>
+      <a id="pageNum1" onclick="getBoard(4)" href="#">5</a>
+      <a id='nextPage' onclick='setPaging(1)' href='#'>다음</a>
    </div>
- 
-      <!-- 불 들어오는 로직
-<div class="row mt-5 col block-27" id="paginga">
-   <ul>
-     <li><a href="#">&lt;</a></li>
-     <li style="margin-right: 5px;" v-for="c in number" :class="{ active: isActive === c }" @click="isActive = c" id=app1><a href="#" id="pageNum1" onclick="getBoard((0))">{{c}}</a></li>
-     <li><a href="#">&gt;</a></li>
-   </ul>
-</div> 
-
-<script>
-      
-   new Vue({
-       el: "#pagin",
-       data: {
-         isActive: "1",
-         number : ['1','2','3','4','5']
-       },
-       methods: {}
-     })
-
-</script>-->
-
-
 	    </section>
 	    <footer class="ftco-footer ftco-bg-dark ftco-section">
 	      <div class="container px-md-5">
@@ -276,258 +201,9 @@
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
-
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script type="text/javascript">
-
-
-   // 전체 게시글 수 받을 변수
-   var count
-
-   // 전체 게시글 리스트
-   var boardArray
-
-   // vue객체 받아줄 변수 리스트
-   var vueInstance = []
-
-   // sorting 종류 받을 변수
-   var sortKind
-
-   // 전체 게시글 수 얻어오기
-   function getCount() {
-      axios.get("http://127.0.0.1:8000/getCount")
-         .then(resData => {
-            count = resData.data
-         }).catch(error => {
-            console.log(error)
-         })
-   }
-
-   function getBoard(pageNum, sorting) {
-      scKind = "desc"
-      if (sorting == undefined || sorting == "게시날짜") {
-         sortKind = "postingDate"
-      }else if(sorting == "개봉임박"){
-         sortKind = "openDate"
-         scKind = "asc"
-      }else if(sorting == "좋아요"){
-         sortKind = "heart"
-      }
-
-      axios.get("http://127.0.0.1:8000/getHidden?page=" + pageNum + "&sort=" + sortKind + "," + scKind)
-         .then(resData => {
-            getCount()
-            boardArray = resData.data.content
-            setBoard(count, resData.data.content, pageNum)
-         }).catch(error => {
-            console.log(error)
-         })
-   }
-
-   function setBoard(boardCount, boardArray, pageNum) {
-      var forNum = boardCount - pageNum * 10 < 10 ? boardCount - pageNum * 10 : 10
-      for (let i = 0; i < forNum; i++) {
-         vueInstance[i].ifflag = false
-         vueInstance[i].heartflag = false
-         document.getElementById("child" + (i + 1)).innerHTML =
-            "id : " + boardArray[i].id + "<br>"
-            + "contents : " + boardArray[i].contents + "<br>"
-            + "hashtag : " + boardArray[i].hashtag + "<br>"
-            + "postingDate : " + boardArray[i].postingDate + "<br>"
-            + "openDate : " + boardArray[i].openDate + "<br>"
-            + "claim : " + boardArray[i].claim + "<br>"
-            + "nickname : " + boardArray[i].nickname + "<br>"
-            + "category : " + boardArray[i].category + "<br>"
-            + "좋아요 : "
-         vueInstance[i].boardHeartNum = boardArray[i].heart
-      }
-      for (let j = forNum; j < 10; j++) {
-         vueInstance[j].ifflag = false
-         vueInstance[j].heartflag = false
-         document.getElementById("child" + (j + 1)).innerHTML = "<span></span>"
-      }
-   }
-
-   for (let i = 1; i <= 10; i++) {
-      vueInstance[i - 1] = new Vue({
-         el: "#row" + i,
-         data: {
-            tag: "",
-            ifflag: false,
-            heartflag: false,
-            boardHeartNum: 0,
-            repHeartNum: 0,
-            plusHeart: "<button>좋아요누르기</button>",
-            plusClaim: "<button>신고하기</button>"
-         },
-         methods: {
-            comment: function () {
-               axios.get("http://127.0.0.1:8000/getReply?repBoardId=" + boardArray[i - 1].id)
-                  .then(resData => {
-                     if (resData.data.length == 0) {
-                        this.ifflag = true
-                        this.heartflag = false
-                        this.tag = "<br><input id='input" + i + "' placeholder='5자이상 입력해주세요'></input><button onclick='makeReply(" + i + ")'>댓글 남기기</button>"
-                     } else {
-                        this.repHeartNum = resData.data[0].repHeart
-                        this.ifflag = !this.ifflag
-                        this.heartflag = !this.heartflag
-                        this.tag = "<br>유저아이디 : " + resData.data[0].userId + "<br>"
-                           + "댓글 내용 : " + resData.data[0].repContents + "<br>"
-                           + "게시 날짜 : " + resData.data[0].repPostingDate + "<br>"
-                           + "좋아요 : "
-                     }
-                  }).catch(error => {
-                     console.log(error)
-                  })
-            },
-            repHeart: function () {
-               axios.post("http://127.0.0.1:8000/plusHeart?userId=" + "young" + "&repBoardId=" + boardArray[i - 1].id)
-                  .then(resData => {
-                     this.repHeartNum = resData.data
-                  }).catch(error => {
-                     console.log(error)
-                  })
-            },
-            boardHeart: function () {
-               axios.post("http://127.0.0.1:8000/plusBoardHeart?nickname=" + "young" + "&id=" + boardArray[i - 1].id)
-                  .then(resData => {
-                     this.boardHeartNum = resData.data
-                  }).catch(error => {
-                     console.log(error)
-                  })
-            },
-            makeClaim: function () {
-               axios.post("http://127.0.0.1:8000/plusBoardClaim?nickname=" + "young" + "&id=" + boardArray[i - 1].id)
-                  .then(resData => {
-                     alert(resData.data)
-                  }).catch(error => {
-                     console.log(error)
-                  })
-            }
-         }
-      })
-   }
-   
-   // innerHTML코드 반복문 함수화
-   function setPageNumber(direction, pageNum, loopNum) {
-      paging = ""
-      for (var i = 1; i <= loopNum; i++) {
-         if (i == 1 && direction == 1) {
-            paging += " <li class='page-item active'><a class='page-link' id='pageNum" + i + "' onclick='getBoard(" + (pageNum + i - 1) + ",\"sortKind\")' href='javascript:void(0)'>" + (pageNum + i) + "</a></li>"
-         } else if (i == loopNum && direction == 2) {
-            paging += " <li class='page-item active'><a class='page-link' id='pageNum" + i + "' onclick='getBoard(" + (pageNum + i - 1) + ",\"sortKind\")' href='javascript:void(0)'>" + (pageNum + i) + "</a></li>"
-         } else {
-            paging += " <li class='page-item'><a class='page-link' id='pageNum" + i + "' onclick='getBoard(" + (pageNum + i - 1) + ",\"sortKind\")' href='javascript:void(0)'>" + (pageNum + i) + "</a></li>"
-         }
-      }
-      return paging
-   }
-   
-   // 페이징 처리 로직
-   function setPaging(direction) {
-      // 실시간 전체 게시글 수 동기화
-      getCount()
-
-      // innerHTML 받아줄 변수 선언
-      var paging = ""
-
-      // 페이징 처리를 위해 기준값 계산
-      var standard = parseInt(document.getElementById('pageNum1').innerText / 5)
-      var nowNum = Number(document.getElementById('pageNum1').innerText) + 4
-
-      // 끝나는 페이지값 계산
-      var endPoint = parseInt(count / 10) + 1
-      parseInt(count / 10) + 1
-
-      // 실제로 들어갈 페이지값
-      var nextPage = (standard + 1) * 5
-      var prevPage = (standard - 1) * 5
-
-      // 반복되는 구문 초기화
-      const next = " <li class='page-item'><a class='page-link' onclick='setPaging(1)' href='javascript:void(0)'>다음</a></li>"
-      const prev = "<li class='page-item'><a class='page-link' onclick='setPaging(2)' href='javascript:void(0)'>이전</a></li>"
-
-      // 다음버튼 클릭시
-      if (direction == 1) {
-         getBoard(nextPage)
-         paging = prev
-         paging += Number(nowNum) + 5 > endPoint ? setPageNumber(direction, nextPage, endPoint - (standard + 1) * 5) : setPageNumber(direction, nextPage, 5) + next
-      // 이전버튼 클릭시   
-      } else {
-         getBoard(prevPage + 4)
-         paging += standard == 1 ? setPageNumber(direction, prevPage, 5) : prev + setPageNumber(direction, prevPage, 5)
-         paging += next
-      }
-      document.getElementById("paging").innerHTML = paging
-   }
-
-   function getBoardAndSetPage(pageNum, sorting){
-      getBoard(pageNum, sorting)
-      if(count < 50){
-         document.getElementById("paging").innerHTML = setPageNumber(1, 0, parseInt((count - 1) / 10) + 1)
-      }else{
-         document.getElementById("paging").innerHTML = `<li class="page-item active"><a class="page-link" id="pageNum1" onclick="getBoard(0)" href="javascript:void(0)">1</a></li>
-      <li class="page-item"><a class="page-link" id="pageNum2" onclick="getBoard(1)" href="javascript:void(0)">2</a></li>
-      <li class="page-item"><a class="page-link" id="pageNum3" onclick="getBoard(2)" href="javascript:void(0)">3</a></li>
-      <li class="page-item"><a class="page-link" id="pageNum4" onclick="getBoard(3)" href="javascript:void(0)">4</a></li>
-      <li class="page-item"><a class="page-link" id="pageNum5" onclick="getBoard(4)" href="javascript:void(0)">5</a></li>
-      <li class="page-item"><a class="page-link" onclick="setPaging(1)" href="javascript:void(0)">다음</a></li>`
-      }
-   }
-   
-   // 페이징 처리 이벤트 추가
-   $(document).on("click", "#topheader .pagination a", function () {
-      $("#topheader .pagination").find("li.active").removeClass("active");
-      $(this).parent("li").addClass("active");
-   });
-
-   function makeReply(replyNum) {
-      var repContent = document.getElementById("input" + replyNum).value
-      axios.post("http://127.0.0.1:8000/saveReply?userId=" + "young" + "&repBoardId=" + boardArray[replyNum - 1].id + "&repContents=" + repContent
-         + "&repPostingDate=" + "20191218" + "&repHeart=" + 0 + "&repClaim=" + 0)
-         .then(resData => {
-            if (resData.data == 1) {
-               vueInstance[replyNum - 1].tag = "<br>유저아이디 : " + "young" + "<br>"
-                  + "댓글 내용 : " + repContent + "<br>"
-                  + "게시 날짜 : " + "20191218" + "<br>"
-                  + "좋아요 : "
-               vueInstance[replyNum - 1].heartflag = !vueInstance[replyNum - 1].heartflag
-               vueInstance[replyNum - 1].repHeartNum = 0
-            } else {
-               alert("저장에 실패했습니다")
-            }
-         }).catch(error => {
-            console.log(error)
-         })
-   }
-
-
-   // 페이지 로딩시 바로 실행되는 로직
-   axios.get("http://127.0.0.1:8000/getCount")
-      .then(resData => {
-         // 첫번째 페이지 게시글 가져오고 화면에 뿌려주기
-         getBoard(0)
-         if (resData.data <= 50) {
-            // 전체 게시글수가 50 이하일경우 다음 페이지가 나오면 안되기 때문에 조건식 생성
-            document.getElementById("paging").innerHTML = setPageNumber(1, 0, parseInt((resData.data - 1) / 10) + 1)
-         }
-      }).catch(error => {
-         console.log(error)
-      })
-
-</script>
-  
-  
-  
-  
-
-
-   
-  <script src="https://kit.fontawesome.com/d8eda33cb8.js" crossorigin="anonymous"></script>
-  <script src="js/axios.js"></script>
-  <script src="js/button.js"></script>
+	
   <script src="js/include.js"></script>
+  <script src="js/boardlistAxios.js"></script>
   <script src="js/jquery.min.js"></script>
   <script src="js/jquery-migrate-3.0.1.min.js"></script>
   <script src="js/popper.min.js"></script>
