@@ -86,7 +86,7 @@
 			 * boardArray[i].category + "<br>" + "좋아요 : "
 			 */
             if (board.plusHeartUserId != null) {
-             board.plusHeartUserId.includes("young") ? vueInstance[i].plusHeart = "<i class=\"heart fas fa-heart\" onclick=\"heart(this)\" style=\"color:red\"></i>" : vueInstance[i].plusHeart = "<i class=\"heart far fa-heart\" onclick=\"heart(this)\" style=\"color:red\"></i>"
+             board.plusHeartUserId.includes("유저닉네임") ? vueInstance[i].plusHeart = "<i class=\"heart fas fa-heart\" onclick=\"heart(this)\" style=\"color:red\"></i>" : vueInstance[i].plusHeart = "<i class=\"heart far fa-heart\" onclick=\"heart(this)\" style=\"color:red\"></i>"
             }
             vueInstance[i].boardHeartNum = board.heart
          }
@@ -116,7 +116,7 @@
             },
             methods: {
                comment: function () {
-                  axios.get("http://127.0.0.1:8000/getReply?repBoardId=" + boardArray[i - 1].id)
+                  axios.get("http://127.0.0.1:8000/getReply?repUserId=" + "유저닉네임" + "&repBoardId=" + boardArray[i - 1].id)
                      .then(resData => {
                         if (resData.data.length == 0) {
                            this.ifflag = true
@@ -130,17 +130,17 @@
 							 * onclick='makeReply(" + i + ")'>댓글 남기기</button>"
 							 */
                         } else {
-                           this.repHeartNum = resData.data[0].repHeart
+                           this.repHeartNum = resData.data.repHeart
                            this.ifflag = !this.ifflag
                            this.heartflag = !this.heartflag
                            this.tag = "<span class=\"text pt-2 mt-3\">"
                               + "<span class=\"align-items-center\">"
                               + "<span class=\"col-6 p-0\">"
-                              + "<h2 class=\"cho-font\">" + resData.data[0].userId + ", <span class=\"h5 text-secondary cho-font\">" + updateDate(resData.data[0].repPostingDate) + "</span></h2>"
-                              + "<h4 class=\"cho-font text-secondary\">" + resData.data[0].repContents + "<h4>"
+                              + "<h2 class=\"cho-font\">" + resData.data.userId + ", <span class=\"h5 text-secondary cho-font\">" + updateDate(resData.data.repPostingDate) + "</span></h2>"
+                              + "<h4 class=\"cho-font text-secondary\">" + resData.data.repContents + "<h4>"
                               + "</span></span></span>"
-                              if(resData.data[0].plusHeartUserId != null){
-                                 resData.data[0].plusHeartUserId.includes("young") ? this.repPlusHeart = "<i class=\"heart fas fa-heart\" onclick=\"heart(this)\" style=\"color:red\"></i>" : this.repPlusHeart = "<i class=\"heart far fa-heart\" onclick=\"heart(this)\" style=\"color:red\"></i>"                    
+                              if(resData.data.plusHeartUserId != null){
+                                 resData.data.plusHeartUserId.includes("유저닉네임") ? this.repPlusHeart = "<i class=\"heart fas fa-heart\" onclick=\"heart(this)\" style=\"color:red\"></i>" : this.repPlusHeart = "<i class=\"heart far fa-heart\" onclick=\"heart(this)\" style=\"color:red\"></i>"                    
                               }
                            /*
 							 * "<br>유저아이디 : " + resData.data[0].userId + "<br>" +
@@ -154,7 +154,7 @@
                      })
                },
                repHeart: function () {
-                  axios.post("http://127.0.0.1:8000/plusHeart?userId=" + "young" + "&repBoardId=" + boardArray[i - 1].id)
+                  axios.post("http://127.0.0.1:8000/plusHeart?repUserId=" + "유저닉네임" + "&repBoardId=" + boardArray[i - 1].id)
                      .then(resData => {
                         this.repHeartNum = resData.data
                      }).catch(error => {
@@ -162,7 +162,7 @@
                      })
                },
                boardHeart: function () {
-                  axios.post("http://127.0.0.1:8000/plusBoardHeart?nickname=" + "young" + "&id=" + boardArray[i - 1].id)
+                  axios.post("http://127.0.0.1:8000/plusBoardHeart?nickname=" + "유저닉네임" + "&id=" + boardArray[i - 1].id)
                      .then(resData => {
                         this.boardHeartNum = resData.data
                      }).catch(error => {
@@ -170,7 +170,7 @@
                      })
                },
                makeClaim: function () {
-                  axios.post("http://127.0.0.1:8000/plusBoardClaim?nickname=" + "young" + "&id=" + boardArray[i - 1].id)
+                  axios.post("http://127.0.0.1:8000/plusBoardClaim?nickname=" + "유저닉네임" + "&id=" + boardArray[i - 1].id)
                      .then(resData => {
                         alert(resData.data)
                      }).catch(error => {
@@ -257,18 +257,18 @@
 
       function makeReply(replyNum) {
          var repContent = document.getElementById("input" + replyNum).value
-         axios.post("http://127.0.0.1:8000/saveReply?userId=" + "young" + "&repBoardId=" + boardArray[replyNum - 1].id + "&repContents=" + repContent
+         axios.post("http://127.0.0.1:8000/saveReply?userId=" + "유저닉네임" + "&repBoardId=" + boardArray[replyNum - 1].id + "&repContents=" + repContent
             + "&repPostingDate=" + "20191218" + "&repHeart=" + 0 + "&repClaim=" + 0)
             .then(resData => {
                if (resData.data == 1) {
                   vueInstance[replyNum - 1].tag = "<span class=\"text pt-2 mt-3\">"
                      + "<span class=\"align-items-center\">"
                      + "<span class=\"col-6 p-0\">"
-                     + "<h2 class=\"cho-font\">" + "young" + ", <span class=\"h5 text-secondary cho-font\">" + "2019년 12월 27일" + "</span></h2>"
+                     + "<h2 class=\"cho-font\">" + "유저닉네임" + ", <span class=\"h5 text-secondary cho-font\">" + "2019년 12월 27일" + "</span></h2>"
                      + "<h4 class=\"cho-font text-secondary\">" + repContent + "<h4>"
                      + "</span></span></span>"
                   /*
-					 * "<br>유저아이디 : " + "young" + "<br>" + "댓글 내용 : " +
+					 * "<br>유저아이디 : " + "유저닉네임" + "<br>" + "댓글 내용 : " +
 					 * repContent + "<br>" + "게시 날짜 : " + "20191218" + "<br>" +
 					 * "좋아요 : "
 					 */

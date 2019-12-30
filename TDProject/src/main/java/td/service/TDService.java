@@ -72,13 +72,6 @@ public class TDService {
 		cRepo.save(client);
 		System.out.println(client);
 	}
-	// 세션 만드는 로직
-	@RequestMapping({ "/session" })
-	String index(HttpSession session) {
-		session.setAttribute("id", "yyy2410");
-		session.setAttribute("pw", "123456");
-		return "/thymeleaf/session.html";
-	}
 	
 	// =================================================================
 	// 미공개 게시판 정보
@@ -268,8 +261,13 @@ public class TDService {
 	}
 
 	// 유저 ID와 게시판ID로 리플 가져오기
-	public Iterable<ReplyDTO> getReply(String repBoardId) {
-		return rRepo.findByRepBoardId(repBoardId);
+	public ReplyDTO getReply(String repUserId, String repBoardId) {
+		return rRepo.findByUserIdAndRepBoardId(repUserId, repBoardId);
+	}
+	
+	// 게시판 ID로만 리플 가져오기
+	public Slice<ReplyDTO> getReplyInOpen(Pageable pageable, String repBoardId) {
+		return rRepo.findByRepBoardId(pageable, repBoardId);
 	}
 
 	// 댓글 저장하기
@@ -283,31 +281,55 @@ public class TDService {
 		return result;
 	}
 
+
 	// 리플 좋아요 추가
 	public Integer plusRepHeart(String repUserId, String repBoardId, String nickName) {
 		// 댓글 찾아오는거 닉네임으로 바꿔야됨 // 유저 아이디도 닉네임으로 => 좋아요누르는사람 닉네임 + 댓글 단 사람의 닉네임 2개필요
 		ReplyDTO entity = rRepo.findByUserIdAndRepBoardId(repUserId, repBoardId);
 		repUserId = nickName == null ? repUserId : nickName;
-		System.out.println(entity);
-		ArrayList<String> PlusHeartUserList = null;
+		
+		ArrayList<String> plusHeartUserList = null;
 		if (entity.getPlusHeartUserId() != null && entity.getPlusHeartUserId().size() != 0) {
-			PlusHeartUserList = entity.getPlusHeartUserId();
+			plusHeartUserList = entity.getPlusHeartUserId();
 		} else {
-			PlusHeartUserList = new ArrayList<>();
+			plusHeartUserList = new ArrayList<>();
 		}
 
-		if (judge(PlusHeartUserList, repUserId)) {
-			PlusHeartUserList.add(repUserId);
+		if (judge(plusHeartUserList, repUserId)) {
+			plusHeartUserList.add(repUserId);
 			entity.setRepHeart(entity.getRepHeart() + 1);
-			entity.setPlusHeartUserId(PlusHeartUserList);
+			entity.setPlusHeartUserId(plusHeartUserList);
 			rRepo.save(entity);
 		} else {
-			PlusHeartUserList.remove(repUserId);
+			plusHeartUserList.remove(repUserId);
 			entity.setRepHeart(entity.getRepHeart() - 1);
-			entity.setPlusHeartUserId(PlusHeartUserList);
+			entity.setPlusHeartUserId(plusHeartUserList);
 			rRepo.save(entity);
 		}
 		return entity.getRepHeart();
+	}
+	
+	public String plusRepClaim(String repUserId, String repBoardId) {
+		ReplyDTO entity = rRepo.findByUserIdAndRepBoardId(repUserId, repBoardId);
+		ArrayList<String> plusClaimUserList = null;
+		String message = null;
+
+		if (entity.getPlusClaimUserId() != null && entity.getPlusClaimUserId().size() != 0) {
+			plusClaimUserList = entity.getPlusClaimUserId();
+		} else {
+			plusClaimUserList = new ArrayList<>();
+		}
+
+		if (judge(plusClaimUserList, repUserId)) {
+			plusClaimUserList.add(repUserId);
+			entity.setRepClaim(entity.getRepClaim() + 1);
+			entity.setPlusClaimUserId(plusClaimUserList);
+			rRepo.save(entity);
+			message = "신고되었습니다";
+		} else {
+			message = "이미 신고하였습니다";
+		}
+		return message;
 	}
 
 	// 리플에 좋아요 누른 사람들 가져오기

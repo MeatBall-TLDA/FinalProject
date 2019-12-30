@@ -330,19 +330,19 @@
 				},
 				methods: {
 					comment: function () {
-						axios.get("http://127.0.0.1:8000/getReply?repBoardId=" + boardArray[i - 1].id)
+						axios.get("http://127.0.0.1:8000/getReply?repUserId=" + "유저닉네임" + "&repBoardId=" + boardArray[i - 1].id)
 							.then(resData => {
 								if (resData.data.length == 0) {
 									this.ifflag = true
 									this.heartflag = false
 									this.tag = "<br><input id='input" + i + "' placeholder='5자이상 입력해주세요'></input><button onclick='makeReply(" + i + ")'>댓글 남기기</button>"
 								} else {
-									this.repHeartNum = resData.data[0].repHeart
+									this.repHeartNum = resData.data.repHeart
 									this.ifflag = !this.ifflag
 									this.heartflag = !this.heartflag
-									this.tag = "<br>유저아이디 : " + resData.data[0].userId + "<br>"
-										+ "댓글 내용 : " + resData.data[0].repContents + "<br>"
-										+ "게시 날짜 : " + resData.data[0].repPostingDate + "<br>"
+									this.tag = "<br>유저아이디 : " + resData.data.userId + "<br>"
+										+ "댓글 내용 : " + resData.data.repContents + "<br>"
+										+ "게시 날짜 : " + resData.data.repPostingDate + "<br>"
 										+ "좋아요 : "
 								}
 							}).catch(error => {
@@ -350,7 +350,7 @@
 							})
 					},
 					repHeart: function () {
-						axios.post("http://127.0.0.1:8000/plusHeart?userId=" + "young" + "&repBoardId=" + boardArray[i - 1].id)
+						axios.post("http://127.0.0.1:8000/plusHeart?repUserId=" + "유저닉네임" + "&repBoardId=" + boardArray[i - 1].id)
 							.then(resData => {
 								this.repHeartNum = resData.data
 							}).catch(error => {
@@ -358,7 +358,7 @@
 							})
 					},
 					boardHeart: function () {
-						axios.post("http://127.0.0.1:8000/plusBoardHeart?nickname=" + "young" + "&id=" + boardArray[i - 1].id)
+						axios.post("http://127.0.0.1:8000/plusBoardHeart?nickname=" + "유저닉네임" + "&id=" + boardArray[i - 1].id)
 							.then(resData => {
 								this.boardHeartNum = resData.data
 							}).catch(error => {
@@ -366,7 +366,7 @@
 							})
 					},
 					makeClaim: function () {
-						axios.post("http://127.0.0.1:8000/plusBoardClaim?nickname=" + "young" + "&id=" + boardArray[i - 1].id)
+						axios.post("http://127.0.0.1:8000/plusBoardClaim?nickname=" + "유저닉네임" + "&id=" + boardArray[i - 1].id)
 							.then(resData => {
 								alert(resData.data)
 							}).catch(error => {
@@ -452,11 +452,11 @@
 
 		function makeReply(replyNum) {
 			var repContent = document.getElementById("input" + replyNum).value
-			axios.post("http://127.0.0.1:8000/saveReply?userId=" + "young" + "&repBoardId=" + boardArray[replyNum - 1].id + "&repContents=" + repContent
+			axios.post("http://127.0.0.1:8000/saveReply?userId=" + "유저닉네임" + "&repBoardId=" + boardArray[replyNum - 1].id + "&repContents=" + repContent
 				+ "&repPostingDate=" + "20191218" + "&repHeart=" + 0 + "&repClaim=" + 0)
 				.then(resData => {
 					if (resData.data == 1) {
-						vueInstance[replyNum - 1].tag = "<br>유저아이디 : " + "young" + "<br>"
+						vueInstance[replyNum - 1].tag = "<br>유저아이디 : " + "유저닉네임" + "<br>"
 							+ "댓글 내용 : " + repContent + "<br>"
 							+ "게시 날짜 : " + "20191218" + "<br>"
 							+ "좋아요 : "
