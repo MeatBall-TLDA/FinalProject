@@ -43,7 +43,7 @@
 </head>
 
 <body>
-<div include="/menu"></div> 
+	<div include="/menu"></div>
 	<div id="dropdown" class="navbar-nav d-flex flex-row ml-3">
 		<div class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle" id="navbarDropdown1" aria-haspopup="true" aria-expanded="false"
@@ -209,6 +209,9 @@
 		// sorting 종류 받을 변수
 		var sortKind
 
+		// 댓글 data
+		var data = []
+
 		// 전체 게시글 수 얻어오기
 		function getCount() {
 			axios.get("http://127.0.0.1:8000/getCount")
@@ -257,6 +260,8 @@
 					+ "category : " + boardArray[i].category + "<br>"
 					+ "좋아요 : "
 				vueInstance[i].boardHeartNum = boardArray[i].heart
+				vueInstance[i].plusHeart = "<button>좋아요누르기</button>"
+				vueInstance[i].plusClaim = "<button>신고하기</button>"
 			}
 			for (let j = forNum; j < 10; j++) {
 				vueInstance[j].ifflag = false
@@ -269,7 +274,6 @@
 			}
 		}
 
-		var data = []
 
 		for (let i = 1; i <= 10; i++) {
 			data[i - 1] = {
@@ -284,7 +288,7 @@
 			vueInstance[i - 1] = new Vue({
 				el: "#row" + i,
 				data: {
-					tag : "",
+					tag: "",
 					ifflag: false,
 					heartflag: false,
 					boardHeartNum: 0,
@@ -307,6 +311,49 @@
 										}).catch(error => {
 											console.log(error)
 										})
+								},
+								moreReply: function (loopNum) {
+									axios.get("http://127.0.0.1:8000/getReplyInOpen?page=" + loopNum + "&repBoardId=" + boardArray[i - 1].id)
+										.then(resData => {
+
+											var repTag = ""
+											var standardLength = 5 * (loopNum + 1)
+											var length = resData.data.totalElements > standardLength ? standardLength : resData.data.content.length + 5 * loopNum
+											
+											for (let j = 5 * loopNum; j < length; j++) {
+												data[i - 1].repHeartNum[j] = resData.data.content[j - 5 * loopNum].repHeart
+												data[i - 1].tag[j] = "<br>유저아이디 : " + resData.data.content[j - 5 * loopNum].userId + "<br>"
+													+ "댓글 내용 : " + resData.data.content[j - 5 * loopNum].repContents + "<br>"
+													+ "게시 날짜 : " + resData.data.content[j - 5 * loopNum].repPostingDate + "<br>"
+													+ "좋아요 : "
+												data[i - 1].repUserId[j] = resData.data.content[j - 5 * loopNum].userId
+
+												repTag +=
+													`
+													<span v-html="tag[` + j + `]" v-if="ifflag"></span>
+													<span v-text="repHeartNum[` + j + `]" v-if="ifflag"></span>
+													<span v-html="plusHeart" v-on:click="repHeart(` + j + `)" v-if="ifflag"></span>
+													<span v-html="plusClaim" v-on:click="repMakeClaim(` + j + `)"></span><br>
+													`
+											}
+											var removeLast = ""
+											var removeLastLength = vueInstance[i - 1].tag.split("\n").length - 1
+											vueInstance[i - 1].tag.split("\n").forEach(function(element, index, array){
+												removeLast += index == removeLastLength ? "" : element + "\n"
+											});
+
+											vueInstance[i - 1].tag = resData.data.totalElements > standardLength ? removeLast + repTag + `<span v-on:click="moreReply(` + (loopNum + 1) + `)">더보기</span>` : removeLast + repTag
+										}).catch(error => {
+											console.log(error)
+										})
+								},
+								repMakeClaim: function(num){
+									axios.post("http://127.0.0.1:8000/plusRepClaim?repUserId=" + data[i - 1].repUserId[num] + "&repBoardId=" + boardArray[i - 1].id)
+										.then(resData => {
+											alert(resData.data)
+										}).catch(error => {
+											console.log(error)
+										})
 								}
 							}
 						}
@@ -314,32 +361,39 @@
 				},
 				methods: {
 					comment: function () {
-						axios.get("http://127.0.0.1:8000/getReply?repBoardId=" + boardArray[i - 1].id)
-							.then(resData => {
-								var repTag = ""
-								var length = resData.data.length
-								data[i - 1].ifflag = !data[i - 1].ifflag
+						if (data[i - 1].ifflag == false) {
+							axios.get("http://127.0.0.1:8000/getReplyInOpen?repBoardId=" + boardArray[i - 1].id)
+								.then(resData => {
 
-								for(let j = 0; j < length; j++){
-									data[i - 1].repHeartNum[j] = resData.data[j].repHeart
-									data[i - 1].tag[j] = "<br>유저아이디 : " + resData.data[j].userId + "<br>"
-										+ "댓글 내용 : " + resData.data[j].repContents + "<br>"
-										+ "게시 날짜 : " + resData.data[j].repPostingDate + "<br>"
-										+ "좋아요 : "
-									data[i - 1].repUserId[j] = resData.data[j].userId
+									var repTag = ""
+									var length = resData.data.content.length
+									data[i - 1].ifflag = !data[i - 1].ifflag
 
-									repTag += 
-									`
-									<span v-html="tag[` + j + `]" v-if="ifflag"></span>
-									<span v-text="repHeartNum[` + j + `]" v-if="ifflag"></span>
-									<span v-html="plusHeart" v-on:click="repHeart(` + j + `)" v-if="ifflag"></span><br>
-									`
-								}
+									for (let j = 0; j < length; j++) {
+										data[i - 1].repHeartNum[j] = resData.data.content[j].repHeart
+										data[i - 1].tag[j] = "<br>유저아이디 : " + resData.data.content[j].userId + "<br>"
+											+ "댓글 내용 : " + resData.data.content[j].repContents + "<br>"
+											+ "게시 날짜 : " + resData.data.content[j].repPostingDate + "<br>"
+											+ "좋아요 : "
+										data[i - 1].repUserId[j] = resData.data.content[j].userId
 
-								this.tag = repTag
-							}).catch(error => {
-								console.log(error)
-							})
+										repTag +=
+											`
+											<span v-html="tag[` + j + `]" v-if="ifflag"></span>
+											<span v-text="repHeartNum[` + j + `]" v-if="ifflag"></span>
+											<span v-html="plusHeart" v-on:click="repHeart(` + j + `)" v-if="ifflag"></span>
+											<span v-html="plusClaim" v-on:click="repMakeClaim(` + j + `)"></span><br>
+											`
+									}
+
+									this.tag = resData.data.totalElements > 5 ? repTag + `<span v-on:click="moreReply(` + 1 + `)" v-if="ifflag">더보기</span>` : repTag
+								}).catch(error => {
+									console.log(error)
+								})
+						} else {
+							data[i - 1].ifflag = !data[i - 1].ifflag
+						}
+
 					},
 					boardHeart: function () {
 						axios.post("http://127.0.0.1:8000/plusBoardHeart?nickname=" + "유저닉네임" + "&id=" + boardArray[i - 1].id)
@@ -360,7 +414,7 @@
 				}
 			})
 		}
-    
+
 		// innerHTML코드 반복문 함수화
 		function setPageNumber(direction, pageNum, loopNum) {
 			paging = ""
@@ -434,27 +488,6 @@
 			$(this).parent("li").addClass("active");
 		});
 
-		function makeReply(replyNum) {
-			var repContent = document.getElementById("input" + replyNum).value
-			axios.post("http://127.0.0.1:8000/saveReply?userId=" + "young" + "&repBoardId=" + boardArray[replyNum - 1].id + "&repContents=" + repContent
-				+ "&repPostingDate=" + "20191218" + "&repHeart=" + 0 + "&repClaim=" + 0)
-				.then(resData => {
-					if (resData.data == 1) {
-						vueInstance[replyNum - 1].tag = "<br>유저아이디 : " + "young" + "<br>"
-							+ "댓글 내용 : " + repContent + "<br>"
-							+ "게시 날짜 : " + "20191218" + "<br>"
-							+ "좋아요 : "
-						vueInstance[replyNum - 1].heartflag = !vueInstance[replyNum - 1].heartflag
-						vueInstance[replyNum - 1].repHeartNum = 0
-					} else {
-						alert("저장에 실패했습니다")
-					}
-				}).catch(error => {
-					console.log(error)
-				})
-		}
-
-
 		// 페이지 로딩시 바로 실행되는 로직
 		axios.get("http://127.0.0.1:8000/getCount")
 			.then(resData => {
@@ -470,4 +503,5 @@
 
 	</script>
 </body>
+
 </html>
