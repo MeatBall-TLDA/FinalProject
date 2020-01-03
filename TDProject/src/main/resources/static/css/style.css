@@ -3868,7 +3868,7 @@ input[type="button"].btn-block {
   border: 1px solid #dee2e6; }
   .page-link:hover {
     z-index: 2;
-    color: #34c0e7;
+    color: #f05d23;
     text-decoration: none;
     background-color: #e9ecef;
     border-color: #dee2e6; }
@@ -3892,8 +3892,8 @@ input[type="button"].btn-block {
 .page-item.active .page-link {
   z-index: 1;
   color: #fff;
-  background-color: #78d5ef;
-  border-color: #78d5ef; }
+  background-color: #f05d23;
+  border-color: #f05d23; }
 
 .page-item.disabled .page-link {
   color: #6c757d;
@@ -8040,6 +8040,18 @@ textarea.form-control {
 
 textarea.form-control-cho {
   height: 140px !important; }
+    @media (min-width:200px) {
+    .form-control-cho {
+      width: 18.5rem; } }
+  @media (min-width: 768px) {
+    .form-control-cho {
+      width: 22rem; } }
+  @media (min-width: 992px) {
+    .form-control-cho {
+      width: 28rem; } }
+  @media (min-width: 1200px) {
+    .form-control-cho {
+      width: 29rem; }}
 
 .ftco-animate {
   opacity: 0;
@@ -8598,3 +8610,158 @@ textarea.form-control-cho {
 .report-cho:hover{
   color: darkgray;
 }
+
+.cho-font-size{
+  font-size: large;
+}
+
+.cho-card-size{
+  margin-bottom: 40px;
+  margin-left: 15px;}
+  @media (min-width:200px) {
+    .cho-card-size {
+      width: 20rem; } }
+  @media (min-width: 768px) {
+    .cho-card-size {
+      width: 23rem; } }
+  @media (min-width: 992px) {
+    .cho-card-size {
+      width: 23rem; } }
+  @media (min-width: 1200px) {
+    .cho-card-size {
+      width: 26rem; }}
+
+.cho-padding-right{
+	padding-padding-right: 0px;
+}
+
+.cho-padding-size{
+	padding-left:100px;
+	padding-right:100px;
+}
+@media (min-width:200px) {
+    .cho-padding-size {
+      padding-left:30px;
+	padding-right:30px; } }
+  @media (min-width: 768px) {
+    .cho-padding-size {
+      padding-left:50px;
+	padding-right:50px;; } }
+  @media (min-width: 992px) {
+    .cho-padding-size {
+      padding-left:80px;
+	padding-right:80px; } }
+  @media (min-width: 1200px) {
+    .cho-padding-size{
+      padding-left:80px;
+	padding-right:80px; }}
+	
+	
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.form-control-young {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  -o-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out; }
+  
+@media (min-width:200px) {
+    .form-control-young {
+     		width: 170px; } }
+  @media (min-width: 768px) {
+    .form-control-young {
+   			width:170px; } }
+  @media (min-width: 992px) {
+    .form-control-young {
+      width: 180px; } }
+  @media (min-width: 1200px) {
+    .form-control-young{
+      width: 255px; }}
+      
+      
+.young-margin-left{
+	margin-left: 100px;
+}
+
+@media (min-width:200px) {
+    .young-margin-left {
+     		margin-left: 105px; } }
+  @media (min-width: 768px) {
+    .young-margin-left {
+   			margin-left:110px; } }
+  @media (min-width: 992px) {
+    .young-margin-left {
+      margin-left: 150px; } }
+  @media (min-width: 1200px) {
+    .young-margin-left{
+      margin-left: 195px; }}
+      

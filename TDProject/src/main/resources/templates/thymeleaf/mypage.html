@@ -31,30 +31,46 @@
 <link rel="stylesheet" href="css/flaticon.css">
 <link rel="stylesheet" href="css/icomoon.css">
 <link rel="stylesheet" href="css/style.css">
+<link
+	href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script&display=swap"
+	rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
 <body>
+
+	<!--  닉네임값 띄워주기 xxx에 <p th:text="${session.nickname}" th:unless="${session == null}"></p> -->
 	<div id="colorlib-page">
 		<div include="/menu"></div>
 		<div id="colorlib-main">
-			<h2 class="h2 font-weight-bold text-center mt-5">My Page</h2>
-			<section class="ftco-section contact-section">
-				<div class="container">
-					<div class="row d-flex mb-5 contact-info text-center">
-						<div class="col-md-12 mb-4">
-							<form action="serviceName" method="post">
-								<input
-									class="text-center btn btn-primary form-group my-3 btn-md border-3 btn-outline-secondary"
-									id="serviceName" type="text" name="serviceName" value="">
-								<input
-									class="btn btn-primary form-group my-3 btn-md border-3 btn-outline-secondary"
-									type="submit" name="submit" value="닉네임 수정 ">
-							</form>
+			<h2 class="font-weight-bold text-center mt-5">My Page</h2>
+			<div class="container">
+				<h4 class="cho-font my-5 mx-2 text-center">xxx님 어서오세요 틀다에 오신걸 환영합니다</h4>
+			</div>
+			<div>
+				<div class="container justify-content-center col-xs-4 col-md-6">
+					<form action="" class="cho-padding-size py-2">
+						<div class="form-group form-inline">
+							<label for="user" class="h4 cho-font">닉네임 수정</label> <input type="text"
+								class="form-control-young rounded ml-2 ml-lg-3" id="user" placeholder="닉네임을 입력해주세요">
 						</div>
-						<button style="float: right;" class="btn btn-primary form-group my-3 btn-md border-3 btn-outline-secondary" onclick="logout()">로그아웃하기</button>
-					</div>
+						<div class="form-group form-inline">
+							<text class="h4 cho-font">알림 수신 여부</text>
+							<label class="switch young-margin-left"><input type="checkbox"> 
+							<span class="slider round"></span>
+							</label>
+						</div>
+						<p class="h4 mb-4 cho-font">개인정보 취급동의</p>
+						<p class="h4 mb-2 cho-font">서비스 이용약관</p>
+						<div class="py-5" style="text-align: center;">
+						<button type="submit" class="btn btn-outline-secondary">수정하기</button>
+						<button type="submit" class="btn btn-outline-secondary">취소하기</button>
+						</div>
+					</form>
 				</div>
-				<div class="w-100"></div>
-			</section>
+			</div>
 		</div>
 	</div>
 	<script src="js/include.js"></script>

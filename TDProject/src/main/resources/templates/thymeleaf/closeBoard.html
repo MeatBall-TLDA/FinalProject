@@ -95,21 +95,22 @@
                <div class="row">
                   <div class="cho-1">
                      <!-- 크기 수정 해둠-->
-                     <div class="row container ml-3" id="row1">
-                        <div class="col-md-8 col-xl-8 mb-3">
+                     <div class="cho-card-size card">
+                        <div id="row1">
                            <div class="blog-entry ftco-animate" id="child1" style="margin-bottom: 0px;"
                               v-on:click="comment">
                            </div>
-                           <div class="ftco-animate" style="float:right;">
+                           <div class="ftco-animate">
                               <span v-html="boardHeartNum"></span>
-                              <span v-html="plusHeart" v-on:click="boardHeart" class="mx-1"></span>
+                              <span v-html="plusHeart" v-on:click="boardHeart"></span>
                               <span v-html="plusClaim" v-on:click="makeClaim"></span>
                            </div>
-                           <div class="container pt-5 px-0 mx-0">
+                           <div>
                               <span v-html="tag" v-if="ifflag"></span>
                               <span v-html="repHeartNum" v-if="heartflag"></span>
                               <span v-html="repPlusHeart" v-on:click="repHeart" v-if="heartflag"></span>
                            </div>
+                           <br>
                         </div>
                      </div>
 
@@ -126,171 +127,181 @@
                   </div>-->
 
 
-                     <div class="row container ml-3" id="row2">
-                        <div class="col-md-8 col-xl-8 mb-3">
-                           <div class="blog-entry ftco-animate" id="child2" style="margin-bottom: 0px;"
-                              v-on:click="comment">
-                           </div>
-                           <div class="ftco-animate" style="float:right;">
-                              <span v-html="boardHeartNum"></span>
-                              <span v-html="plusHeart" v-on:click="boardHeart" class="mx-1"></span>
-                              <span v-html="plusClaim" v-on:click="makeClaim"></span>
-                           </div>
-                           <div class="container pt-5 px-0 mx-0">
-                              <span v-html="tag" v-if="ifflag"></span>
-                              <span v-html="repHeartNum" v-if="heartflag"></span>
-                              <span v-html="repPlusHeart" v-on:click="repHeart" v-if="heartflag"></span>
-                           </div>
+                  <div class="cho-card-size card">
+                     <div class="ml-2" id="row2">
+                        <div class="blog-entry ftco-animate" id="child2" style="margin-bottom: 0px;"
+                           v-on:click="comment">
                         </div>
-                     </div>
-
-
-                     <div class="row container ml-3" id="row3">
-                        <div class="col-md-8 col-xl-8 mb-3">
-                           <div class="blog-entry ftco-animate" id="child3" style="margin-bottom: 0px;"
-                              v-on:click="comment">
-                           </div>
-                           <div class="ftco-animate" style="float:right;">
-                              <span v-html="boardHeartNum"></span>
-                              <span v-html="plusHeart" v-on:click="boardHeart" class="mx-1"></span>
-                              <span v-html="plusClaim" v-on:click="makeClaim"></span>
-                           </div>
-                           <div class="container pt-5 px-0 mx-0">
-                              <span v-html="tag" v-if="ifflag"></span>
-                              <span v-html="repHeartNum" v-if="heartflag"></span>
-                              <span v-html="repPlusHeart" v-on:click="repHeart" v-if="heartflag"></span>
-                           </div>
+                        <div class="ftco-animate">
+                           <span v-html="boardHeartNum"></span>
+                           <span v-html="plusHeart" v-on:click="boardHeart"></span>
+                           <span v-html="plusClaim" v-on:click="makeClaim"></span>
                         </div>
-                     </div>
-
-
-
-                     <div class="row container ml-3" id="row4">
-                        <div class="col-md-8 col-xl-8 mb-3">
-                           <div class="blog-entry ftco-animate" id="child4" style="margin-bottom: 0px;"
-                              v-on:click="comment">
-                           </div>
-                           <div class="ftco-animate" style="float:right;">
-                              <span v-html="boardHeartNum"></span>
-                              <span v-html="plusHeart" v-on:click="boardHeart" class="mx-1"></span>
-                              <span v-html="plusClaim" v-on:click="makeClaim"></span>
-                           </div>
-                           <div class="container pt-5 px-0 mx-0">
-                              <span v-html="tag" v-if="ifflag"></span>
-                              <span v-html="repHeartNum" v-if="heartflag"></span>
-                              <span v-html="repPlusHeart" v-on:click="repHeart" v-if="heartflag"></span>
-                           </div>
+                        <div>
+                           <span v-html="tag" v-if="ifflag"></span>
+                           <span v-html="repHeartNum" v-if="heartflag"></span>
+                           <span v-html="repPlusHeart" v-on:click="repHeart" v-if="heartflag"></span>
                         </div>
+                        <br>
                      </div>
+                  </div>
 
-                     <div class="row container ml-3" id="row5">
-                        <div class="col-md-8 col-xl-8 mb-3">
-                           <div class="blog-entry ftco-animate" id="child5" style="margin-bottom: 0px;"
-                              v-on:click="comment">
-                           </div>
-                           <div class="ftco-animate" style="float:right;">
-                              <span v-html="boardHeartNum"></span>
-                              <span v-html="plusHeart" v-on:click="boardHeart" class="mx-1"></span>
-                              <span v-html="plusClaim" v-on:click="makeClaim"></span>
-                           </div>
-                           <div class="container pt-5 px-0 mx-0">
-                              <span v-html="tag" v-if="ifflag"></span>
-                              <span v-html="repHeartNum" v-if="heartflag"></span>
-                              <span v-html="repPlusHeart" v-on:click="repHeart" v-if="heartflag"></span>
-                           </div>
+
+                  <div class="cho-card-size card">
+                     <div class="ml-2" id="row3">
+                        <div class="blog-entry ftco-animate" id="child3" style="margin-bottom: 0px;"
+                           v-on:click="comment">
                         </div>
-                     </div>
-
-                     <div class="row container ml-3" id="row6">
-                        <div class="col-md-8 col-xl-8 mb-3">
-                           <div class="blog-entry ftco-animate" id="child6" style="margin-bottom: 0px;"
-                              v-on:click="comment">
-                           </div>
-                           <div class="ftco-animate" style="float:right;">
-                              <span v-html="boardHeartNum"></span>
-                              <span v-html="plusHeart" v-on:click="boardHeart" class="mx-1"></span>
-                              <span v-html="plusClaim" v-on:click="makeClaim"></span>
-                           </div>
-                           <div class="container pt-5 px-0 mx-0">
-                              <span v-html="tag" v-if="ifflag"></span>
-                              <span v-html="repHeartNum" v-if="heartflag"></span>
-                              <span v-html="repPlusHeart" v-on:click="repHeart" v-if="heartflag"></span>
-                           </div>
+                        <div class="ftco-animate">
+                           <span v-html="boardHeartNum"></span>
+                           <span v-html="plusHeart" v-on:click="boardHeart"></span>
+                           <span v-html="plusClaim" v-on:click="makeClaim"></span>
                         </div>
-                     </div>
-
-
-                     <div class="row container ml-3" id="row7">
-                        <div class="col-md-8 col-xl-8 mb-3">
-                           <div class="blog-entry ftco-animate" id="child7" style="margin-bottom: 0px;"
-                              v-on:click="comment">
-                           </div>
-                           <div class="ftco-animate" style="float:right;">
-                              <span v-html="boardHeartNum"></span>
-                              <span v-html="plusHeart" v-on:click="boardHeart" class="mx-1"></span>
-                              <span v-html="plusClaim" v-on:click="makeClaim"></span>
-                           </div>
-                           <div class="container pt-5 px-0 mx-0">
-                              <span v-html="tag" v-if="ifflag"></span>
-                              <span v-html="repHeartNum" v-if="heartflag"></span>
-                              <span v-html="repPlusHeart" v-on:click="repHeart" v-if="heartflag"></span>
-                           </div>
+                        <div>
+                           <span v-html="tag" v-if="ifflag"></span>
+                           <span v-html="repHeartNum" v-if="heartflag"></span>
+                           <span v-html="repPlusHeart" v-on:click="repHeart" v-if="heartflag"></span>
                         </div>
+                        <br>
                      </div>
+                  </div>
 
-                     <div class="row container ml-3" id="row8">
-                        <div class="col-md-8 col-xl-8 mb-3">
-                           <div class="blog-entry ftco-animate" id="child8" style="margin-bottom: 0px;"
-                              v-on:click="comment">
-                           </div>
-                           <div class="ftco-animate" style="float:right;">
-                              <span v-html="boardHeartNum"></span>
-                              <span v-html="plusHeart" v-on:click="boardHeart" class="mx-1"></span>
-                              <span v-html="plusClaim" v-on:click="makeClaim"></span>
-                           </div>
-                           <div class="container pt-5 px-0 mx-0">
-                              <span v-html="tag" v-if="ifflag"></span>
-                              <span v-html="repHeartNum" v-if="heartflag"></span>
-                              <span v-html="repPlusHeart" v-on:click="repHeart" v-if="heartflag"></span>
-                           </div>
-                        </div>
-                     </div>
 
-                     <div class="row container ml-3" id="row9">
-                        <div class="col-md-8 col-xl-8 mb-3">
-                           <div class="blog-entry ftco-animate" id="child9" style="margin-bottom: 0px;"
-                              v-on:click="comment">
-                           </div>
-                           <div class="ftco-animate" style="float:right;">
-                              <span v-html="boardHeartNum"></span>
-                              <span v-html="plusHeart" v-on:click="boardHeart" class="mx-1"></span>
-                              <span v-html="plusClaim" v-on:click="makeClaim"></span>
-                           </div>
-                           <div class="container pt-5 px-0 mx-0">
-                              <span v-html="tag" v-if="ifflag"></span>
-                              <span v-html="repHeartNum" v-if="heartflag"></span>
-                              <span v-html="repPlusHeart" v-on:click="repHeart" v-if="heartflag"></span>
-                           </div>
-                        </div>
-                     </div>
 
-                     <div class="row container ml-3" id="row10">
-                        <div class="col-md-8 col-xl-8 mb-3">
-                           <div class="blog-entry ftco-animate" id="child10" style="margin-bottom: 0px;"
-                              v-on:click="comment">
-                           </div>
-                           <div class="ftco-animate" style="float:right;">
-                              <span v-html="boardHeartNum"></span>
-                              <span v-html="plusHeart" v-on:click="boardHeart" class="mx-1"></span>
-                              <span v-html="plusClaim" v-on:click="makeClaim"></span>
-                           </div>
-                           <div class="container pt-5 px-0 mx-0">
-                              <span v-html="tag" v-if="ifflag"></span>
-                              <span v-html="repHeartNum" v-if="heartflag"></span>
-                              <span v-html="repPlusHeart" v-on:click="repHeart" v-if="heartflag"></span>
-                           </div>
+                  <div class="cho-card-size card">
+                     <div class="ml-2" id="row4">
+                        <div class="blog-entry ftco-animate" id="child4" style="margin-bottom: 0px;"
+                           v-on:click="comment">
                         </div>
+                        <div class="ftco-animate">
+                           <span v-html="boardHeartNum"></span>
+                           <span v-html="plusHeart" v-on:click="boardHeart"></span>
+                           <span v-html="plusClaim" v-on:click="makeClaim"></span>
+                        </div>
+                        <div>
+                           <span v-html="tag" v-if="ifflag"></span>
+                           <span v-html="repHeartNum" v-if="heartflag"></span>
+                           <span v-html="repPlusHeart" v-on:click="repHeart" v-if="heartflag"></span>
+                        </div>
+                        <br>
                      </div>
+                  </div>
+
+                  <div class="cho-card-size card">
+                     <div class="ml-2" id="row5">
+                        <div class="blog-entry ftco-animate" id="child5" style="margin-bottom: 0px;"
+                           v-on:click="comment">
+                        </div>
+                        <div class="ftco-animate">
+                           <span v-html="boardHeartNum"></span>
+                           <span v-html="plusHeart" v-on:click="boardHeart"></span>
+                           <span v-html="plusClaim" v-on:click="makeClaim"></span>
+                        </div>
+                        <div>
+                           <span v-html="tag" v-if="ifflag"></span>
+                           <span v-html="repHeartNum" v-if="heartflag"></span>
+                           <span v-html="repPlusHeart" v-on:click="repHeart" v-if="heartflag"></span>
+                        </div>
+                        <br>
+                     </div>
+                  </div>
+
+                  <div class="cho-card-size card">
+                     <div class="ml-2" id="row6">
+                        <div class="blog-entry ftco-animate" id="child6" style="margin-bottom: 0px;"
+                           v-on:click="comment">
+                        </div>
+                        <div class="ftco-animate">
+                           <span v-html="boardHeartNum"></span>
+                           <span v-html="plusHeart" v-on:click="boardHeart"></span>
+                           <span v-html="plusClaim" v-on:click="makeClaim"></span>
+                        </div>
+                        <div>
+                           <span v-html="tag" v-if="ifflag"></span>
+                           <span v-html="repHeartNum" v-if="heartflag"></span>
+                           <span v-html="repPlusHeart" v-on:click="repHeart" v-if="heartflag"></span>
+                        </div>
+                        <br>
+                     </div>
+                  </div>
+
+
+                  <div class="cho-card-size card">
+                     <div class="ml-2" id="row7">
+                        <div class="blog-entry ftco-animate" id="child7" style="margin-bottom: 0px;"
+                           v-on:click="comment">
+                        </div>
+                        <div class="ftco-animate">
+                           <span v-html="boardHeartNum"></span>
+                           <span v-html="plusHeart" v-on:click="boardHeart"></span>
+                           <span v-html="plusClaim" v-on:click="makeClaim"></span>
+                        </div>
+                        <div>
+                           <span v-html="tag" v-if="ifflag"></span>
+                           <span v-html="repHeartNum" v-if="heartflag"></span>
+                           <span v-html="repPlusHeart" v-on:click="repHeart" v-if="heartflag"></span>
+                        </div>
+                        <br>
+                     </div>
+                  </div>
+
+                  <div class="cho-card-size card">
+                     <div class="ml-2" id="row8">
+                        <div class="blog-entry ftco-animate" id="child8" style="margin-bottom: 0px;"
+                           v-on:click="comment">
+                        </div>
+                        <div class="ftco-animate">
+                           <span v-html="boardHeartNum"></span>
+                           <span v-html="plusHeart" v-on:click="boardHeart"></span>
+                           <span v-html="plusClaim" v-on:click="makeClaim"></span>
+                        </div>
+                        <div>
+                           <span v-html="tag" v-if="ifflag"></span>
+                           <span v-html="repHeartNum" v-if="heartflag"></span>
+                           <span v-html="repPlusHeart" v-on:click="repHeart" v-if="heartflag"></span>
+                        </div>
+                        <br>
+                     </div>
+                  </div>
+
+                  <div class="cho-card-size card">
+                     <div class="ml-2" id="row9">
+                        <div class="blog-entry ftco-animate" id="child9" style="margin-bottom: 0px;"
+                           v-on:click="comment">
+                        </div>
+                        <div class="ftco-animate">
+                           <span v-html="boardHeartNum"></span>
+                           <span v-html="plusHeart" v-on:click="boardHeart"></span>
+                           <span v-html="plusClaim" v-on:click="makeClaim"></span>
+                        </div>
+                        <div>
+                           <span v-html="tag" v-if="ifflag"></span>
+                           <span v-html="repHeartNum" v-if="heartflag"></span>
+                           <span v-html="repPlusHeart" v-on:click="repHeart" v-if="heartflag"></span>
+                        </div>
+                        <br>
+                     </div>
+                  </div>
+
+                  <div class="cho-card-size card">
+                     <div class="ml-2" id="row10">
+                        <div class="blog-entry ftco-animate" id="child10" style="margin-bottom: 0px;"
+                           v-on:click="comment">
+                        </div>
+                        <div class="ftco-animate">
+                           <span v-html="boardHeartNum"></span>
+                           <span v-html="plusHeart" v-on:click="boardHeart"></span>
+                           <span v-html="plusClaim" v-on:click="makeClaim"></span>
+                        </div>
+                        <div>
+                           <span v-html="tag" v-if="ifflag"></span>
+                           <span v-html="repHeartNum" v-if="heartflag"></span>
+                           <span v-html="repPlusHeart" v-on:click="repHeart" v-if="heartflag"></span>
+                        </div>
+                        <br>
+                     </div>
+                  </div>
+
                      
 
 

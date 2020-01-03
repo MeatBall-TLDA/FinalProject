@@ -54,7 +54,12 @@ public class GeneralController {
 
    @RequestMapping("/todaymessage")
    public String goToTodayMessage() {
-      return "/thymeleaf/todaymessage";
+      return "/thymeleaf/todayMessage";
+   }
+   
+   @RequestMapping("/writing")
+   public String goToWriting() {
+      return "/thymeleaf/writing";
    }
    
    @RequestMapping("/writing")
@@ -90,6 +95,11 @@ public class GeneralController {
    @RequestMapping("/close")
    public String goToCloseBoard() {
       return "/thymeleaf/closeBoard";
+   }
+   
+   @RequestMapping("/public")
+   public String goToPublicBoard() {
+      return "/thymeleaf/publicBoard";
    }
    
    @PostMapping("/serviceName")

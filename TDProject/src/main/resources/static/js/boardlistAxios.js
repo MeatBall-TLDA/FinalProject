@@ -1,4 +1,3 @@
-  
       // 전체 게시글 수 받을 변수
       var count
 
@@ -144,9 +143,9 @@
                         if (resData.data.length == 0) {
                            this.ifflag = true
                            this.heartflag = false
-                           this.tag = `<div><textarea id="input` + i + `" class="form-control-cho col-4 col-md-8 col-xl-10 rounded
-                              placeholder="5자 이상 입력해주세요" style="width: 650px; resize: none;"></textarea><br>
-                              <button type="button" class="btn btn-outline-secondary py-3 px-5" onclick="makeReply(` + i + `)">댓글 남기기</button></div>`
+                           this.tag = "<br><div><textarea id=\"input" + i + "\"class=\"form-control-cho rounded\""
+                           + "placeholder=\"5자 이상 입력해주세요\" style=\"resize: none;\"></textarea><br>"
+                           + "<button type=\"button\" class=\"btn btn-outline-secondary py-3 px-5\" onclick=\"makeReply(" + i + ")\">댓글 남기기</button></div>"
 
                         } else {
                            this.repHeartNum = resData.data.repHeart
@@ -332,7 +331,6 @@
             console.log(error)
          })}
       
-      getVue();
       getAxios();
 
       window.onload = function(){
