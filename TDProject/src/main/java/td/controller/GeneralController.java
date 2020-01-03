@@ -1,6 +1,7 @@
 package td.controller;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import td.model.domain.HiddenBoardDTO;
 import td.service.TDService;
 
 @Controller
@@ -59,8 +61,13 @@ public class GeneralController {
    public String goToWriting() {
       return "/thymeleaf/writing";
    }
+   
+   @RequestMapping("/writing")
+   public String goToWriting() {
+      return "/thymeleaf/writing";
+   }
 
-   // 세션 확인하는 로직 index.html
+   // 세션 확인하는 로직
    @RequestMapping("/index")
    public String sessionCheck(HttpSession session) {
       System.out.println(session.getAttribute("id"));
@@ -71,13 +78,12 @@ public class GeneralController {
          return "/thymeleaf/CloseBoard";
       }
    }
-
-
-   // 세션 삭제 로직
-   @RequestMapping("/session2")
-   String index2(HttpSession session) {
-      session.invalidate();
-      return "/thymeleaf/session.html";
+   
+   //오늘의 메세지 기능
+//   @Scheduled(initialDelay = 10000, fixedDelay = 10000)
+   public void sendMessage() {
+      System.out.println("오늘의 메세지 기능 작동(스케쥴러)");
+      service.sendMessage();
    }
 
    // 공개 날짜에 맞추어 게시글 데이터 이동 메소드
@@ -85,15 +91,6 @@ public class GeneralController {
    public void moveToOpen() {
       service.moveToOpen();
    }
-
-
-//   @Scheduled(initialDelay = 10000, fixedDelay = 10000)
-//   public void sendMessage() {
-//      System.out.println("gggg");
-//      service.sendMessage();
-//   }
-
-
    
    @RequestMapping("/close")
    public String goToCloseBoard() {
@@ -118,16 +115,21 @@ public class GeneralController {
 //   }
 
    // 미공개 게시판 게시글 작성
-//   @PostMapping("/saveHidden")
-//   public String saveHiddenBoardDTO(HiddenBoardDTO board) {
-//      String url = "";
-//      if(service.saveHiddenBoardDTO(board)) {
-//         url = "HiddenBoard";
-//      }else {
-//         url = "Error";
-//      }
-//      return url;
-//   }
+   @PostMapping("/saveHidden")
+   public String saveHiddenBoardDTO(HiddenBoardDTO board) {
+      String url = "";
+      try {
+		if(service.saveHiddenBoardDTO(board)) {
+		     url = "/thymeleaf/closeBoard";
+		  }else {
+		     url = "/thymeleaf/error";
+		  }
+	} catch (ParseException e) {
+		e.printStackTrace();
+		url = "/thymeleaf/error";
+	}
+      return url;
+   }
    // =====================================
 
    // 로그인 API
@@ -136,24 +138,23 @@ public class GeneralController {
       return "/login";
    }
 
-   @RequestMapping(value = "/kakaoLogin")
+   @RequestMapping("/kakaoLogin")
    public String login(@RequestParam("code") String code, HttpSession session) {
       return service.kakaoLogin(code, session);
    }
 
-   @RequestMapping(value = "/naverLogin")
+   @RequestMapping("/naverLogin")
    public String naverLogin(@RequestParam("code") String code, @RequestParam String state, HttpSession session) {
       try {
          return service.naverLogin(code, state, session);
       } catch (IOException e) {
-         // TODO Auto-generated catch block
          e.printStackTrace();
          // 에러 페이지로 보내야함
-         return "/intro";
+         return "/thymeleaf/error.html";
       }
    }
 
-   @RequestMapping(value = "/logout")
+   @RequestMapping("/logout")
    public String logout(HttpSession session) {
       return service.logout(session);
    }

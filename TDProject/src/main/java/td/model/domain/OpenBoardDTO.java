@@ -1,7 +1,11 @@
 package td.model.domain;
 
 import java.util.ArrayList;
-import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.SequenceGenerator;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -15,8 +19,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Document(indexName = "open_board", type = "_doc")
 public class OpenBoardDTO {
-	  @Id
+      @Id
 	  private String id;
+	  private String title;
 	  private String contents;
 	  private String hashtag;
 	  private String postingDate;

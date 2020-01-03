@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
-   <title>Elen - Free Bootstrap 4 Template by Colorlib</title>
+   <title>틀다</title>
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -80,20 +80,18 @@
          <!--아래 화면단 시작 -->
          <section class="ftco-section-cho ftco-section">
             <div class="container">
-               <div id="dropdown" class="navbar-nav d-flex ml-5 pl-5" style="align-items: center;">
+                <div id="dropdown" class="navbar-nav d-flex" style="align-items:center;">
                   <div class="nav-item dropdown">
-                     <a class="nav-link dropdown-toggle" id="navbarDropdown1" aria-haspopup="true" aria-expanded="false"
-                        data-toggle="dropdown" href="">정렬하기</a>
+                     <a class="ml-2 mt-2 pl-2" style="float: left" href="/writing">글쓰기</a>
+                     <a class="nav-link dropdown-toggle ml-2 pl-2" id="navbarDropdown1" aria-haspopup="true" aria-expanded="false"
+                        data-toggle="dropdown" href="" style="float: right;">정렬하기</a>
                      <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                        <a id="sorting1" class="dropdown-item" href="#"
-                           onclick="getBoardAndSetPage(0, document.getElementById('sorting1').innerText)">개봉임박</a>
-                        <a id="sorting2" class="dropdown-item" href="#"
-                           onclick="getBoardAndSetPage(0, document.getElementById('sorting2').innerText)">게시날짜</a>
-                        <a id="sorting3" class="dropdown-item" href="#"
-                           onclick="getBoardAndSetPage(0, document.getElementById('sorting3').innerText)">좋아요</a>
+                        <a id="sorting1" class="dropdown-item" href="#" onclick="getBoardAndSetPage(0, document.getElementById('sorting1').innerText)">개봉임박</a>
+                        <a id="sorting2" class="dropdown-item" href="#" onclick="getBoardAndSetPage(0, document.getElementById('sorting2').innerText)">게시날짜</a>
+                        <a id="sorting3" class="dropdown-item" href="#" onclick="getBoardAndSetPage(0, document.getElementById('sorting3').innerText)">좋아요</a>
                      </div>
                   </div>
-               </div>
+               </div> 
                <div class="row">
                   <div class="cho-1">
                      <!-- 크기 수정 해둠-->
@@ -127,6 +125,7 @@
                         <span v-html="plusHeart" v-on:click="repHeart" v-if="heartflag"></span>
                      </span>
                   </div>-->
+
 
                   <div class="cho-card-size card">
                      <div class="ml-2" id="row2">
@@ -303,6 +302,7 @@
                      </div>
                   </div>
 
+                     
 
 
 
@@ -422,7 +422,10 @@
 
 
 
-
+   <script th:inline="javascript">
+      sessionStorage.setItem("serviceName", [[${session.serviceName}]])
+      const user = sessionStorage.getItem("serviceName")
+   </script>
    <script src="https://kit.fontawesome.com/d8eda33cb8.js" crossorigin="anonymous"></script>
    <script src="js/axios.js"></script>
    <script src="js/include.js"></script>

@@ -3,6 +3,10 @@ package td.model.domain;
 
 import java.util.ArrayList;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.SequenceGenerator;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -19,6 +23,7 @@ import lombok.NoArgsConstructor;
 public class HiddenBoardDTO {
 	  @Id
 	  private String id;
+	  private String title;
 	  private String contents;
 	  private String hashtag;
 	  private String postingDate;

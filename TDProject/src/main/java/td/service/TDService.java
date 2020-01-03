@@ -60,93 +60,100 @@ public class TDService {
 		return cRepo.findById(id);
 	}
 
+	// 고객 회원가입
 	public void saveClientDTO(String serviceName, HttpSession session) {
-		int id = Integer.parseInt((String) session.getAttribute("id"));
+		String id = (String) session.getAttribute("id");
 		String nickName = session.getAttribute("nickname").toString();
 		String serviceName1 = serviceName.toString();
 		session.setAttribute("serviceName", serviceName1);
 		String email = session.getAttribute("email").toString();
 		boolean gg = true;
 
-		ClientDTO client = new ClientDTO(id, nickName, serviceName1, email, gg);
-		cRepo.save(client);
-		System.out.println(client);
+		cRepo.save(new ClientDTO(id, nickName, serviceName1, email, gg, 0));
 	}
-	
-	// =================================================================
-	// 미공개 게시판 정보
 
+	public Optional<HiddenBoardDTO> findByIdClientDTO(HttpSession session) {
+		ClientDTO client = cRepo.findById((String) session.getAttribute("id")).get();
+		return hRepo.findById(client.getRandomMessageId());
+	}
+
+	// =================================================================
+	// 비공개 게시판 정보
+
+	// 모든 비공개 게시글 가져오기
 	public Slice<HiddenBoardDTO> findAll(Pageable pageable) {
 		return hRepo.findAll(pageable);
 	}
 
-	// hashtagSearch
+	// hashtag검색
 	public Slice<HiddenBoardDTO> hashtagSearch(Pageable pageable, String hashtag) {
 		return hRepo.findByHashtagContaining(pageable, hashtag);
 	}
 
-	// categorySearch
+	// category검색
 	public Slice<HiddenBoardDTO> categorySearch(Pageable pageable, String category) {
-//      System.out.println(hRepo.findAllHashtag());
 		return hRepo.findByCategoryContaining(pageable, category);
 	}
 
-	// 오늘의 메세지 구현 중
-//	public void sendMessage() {
-//		Random r = new Random();
-//
-//		// hiddenboard 카운팅
-//		int hiddenboardCount = (int) getCount();
-//		int a [] = new int[hiddenboardCount];
-//		
-//		// 회원 수 카운팅
-//		int clientCount = 10;
-//		
-//		// 회원수 만큼 for을 돌린다. 
-//		for(int i=0; i<clientCount; i++) {
-//			a[i] = r.nextInt(hiddenboardCount)+1;
-//			while(true) {
-//				
-//			}
-//			if(10 == a[i])
-//		}
-//		
-//		for(HiddenBoardDTO aa : hRepo.findByid(1)) {
-//			System.out.println(aa);
-//		}
-//	}
+	// tagCloud
+	public HashMap<String, Integer> tagCloud() {
+		String[] tagList = null;
+		HashMap<String, Integer> tagMap = new HashMap<>();
 
-	// 공개 날짜에 맞추어 게시글 공개 메소드
-	public void moveToOpen() {
-		SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
-		Date time = new Date();
-		String today = format1.format(time);
+		for (HiddenBoardDTO entity : hRepo.findAll()) {
+			tagList = entity.getHashtag().split(" ");
 
-		for (HiddenBoardDTO v : hRepo.findByOpenDate(today)) {
-			oRepo.save(new OpenBoardDTO(v.getId(), v.getContents(), v.getHashtag(), v.getOpenDate(), v.getHeart(),
-					v.getClaim(), v.getNickname(), v.getCategory(), null, null));
-			// hRepo.deleteById(v.getId());
+			for (String tag : tagList) {
+				if (tagMap.containsKey(tag)) {
+					tagMap.compute(tag, (k, v) -> v + 1);
+				} else {
+					tagMap.put(tag, 1);
+				}
+			}
 		}
+
+		return tagMap;
 	}
 
-	// 오늘의 메세지 구현 중
+	// 오늘의 메세지
 	public void sendMessage() {
 		Random r = new Random();
 
 		int hiddenboardCount = (int) hRepo.count();
-		int clientCount = (int) cRepo.count();
+		int randomMessageId;
 
-		int a[] = new int[hiddenboardCount];
-
-		// 회원수 만큼 for을 돌린다.
-		for (int i = 0; i < clientCount; i++) {
-			a[i] = r.nextInt(hiddenboardCount) + 1;
-			System.out.println(hRepo.findById(a[i]).get().getId());
+		for (ClientDTO client : cRepo.findAll()) {
+			randomMessageId = r.nextInt(hiddenboardCount) + 1;
+			client.setRandomMessageId(randomMessageId);
+			System.out.println(client);
+			cRepo.save(client);
 		}
 	}
 
+	// 공개 날짜에 맞추어 게시글 공개 메소드
+	public void moveToOpen() {
+		String today = new SimpleDateFormat("yyyyMMdd").format(new Date());
+
+		for (HiddenBoardDTO v : hRepo.findByOpenDate(today)) {
+			oRepo.save(new OpenBoardDTO(v.getId(), v.getTitle(), v.getContents(), v.getHashtag(), v.getOpenDate(),
+					v.getHeart(), v.getClaim(), v.getNickname(), v.getCategory(), null, null));
+			// hRepo.deleteById(v.getId());
+		}
+	}
+
+	// 전체 게시글 수 가져오기
 	public long getCount() {
 		return hRepo.count();
+	}
+
+	// 전체 카테고리 게시글 수 가져오기
+	public long getCategoryCount(String category) {
+		return hRepo.countByCategoryContaining(category);
+	}
+
+	// 전체 해쉬태그 게시글 수 가져오기
+	public long getHashtagCount(String hashtag) {
+		return hRepo.countByHashtagContaining(hashtag);
 	}
 
 	// 테스트 데이터 삽입
@@ -155,28 +162,29 @@ public class TDService {
 	}
 
 	public void makeTest() {
-		String[] category = { "축구", "야구", "배구", "농구" };
+		String[] category = { "시", "감성글" };
 		String[] hashtag = { "#SCA", "#PL", "#MLB", "#NBA" };
 
 		for (int i = 1; i <= 99; i++) {
 			String a = String.valueOf(i);
 			HiddenBoardDTO v = new HiddenBoardDTO();
 
-			v.setCategory(category[randomRange(0, 3)]);
+			v.setTitle(a);
+			v.setCategory(category[randomRange(0, 1)]);
 			v.setClaim(0);
 			v.setContents(a);
 			v.setHashtag(hashtag[randomRange(0, 3)]);
 			v.setHeart(0);
 			v.setId(a);
 			v.setNickname(a);
-			v.setOpenDate(i < 10 ? "2019120" + i : "201912" + i);
+			v.setOpenDate(i < 10 ? "2020010" + i : "2020010" + i);
 			v.setPostingDate(i < 10 ? "2019120" + i : "201912" + i);
 
 			hRepo.save(v);
 		}
 	}
 
-	// 게시글 신고하기 추가
+	// 게시글 신고 추가
 	public String plusHiddenBoardClaim(String nickname, String id) {
 		HiddenBoardDTO boardEntity = hRepo.findById(id).get();
 		ArrayList<String> plusClaimUserList = null;
@@ -225,19 +233,18 @@ public class TDService {
 		return boardEntity.getHeart();
 	}
 
-	// 미공개 게시판 게시글 작성
+	// 비공개 게시판 게시글 작성
 	public boolean saveHiddenBoardDTO(HiddenBoardDTO board) throws ParseException {
 		boolean result = false;
-		if (new SimpleDateFormat("yyyyMMdd").parse(board.getOpenDate()).after(new Date())) {
+		String openDate = board.getOpenDate().replace("-", "");
+
+		if (new SimpleDateFormat("yyyyMMdd").parse(openDate).after(new Date())) {
+			board.setOpenDate(openDate);
+			board.setContents(board.getContents().replace("\n", "<br>"));
 			hRepo.save(board);
 			result = true;
 		}
 
-//		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-//		if (Integer.parseInt(board.getOpenDate()) > Integer.parseInt(format.format(new Date()))) {
-//			hRepo.save(board);
-//			result = true;
-//		}
 		return result;
 	}
 
@@ -264,7 +271,7 @@ public class TDService {
 	public ReplyDTO getReply(String repUserId, String repBoardId) {
 		return rRepo.findByUserIdAndRepBoardId(repUserId, repBoardId);
 	}
-	
+
 	// 게시판 ID로만 리플 가져오기
 	public Slice<ReplyDTO> getReplyInOpen(Pageable pageable, String repBoardId) {
 		return rRepo.findByRepBoardId(pageable, repBoardId);
@@ -281,13 +288,11 @@ public class TDService {
 		return result;
 	}
 
-
 	// 리플 좋아요 추가
 	public Integer plusRepHeart(String repUserId, String repBoardId, String nickName) {
-		// 댓글 찾아오는거 닉네임으로 바꿔야됨 // 유저 아이디도 닉네임으로 => 좋아요누르는사람 닉네임 + 댓글 단 사람의 닉네임 2개필요
 		ReplyDTO entity = rRepo.findByUserIdAndRepBoardId(repUserId, repBoardId);
 		repUserId = nickName == null ? repUserId : nickName;
-		
+
 		ArrayList<String> plusHeartUserList = null;
 		if (entity.getPlusHeartUserId() != null && entity.getPlusHeartUserId().size() != 0) {
 			plusHeartUserList = entity.getPlusHeartUserId();
@@ -308,7 +313,8 @@ public class TDService {
 		}
 		return entity.getRepHeart();
 	}
-	
+
+	// 리플 신고 추가
 	public String plusRepClaim(String repUserId, String repBoardId) {
 		ReplyDTO entity = rRepo.findByUserIdAndRepBoardId(repUserId, repBoardId);
 		ArrayList<String> plusClaimUserList = null;
@@ -340,6 +346,7 @@ public class TDService {
 
 	// 로그인 API
 	public String kakaoLogin(String code, HttpSession session) {
+		String url = "/thymeleaf/error.html";
 		String access_Token = login.getKakaoAccessToken(code);
 		HashMap<String, Object> userInfo = login.getKakaoUserInfo(access_Token);
 		session.setAttribute("id", userInfo.get("id"));
@@ -347,15 +354,23 @@ public class TDService {
 		session.setAttribute("email", userInfo.get("email"));
 		session.setAttribute("platform", "kakao");
 
+		if (cRepo.findById((String) userInfo.get("id")).isPresent()) {
+			session.setAttribute("serviceName", cRepo.findById((String) userInfo.get("id")).get().getServiceName());
+			url = "/thymeleaf/closeBoard.html";
+		} else {
+			url = "/thymeleaf/session.html";
+		}
+
 		// 클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
 		if (userInfo.get("email") != null) {
 			session.setAttribute("userId", userInfo.get("email"));
 			session.setAttribute("access_Token", access_Token);
 		}
-		return "/thymeleaf/session.html";
+		return url;
 	}
 
 	public String naverLogin(String code, String state, HttpSession session) throws IOException {
+		String url = "/thymeleaf/error.html";
 		if (login.token(session, state) == true) {
 			String access_Token = login.getNaverAccessToken(code);
 			HashMap<String, Object> userInfo = login.getNaverUserInfo(access_Token);
@@ -364,35 +379,39 @@ public class TDService {
 			session.setAttribute("email", userInfo.get("email"));
 			session.setAttribute("platform", "naver");
 
+			if (cRepo.findById((String) userInfo.get("id")).isPresent()) {
+				session.setAttribute("serviceName", cRepo.findById((String) userInfo.get("id")).get().getServiceName());
+				url = "/thymeleaf/closeBoard.html";
+			} else {
+				url = "/thymeleaf/session.html";
+			}
+
 			// 클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
 			if (userInfo.get("email") != null) {
 				session.setAttribute("userId", userInfo.get("email"));
 				session.setAttribute("access_Token", access_Token);
 			}
-			return "/thymeleaf/session.html";
 		}
-		// 추후 fail 뷰로 던짐
-		return "/thymeleaf/session.html";
+		return url;
 	}
 
 	public String logout(HttpSession session) {
+		String url = "/thymeleaf/error.html";
+
 		if (session.getAttribute("platform") == "kakao") {
 			login.kakaoLogout((String) session.getAttribute("access_Token"));
 			session.removeAttribute("access_Token");
 			session.removeAttribute("userId");
-			// session.invalidate();
-			return "login";
+			url = "/thymeleaf/intro.html";
 		} else if (session.getAttribute("platform") == "naver") {
 			session.removeAttribute("access_Token");
 			session.removeAttribute("userId");
 			session.removeAttribute("state");
-			// session.invalidate();
-			System.out.println("로그아웃 성공");
-			return "login";
+			url = "/thymeleaf/intro.html";
 		}
+
 		session.invalidate();
-		// 추후 fail 뷰로 던짐
-		return "login";
+		return url;
 	}
 
 }
