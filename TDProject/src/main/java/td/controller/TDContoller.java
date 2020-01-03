@@ -1,6 +1,9 @@
 package td.controller;
 
+import java.util.HashMap;
 import java.util.Optional;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -32,6 +35,12 @@ public class TDContoller {
 		return service.findByIdClientDTO(id);
 	}
 
+	// 오늘의 메세지 게시물 꺼내오는 메소드
+	@GetMapping("/todayMessage")
+	public Optional<HiddenBoardDTO> todayMessage(HttpSession session) {
+		return service.findByIdClientDTO(session);
+	}
+
 	// =================================================================
 
 	// 미공개 게시판 정보
@@ -45,6 +54,18 @@ public class TDContoller {
 	@GetMapping("/getCount")
 	public long getCount() {
 		return service.getCount();
+	}
+
+	// 전체 카테고리 게시글 수 가져오기
+	@GetMapping("/getCategoryCount")
+	public long getCategoryCount(String category) {
+		return service.getCategoryCount(category);
+	}
+
+	// 전체 해쉬태그 게시글 수 가져오기
+	@GetMapping("/getHashtagCount")
+	public long getHashtagCount(String hashtag) {
+		return service.getHashtagCount(hashtag);
 	}
 
 	// 게시글 좋아요 누를 때 +1 이미 눌렀으면 -1
@@ -92,7 +113,9 @@ public class TDContoller {
 	}
 
 	@GetMapping("/getReplyInOpen")
-	public Slice<ReplyDTO> getReplyInOpen(@PageableDefault(size = 5, sort = "repHeart", direction = Sort.Direction.DESC, page = 0) Pageable pageable, String repBoardId) {
+	public Slice<ReplyDTO> getReplyInOpen(
+			@PageableDefault(size = 5, sort = "repHeart", direction = Sort.Direction.DESC, page = 0) Pageable pageable,
+			String repBoardId) {
 		return service.getReplyInOpen(pageable, repBoardId);
 	}
 
@@ -111,7 +134,7 @@ public class TDContoller {
 	public Integer plusRepHeart(String repUserId, String repBoardId, @RequestParam(required = false) String nickName) {
 		return service.plusRepHeart(repUserId, repBoardId, nickName);
 	}
-	
+
 	@PostMapping("/plusRepClaim")
 	public String plusRepClaim(String repUserId, String repBoardId) {
 		return service.plusRepClaim(repUserId, repBoardId);
@@ -125,12 +148,23 @@ public class TDContoller {
 
 	// 동범 search =================================================================
 	@GetMapping("/hashtagSearch")
-	public Slice<HiddenBoardDTO> hashtagSearch(@PageableDefault(size = 10) Pageable pageable) {
-		return service.hashtagSearch(pageable, "c");
+	public Slice<HiddenBoardDTO> hashtagSearch(@PageableDefault(size = 10) Pageable pageable, String hashtag) {
+		System.out.println("=============");
+		System.out.println(hashtag);
+		for (HiddenBoardDTO a : service.hashtagSearch(pageable, hashtag)) {
+
+			System.out.println(a);
+		}
+		return service.hashtagSearch(pageable, hashtag);
 	}
 
 	@GetMapping("/categorySearch")
-	public Slice<HiddenBoardDTO> categorySearch(@PageableDefault(size = 10) Pageable pageable) {
-		return service.categorySearch(pageable, "A");
+	public Slice<HiddenBoardDTO> categorySearch(@PageableDefault(size = 10) Pageable pageable, String category) {
+		return service.categorySearch(pageable, category);
+	}
+
+	@GetMapping("/tagCloud")
+	public HashMap<String, Integer> tagCloud() {
+		return service.tagCloud();
 	}
 }

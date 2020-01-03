@@ -173,11 +173,16 @@
 
 	<div id="topheader">
 		<ul id="paging" class="pagination justify-content-center">
-			<li class="page-item active"><a class="page-link" id="pageNum1" onclick="getBoard(0)" href="javascript:void(0)">1</a></li>
-			<li class="page-item"><a class="page-link" id="pageNum2" onclick="getBoard(1)" href="javascript:void(0)">2</a></li>
-			<li class="page-item"><a class="page-link" id="pageNum3" onclick="getBoard(2)" href="javascript:void(0)">3</a></li>
-			<li class="page-item"><a class="page-link" id="pageNum4" onclick="getBoard(3)" href="javascript:void(0)">4</a></li>
-			<li class="page-item"><a class="page-link" id="pageNum5" onclick="getBoard(4)" href="javascript:void(0)">5</a></li>
+			<li class="page-item active"><a class="page-link" id="pageNum1" onclick="getBoard(0)"
+					href="javascript:void(0)">1</a></li>
+			<li class="page-item"><a class="page-link" id="pageNum2" onclick="getBoard(1)"
+					href="javascript:void(0)">2</a></li>
+			<li class="page-item"><a class="page-link" id="pageNum3" onclick="getBoard(2)"
+					href="javascript:void(0)">3</a></li>
+			<li class="page-item"><a class="page-link" id="pageNum4" onclick="getBoard(3)"
+					href="javascript:void(0)">4</a></li>
+			<li class="page-item"><a class="page-link" id="pageNum5" onclick="getBoard(4)"
+					href="javascript:void(0)">5</a></li>
 			<li class="page-item"><a class="page-link" onclick="setPaging(1)" href="javascript:void(0)">다음</a></li>
 		</ul>
 	</div>
@@ -196,9 +201,20 @@
 	<script src="../../js/axios.js"></script>
 	<script type="text/javascript">
 
+		// 유저
+		const user = sessionStorage.getItem("serviceName")
 
 		// 전체 게시글 수 받을 변수
 		var count
+
+		// 게시글 종류에 따라 url값 받아줄 변수 
+		var countUrl = "getCount"
+
+		if(sessionStorage.getItem("boardKind") == 1 && sessionStorage.getItem("categoryKind") != null){
+		countUrl = "getCategoryCount"
+		}else if(sessionStorage.getItem("boardKind") == 1 && sessionStorage.getItem("hashtagKind") != null){
+		countUrl = "getHashtagCount"
+		}
 
 		// 전체 게시글 리스트
 		var boardArray
@@ -210,11 +226,19 @@
 		var sortKind
 
 		// 댓글 data
-		var data = []
+		var repData = []
 
 		// 전체 게시글 수 얻어오기
 		function getCount() {
-			axios.get("http://127.0.0.1:8000/getCount")
+			var url = "getCount"
+
+			if(countUrl == "getCategoryCount"){
+			url = countUrl + "?category=" + sessionStorage.getItem("categoryKind")
+			}else if(countUrl == "getHashtagCount"){
+			url = countUrl + "?hashtag=" + sessionStorage.getItem("hashtagKind")
+			}
+
+			axios.get("http://127.0.0.1:8000/" + url)
 				.then(resData => {
 					count = resData.data
 				}).catch(error => {
@@ -233,7 +257,15 @@
 				sortKind = "heart"
 			}
 
-			axios.get("http://127.0.0.1:8000/getHidden?page=" + pageNum + "&sort=" + sortKind + "," + scKind)
+			var url = "http://127.0.0.1:8000/getHidden?page=" + pageNum + "&sort=" + sortKind + "," + scKind
+
+			if(sessionStorage.getItem("boardKind") == 1 && sessionStorage.getItem("categoryKind") != null){
+			url = "http://127.0.0.1:8000/categorySearch?page=" + pageNum + "&sort=" + sortKind + "," + scKind + "&category=" + sessionStorage.getItem("categoryKind")
+			}else if(sessionStorage.getItem("boardKind") == 1 && sessionStorage.getItem("hashtagKind") != null){
+			url = "http://127.0.0.1:8000/hashtagSearch?page=" + pageNum + "&sort=" + sortKind + "," + scKind + "&hashtag=" + sessionStorage.getItem("hashtagKind").replace("#", "")
+			}
+
+			axios.get(url)
 				.then(resData => {
 					getCount()
 					boardArray = resData.data.content
@@ -248,7 +280,7 @@
 			for (let i = 0; i < forNum; i++) {
 				vueInstance[i].ifflag = false
 				vueInstance[i].heartflag = false
-				data[i].ifflag = false
+				repData[i].ifflag = false
 				document.getElementById("child" + (i + 1)).innerHTML =
 					"id : " + boardArray[i].id + "<br>"
 					+ "contents : " + boardArray[i].contents + "<br>"
@@ -269,14 +301,14 @@
 				vueInstance[j].boardHeartNum = ""
 				vueInstance[j].plusHeart = ""
 				vueInstance[j].plusClaim = ""
-				data[j].ifflag = false
+				repData[j].ifflag = false
 				document.getElementById("child" + (j + 1)).innerHTML = "<span></span>"
 			}
 		}
 
 
 		for (let i = 1; i <= 10; i++) {
-			data[i - 1] = {
+			repData[i - 1] = {
 				tag: [],
 				repUserId: [],
 				ifflag: false,
@@ -300,12 +332,12 @@
 					dynamicComponent: function () {
 						return {
 							data: function () {
-								return data[i - 1]
+								return repData[i - 1]
 							},
 							template: `<div>${this.tag}</div>`,
 							methods: {
 								repHeart: function (num) {
-									axios.post("http://127.0.0.1:8000/plusHeart?repUserId=" + data[i - 1].repUserId[num] + "&repBoardId=" + boardArray[i - 1].id + "&nickName=" + "유저닉네임")
+									axios.post("http://127.0.0.1:8000/plusHeart?repUserId=" + repData[i - 1].repUserId[num] + "&repBoardId=" + boardArray[i - 1].id + "&nickName=" + user)
 										.then(resData => {
 											vueInstance[i - 1].dynamicComponent.data().repHeartNum.splice(num, 1, resData.data)
 										}).catch(error => {
@@ -315,45 +347,53 @@
 								moreReply: function (loopNum) {
 									axios.get("http://127.0.0.1:8000/getReplyInOpen?page=" + loopNum + "&repBoardId=" + boardArray[i - 1].id)
 										.then(resData => {
+											console.log(resData.data)
 
 											var repTag = ""
 											var standardLength = 5 * (loopNum + 1)
 											var length = resData.data.totalElements > standardLength ? standardLength : resData.data.content.length + 5 * loopNum
-											
+
 											for (let j = 5 * loopNum; j < length; j++) {
-												data[i - 1].repHeartNum[j] = resData.data.content[j - 5 * loopNum].repHeart
-												data[i - 1].tag[j] = "<br>유저아이디 : " + resData.data.content[j - 5 * loopNum].userId + "<br>"
+												repData[i - 1].repHeartNum[j] = resData.data.content[j - 5 * loopNum].repHeart
+												repData[i - 1].tag[j] = "<br>유저아이디 : " + resData.data.content[j - 5 * loopNum].userId + "<br>"
 													+ "댓글 내용 : " + resData.data.content[j - 5 * loopNum].repContents + "<br>"
 													+ "게시 날짜 : " + resData.data.content[j - 5 * loopNum].repPostingDate + "<br>"
 													+ "좋아요 : "
-												data[i - 1].repUserId[j] = resData.data.content[j - 5 * loopNum].userId
+												repData[i - 1].repUserId[j] = resData.data.content[j - 5 * loopNum].userId
 
 												repTag +=
 													`
 													<span v-html="tag[` + j + `]" v-if="ifflag"></span>
 													<span v-text="repHeartNum[` + j + `]" v-if="ifflag"></span>
 													<span v-html="plusHeart" v-on:click="repHeart(` + j + `)" v-if="ifflag"></span>
-													<span v-html="plusClaim" v-on:click="repMakeClaim(` + j + `)"></span><br>
+													<span v-html="plusClaim" v-on:click="repMakeClaim(` + j + `)" v-if="ifflag"></span><br>
 													`
 											}
 											var removeLast = ""
 											var removeLastLength = vueInstance[i - 1].tag.split("\n").length - 1
-											vueInstance[i - 1].tag.split("\n").forEach(function(element, index, array){
+											vueInstance[i - 1].tag.split("\n").forEach(function (element, index, array) {
 												removeLast += index == removeLastLength ? "" : element + "\n"
 											});
 
-											vueInstance[i - 1].tag = resData.data.totalElements > standardLength ? removeLast + repTag + `<span v-on:click="moreReply(` + (loopNum + 1) + `)">더보기</span>` : removeLast + repTag
+											vueInstance[i - 1].tag = resData.data.totalElements > standardLength
+												? removeLast + repTag + `<span v-on:click="moreReply(` + (loopNum + 1) + `)" v-if="ifflag">더보기</span>`
+												: removeLast + repTag + `<span v-on:click="disappear(` + i + `)" v-if="ifflag">댓글접기</span>`
 										}).catch(error => {
 											console.log(error)
 										})
 								},
-								repMakeClaim: function(num){
-									axios.post("http://127.0.0.1:8000/plusRepClaim?repUserId=" + data[i - 1].repUserId[num] + "&repBoardId=" + boardArray[i - 1].id)
+								repMakeClaim: function (num) {
+									axios.post("http://127.0.0.1:8000/plusRepClaim?repUserId=" + repData[i - 1].repUserId[num] + "&repBoardId=" + boardArray[i - 1].id)
 										.then(resData => {
 											alert(resData.data)
 										}).catch(error => {
 											console.log(error)
 										})
+								},
+								disappear: function () {
+									repData[i - 1].ifflag = !repData[i - 1].ifflag
+									vueInstance[i - 1].tag = ""
+									document.getElementById("row" + i).scrollIntoView();
 								}
 							}
 						}
@@ -361,28 +401,28 @@
 				},
 				methods: {
 					comment: function () {
-						if (data[i - 1].ifflag == false) {
+						if (repData[i - 1].ifflag == false) {
 							axios.get("http://127.0.0.1:8000/getReplyInOpen?repBoardId=" + boardArray[i - 1].id)
 								.then(resData => {
 
 									var repTag = ""
 									var length = resData.data.content.length
-									data[i - 1].ifflag = !data[i - 1].ifflag
+									repData[i - 1].ifflag = !repData[i - 1].ifflag
 
 									for (let j = 0; j < length; j++) {
-										data[i - 1].repHeartNum[j] = resData.data.content[j].repHeart
-										data[i - 1].tag[j] = "<br>유저아이디 : " + resData.data.content[j].userId + "<br>"
+										repData[i - 1].repHeartNum[j] = resData.data.content[j].repHeart
+										repData[i - 1].tag[j] = "<br>유저아이디 : " + resData.data.content[j].userId + "<br>"
 											+ "댓글 내용 : " + resData.data.content[j].repContents + "<br>"
 											+ "게시 날짜 : " + resData.data.content[j].repPostingDate + "<br>"
 											+ "좋아요 : "
-										data[i - 1].repUserId[j] = resData.data.content[j].userId
+										repData[i - 1].repUserId[j] = resData.data.content[j].userId
 
 										repTag +=
 											`
 											<span v-html="tag[` + j + `]" v-if="ifflag"></span>
 											<span v-text="repHeartNum[` + j + `]" v-if="ifflag"></span>
 											<span v-html="plusHeart" v-on:click="repHeart(` + j + `)" v-if="ifflag"></span>
-											<span v-html="plusClaim" v-on:click="repMakeClaim(` + j + `)"></span><br>
+											<span v-html="plusClaim" v-on:click="repMakeClaim(` + j + `)" v-if="ifflag"></span><br>
 											`
 									}
 
@@ -391,12 +431,12 @@
 									console.log(error)
 								})
 						} else {
-							data[i - 1].ifflag = !data[i - 1].ifflag
+							repData[i - 1].ifflag = !repData[i - 1].ifflag
 						}
 
 					},
 					boardHeart: function () {
-						axios.post("http://127.0.0.1:8000/plusBoardHeart?nickname=" + "유저닉네임" + "&id=" + boardArray[i - 1].id)
+						axios.post("http://127.0.0.1:8000/plusBoardHeart?nickname=" + user + "&id=" + boardArray[i - 1].id)
 							.then(resData => {
 								this.boardHeartNum = resData.data
 							}).catch(error => {
@@ -404,7 +444,7 @@
 							})
 					},
 					makeClaim: function () {
-						axios.post("http://127.0.0.1:8000/plusBoardClaim?nickname=" + "유저닉네임" + "&id=" + boardArray[i - 1].id)
+						axios.post("http://127.0.0.1:8000/plusBoardClaim?nickname=" + user + "&id=" + boardArray[i - 1].id)
 							.then(resData => {
 								alert(resData.data)
 							}).catch(error => {
@@ -489,8 +529,17 @@
 		});
 
 		// 페이지 로딩시 바로 실행되는 로직
-		axios.get("http://127.0.0.1:8000/getCount")
+		var url = "getCount"
+
+		if(countUrl == "getCategoryCount"){
+		url = countUrl + "?category=" + sessionStorage.getItem("categoryKind")
+		}else if(countUrl == "getHashtagCount"){
+		url = countUrl + "?hashtag=" + sessionStorage.getItem("hashtagKind").replace("#", "")
+		}
+
+		axios.get("http://127.0.0.1:8000/" + url)
 			.then(resData => {
+				count = resData.data
 				// 첫번째 페이지 게시글 가져오고 화면에 뿌려주기
 				getBoard(0)
 				if (resData.data <= 50) {
@@ -500,6 +549,14 @@
 			}).catch(error => {
 				console.log(error)
 			})
+
+		window.onload = function () {
+			if(sessionStorage.getItem("boardKind") != 1){
+				sessionStorage.removeItem("categoryKind")
+				sessionStorage.removeItem("hashtagKind")
+				sessionStorage.removeItem("boardKind")
+			}
+		}
 
 	</script>
 </body>

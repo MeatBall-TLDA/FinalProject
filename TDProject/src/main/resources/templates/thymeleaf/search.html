@@ -1,37 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<title>검색</title>
-<meta charset="utf-8">
-<meta name="viewport"
-   content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Pill Identifier</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<link
-   href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"
-   rel="stylesheet">
-<link
-   href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700"
-   rel="stylesheet">
-
-<link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-<link rel="stylesheet" href="css/animate.css">
-
-<link rel="stylesheet" href="css/owl.carousel.min.css">
-<link rel="stylesheet" href="css/owl.theme.default.min.css">
-<link rel="stylesheet" href="css/magnific-popup.css">
-
-<link rel="stylesheet" href="css/aos.css">
-
-<link rel="stylesheet" href="css/ionicons.min.css">
-
-<link rel="stylesheet" href="css/bootstrap-datepicker.css">
-<link rel="stylesheet" href="css/jquery.timepicker.css">
+	<!-- 자동완성 스타일시트 -->
+	<link rel="stylesheet" href="as/css/autocomplete.css">
+	<script type="text/javascript" src="as/js/autocomplete.js"></script>
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
-<link rel="stylesheet" href="css/flaticon.css">
-<link rel="stylesheet" href="css/icomoon.css">
-<link rel="stylesheet" href="css/style.css">
+
+	
+	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
+
+	<link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+	<link rel="stylesheet" href="css/animate.css">
+
+	<link rel="stylesheet" href="css/owl.carousel.min.css">
+	<link rel="stylesheet" href="css/owl.theme.default.min.css">
+	<link rel="stylesheet" href="css/magnific-popup.css">
+
+	<link rel="stylesheet" href="css/aos.css">
+
+	<link rel="stylesheet" href="css/ionicons.min.css">
+
+	<link rel="stylesheet" href="css/bootstrap-datepicker.css">
+	<link rel="stylesheet" href="css/jquery.timepicker.css">
+
+
+	<link rel="stylesheet" href="css/flaticon.css">
+	<link rel="stylesheet" href="css/icomoon.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/cho.css">
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+
+
 </head>
+
 <body>
 
 	<div id="colorlib-page">
@@ -42,41 +53,51 @@
 			<section class="ftco-section">
 				<div class="container">
 					<div class="row">
-						<div class="col-lg-8">
+						<div class="col-lg-12 mx">
+							<div class="row">
+								<div class="col" style="padding-left: 25px;">
+
+
+									<p><strong>게시판 선택</strong></p>
+									<div class="custom-control custom-radio">
+										<input type="radio" name="jb-radio" id="jb-radio-1" class="custom-control-input"
+											value="0" checked>
+										<label class="custom-control-label" for="jb-radio-1">미공개 게시판</label>
+									</div>
+									<div class="custom-control custom-radio">
+										<input type="radio" name="jb-radio" id="jb-radio-2" class="custom-control-input"
+											value="1">
+										<label class="custom-control-label" for="jb-radio-2">공개 게시판</label>
+									</div>
+									<br>
+
+								</div>
+							</div>
 							<div class="row">
 
 
-
 								<div class="sidebar-box">
+									<h3 class="sidebar-heading">Tag Search</h3>
 									<form action="#" class="search-form">
 										<div class="form-group">
-											<span class="icon icon-search"></span> <input type="text"
-												class="form-control"
-												placeholder="Type a keyword and hit enter">
+											<span class="icon icon-search"></span> <input id="searchInput"
+											autocomplete="on" type="text" name="name" class="form-control">
 										</div>
-									</form>
-
-									<h3 class="sidebar-heading">Categories</h3>
-									<ul class="categories">
-										<li><a href="#">Fashion <span>(6)</span></a></li>
-										<li><a href="#">Technology <span>(8)</span></a></li>
-										<li><a href="#">Travel <span>(2)</span></a></li>
-										<li><a href="#">Food <span>(2)</span></a></li>
-										<li><a href="#">Photography <span>(7)</span></a></li>
-									</ul>
+									</form><br>
 
 
 									<h3 class="sidebar-heading">Tag Cloud</h3>
-									<ul class="tagcloud">
-										<a href="#" class="tag-cloud-link">animals</a>
-										<a href="#" class="tag-cloud-link">human</a>
-										<a href="#" class="tag-cloud-link">people</a>
-										<a href="#" class="tag-cloud-link">cat</a>
-										<a href="#" class="tag-cloud-link">dog</a>
-										<a href="#" class="tag-cloud-link">nature</a>
-										<a href="#" class="tag-cloud-link">leaves</a>
-										<a href="#" class="tag-cloud-link">food</a>
+									<ul id="tagcloud" class="tagcloud">
+									</ul><br>
+
+									<h3 class="sidebar-heading">Categories</h3>
+									<ul class="categories" style="font-size: 1rem;">
+										<li><a href="javascript:void(0)" onclick="category(0)">시 <span>(6)</span></a>
+										</li>
+										<li><a href="javascript:void(0)" onclick="category(1)">감성글 <span>(8)</span></a>
+										</li>
 									</ul>
+
 
 
 								</div>
@@ -102,9 +123,9 @@
 								<script>
 									document.write(new Date().getFullYear());
 								</script>
-								All rights reserved | This template is made with <i
-									class="icon-heart" aria-hidden="true"></i> by <a
-									href="https://colorlib.com" target="_blank">Colorlib</a>
+								All rights reserved | This template is made with <i class="icon-heart"
+									aria-hidden="true"></i> by <a href="https://colorlib.com"
+									target="_blank">Colorlib</a>
 								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 							</p>
 						</div>
@@ -112,21 +133,94 @@
 				</div>
 			</footer>
 
-
 		</div>
 		<!-- END COLORLIB-MAIN -->
 	</div>
 	<!-- END COLORLIB-PAGE -->
+	<script src="js/axios.js"></script>
+	<script>
+		// 해쉬태그 빈도 수 내림차순 정렬
+		var hashFrequency = []
 
-	<!-- loader -->
-	<div id="ftco-loader" class="show fullscreen">
-		<svg class="circular" width="48px" height="48px">
-			<circle class="path-bg" cx="24" cy="24" r="22" fill="none"
-				stroke-width="4" stroke="#eeeeee" />
-			<circle class="path" cx="24" cy="24" r="22" fill="none"
-				stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg>
-	</div>
+		axios.get("http://127.0.0.1:8000/tagCloud")
+			.then(resData => {
+				for (key in resData.data) {
+					hashFrequency.push([key, resData.data[key]])
+				}
+				hashFrequency.sort(function (a, b) {
+					return b[1] - a[1];
+				});
 
+				const length = hashFrequency.length > 9 ? 10 : hashFrequency.length
+				
+				for (let i = 0; i < length; i++) {
+					document.getElementById("tagcloud").innerHTML +=
+						`<a href="javascript:void(0)" onclick="hashtag('` + hashFrequency[i][0] + `')" class="tag-cloud-link">` + hashFrequency[i][0] + `</a>`
+				}
+
+			}).catch(error => {
+				console.log(error)
+			})
+
+		var hashtagArray = []
+
+		var $j = jQuery.noConflict();
+
+		$j(function () {    //화면 다 뜨면 시작
+			axios.get("http://localhost:8000/tagCloud")
+				.then(resData => {
+					for (key in resData.data) {
+						hashtagArray.push(key)
+					}
+
+					$j("#searchInput").autocomplete({
+
+						source: function (request, response) {
+							var results = $j.ui.autocomplete.filter(hashtagArray, request.term);
+							response(results.slice(0, 10));
+
+						},
+						select: function (event, ui) {    //아이템 선택시
+							console.log(ui.item);
+						},
+
+						focus: function (event, ui) {    //포커스 가면
+							return false;//한글 에러 잡기용도로 사용됨
+						},
+						matchContains: true,
+						minLength: 1,
+						autoFocus: true, //첫번째 항목 자동 포커스 기본값 false
+						classes: {    //잘 모르겠음
+							"ui-autocomplete": "highlight"
+						},
+
+						close: function (event) {    //자동완성창 닫아질때 호출
+							console.log(event);
+						}
+					})
+				});
+		});
+
+
+
+		function hashtag(hash) {
+			sessionStorage.setItem("boardKind", document.querySelector(".custom-control-input:checked").value)
+			sessionStorage.setItem("hashtagKind", hash)
+			document.querySelector(".custom-control-input:checked").value == 0 ? location.href = "/close" : location.href = "/open"
+		}
+
+		function category(kind) {
+			sessionStorage.setItem("boardKind", document.querySelector(".custom-control-input:checked").value)
+			sessionStorage.setItem("categoryKind", kind == 0 ? "시" : "감성글")
+			document.querySelector(".custom-control-input:checked").value == 0 ? location.href = "/close" : location.href = "/open"
+		}
+
+		window.onload = function () {
+			sessionStorage.removeItem("categoryKind")
+			sessionStorage.removeItem("hashtagKind")
+			sessionStorage.removeItem("boardKind")
+		}
+	</script>
 	<script src="js/include.js"></script>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery-migrate-3.0.1.min.js"></script>
@@ -146,6 +240,22 @@
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 	<script src="js/google-map.js"></script>
 	<script src="js/main.js"></script>
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery-migrate-3.0.1.min.js"></script>
+	<script src="assets/js/popper.min.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
+	<script src="assets/js/jquery.easing.1.3.js"></script>
+	<script src="assets/js/jquery.waypoints.min.js"></script>
+	<script src="assets/js/jquery.stellar.min.js"></script>
+	<script src="assets/js/owl.carousel.min.js"></script>
+	<script src="assets/js/jquery.magnific-popup.min.js"></script>
+	<script src="assets/js/aos.js"></script>
+	<script src="assets/js/jquery.animateNumber.min.js"></script>
+	<script src="assets/js/bootstrap-datepicker.js"></script>
+
+	<script src="assets/js/scrollax.min.js"></script>
+	<script src="assets/js/main.js"></script>
 
 </body>
+
 </html>

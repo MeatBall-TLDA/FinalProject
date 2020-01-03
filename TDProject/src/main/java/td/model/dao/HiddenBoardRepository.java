@@ -20,10 +20,12 @@ public interface HiddenBoardRepository extends ElasticsearchRepository<HiddenBoa
    
    Page<HiddenBoardDTO> findByCategoryContaining(Pageable pageable, String category);
    
+   long countByHashtagContaining(String hastag);
+   
+   long countByCategoryContaining(String category);
+   
    List<HiddenBoardDTO> findByOpenDate(String today);
 
-   List<HiddenBoardDTO> findByid(int id);
-   
    Optional<HiddenBoardDTO> findById(String id);
    
    Optional<HiddenBoardDTO> findById(int id);
