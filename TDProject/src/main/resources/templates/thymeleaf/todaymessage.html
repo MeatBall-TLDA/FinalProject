@@ -1,225 +1,405 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
-  <head>
-    <title>오늘의메시지</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+    <meta name="robots" content="noindex, follow" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1" />
+  <link rel="stylesheet" href="css/todayMessage.css">
+  <link rel="stylesheet" href="css/style.css">
     
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
+  <style type="text/css">
+              body {
+            margin: 0!important;
+            padding: 0!important
+        }
 
-    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="css/animate.css">
+        p {
+            margin: 0
+        }
+
+        table {
+            border-collapse: collapse;
+            min-height: 0!important
+        }
+
+        td {
+            border-collapse: collapse;
+            white-space: -moz-pre-wrap!important;
+            white-space: -webkit-pre-wrap;
+            white-space: -pre-wrap;
+            white-space: -o-pre-wrap;
+            white-space: pre-wrap;
+            word-wrap: normal;
+            word-break: normal;
+            white-space: normal;
+            border: none!important;
+        }
+
+        .main-table,
+        .newsletter-row {
+            width: 100%;
+        }
+
+        .component.text-component a {
+            color: #337ab7;
+            text-decoration: none
+        }
+
+        .component.text-component a:focus,
+        .component.text-component a:hover {
+            color: #23527c;
+            text-decoration: underline;
+            outline: 0
+        }
+
+        @media only screen and (max-width:640px) {
+            body {
+                width: auto!important
+            }
+            table {
+                border-collapse: initial
+            }
+            .main-table,
+            .newsletter-row {
+                width: auto
+            }
+            .newsletter-row .inner-row-table {
+                max-width: 600px;
+                width: 100%!important
+            }
+            .newsletter-row .inner-row-table {
+                table-layout: fixed
+            }
+            .slot {
+                width: 100%!important;
+                max-width: 100%!important;
+                display: block
+            }
+            .slot.ONE_FOURTH {
+                width: 50%!important;
+                max-width: 50%!important;
+                display: inline-block
+            }
+            .component .newsletter-button-link .button {
+                width: auto!important
+            }
+            .component .image {
+                mso-line-height-rule: exactly
+            }
+            .component,
+            .image table {
+                width: 100%!important
+            }
+            .component .image img {
+                max-width: 100%!important
+            }
+            .slot.HALF .image img.not-resized {
+                max-width: 100%!important;
+                width: 100%!important
+            }
+            .slot.ONE_THIRD .image img.not-resized {
+                max-width: 100%!important;
+                width: 100%!important
+            }
+            .slot.ONE_FOURTH .image img.not-resized {
+                max-width: 100%!important;
+                width: 100%!important
+            }
+            .component .image img.not-resized {
+                width: 100%!important
+            }
+            .slot-spacing {
+                display: none
+            }
+            .slot .component .newsletter-main-content .image.article-image-container {
+                width: 33.3%!important
+            }
+            #bg_color_table {
+                width: 100%
+            }
+            .non-responsive .slot-spacing {
+                display: table-cell
+            }
+            .non-responsive .slot-spacing.CENTER {
+                display: table-cell
+            }
+            .non-responsive .slot {
+                display: table-cell
+            }
+            .non-responsive .slot.FULL {
+                width: auto!important;
+                max-width: 100%!important
+            }
+            .non-responsive .slot.ONE_THIRD {
+                width: auto!important;
+                max-width: 33.3%!important
+            }
+            .non-responsive .slot.HALF {
+                width: auto!important;
+                max-width: 50%!important
+            }
+            .non-responsive .slot.TWO_THIRDS {
+                width: 66.6%!important;
+                max-width: 66.6%!important
+            }
+            .non-responsive .slot.ONE_FOURTH {
+                width: auto!important;
+                max-width: 25%!important
+            }
+            .non-responsive .slot.FULL .component .image img {
+                max-width: 100%!important
+            }
+            .non-responsive .slot.ONE_THIRD .component .image img {
+                max-width: 100%!important
+            }
+            .non-responsive .slot.HALF .component .image img {
+                max-width: 100%!important
+            }
+            .non-responsive .slot.TWO_THIRDS .component .image img {
+                max-width: 100%!important
+            }
+            .non-responsive .slot.ONE_FOURTH .component .image img {
+                max-width: 100%!important
+            }
+            .non-responsive .slot.HALF .text_container {
+                display: table-cell;
+                width: 530px
+            }
+            .fix-android-mail {
+                display: none
+            }
+        }
+
+        @media only screen and (max-width:450px) {
+            body {
+                width: auto!important
+            }
+            .main-table,
+            .newsletter-row {
+                width: auto
+            }
+            table {
+                border-collapse: initial
+            }
+            .newsletter-row .inner-row-table {
+                max-width: 600px;
+                width: 100%
+            }
+            .newsletter-row .inner-row-table {
+                table-layout: fixed
+            }
+            .slot {
+                width: 100%!important;
+                max-width: 100%!important;
+                display: block
+            }
+            .slot.ONE_FOURTH {
+                width: 50%!important;
+                max-width: 50%!important;
+                display: inline-block
+            }
+            .component .newsletter-button-link .button {
+                width: auto!important
+            }
+            .component .image {
+                mso-line-height-rule: exactly
+            }
+            .component,
+            .image table {
+                width: 100%!important
+            }
+            .component .image img {
+                max-width: 100%!important
+            }
+            .slot.HALF .image img.not-resized {
+                max-width: 100%!important;
+                width: 100%!important
+            }
+            .slot.ONE_THIRD .image img.not-resized {
+                max-width: 100%!important;
+                width: 100%!important
+            }
+            .slot.ONE_FOURTH .image img.not-resized {
+                max-width: 100%!important;
+                width: 100%!important
+            }
+            .component .image img.not-resized {
+                width: 100%!important
+            }
+            .slot-spacing {
+                display: none
+            }
+            .slot .component .newsletter-main-content .image.article-image-container {
+                width: 33.3%!important
+            }
+            #bg_color_table {
+                width: 100%
+            }
+            .non-responsive .slot-spacing {
+                display: table-cell
+            }
+            .non-responsive .slot-spacing.CENTER {
+                display: table-cell
+            }
+            .non-responsive .slot {
+                display: table-cell
+            }
+            .non-responsive .slot.FULL {
+                width: auto!important;
+                max-width: 100%!important
+            }
+            .non-responsive .slot.ONE_THIRD {
+                width: auto!important;
+                max-width: 33.3%!important
+            }
+            .non-responsive .slot.HALF {
+                width: auto!important;
+                max-width: 50%!important
+            }
+            .non-responsive .slot.TWO_THIRDS {
+                width: 66.6%!important;
+                max-width: 66.6%!important
+            }
+            .non-responsive .slot.ONE_FOURTH {
+                width: auto!important;
+                max-width: 25%!important
+            }
+            .non-responsive .slot.FULL .component .image img {
+                max-width: 100%!important
+            }
+            .non-responsive .slot.ONE_THIRD .component .image img {
+                max-width: 100%!important
+            }
+            .non-responsive .slot.HALF .component .image img {
+                max-width: 100%!important
+            }
+            .non-responsive .slot.TWO_THIRDS .component .image img {
+                max-width: 100%!important
+            }
+            .non-responsive .slot.ONE_FOURTH .component .image img {
+                max-width: 100%!important
+            }
+            .non-responsive .slot.HALF .text_container {
+                display: table-cell;
+                width: 530px
+            }
+            .fix-android-mail {
+                display: none
+            }
+        }
+    .ex_hide {
+      float: left;
+      cursor: pointer
+    }
+
+    .mail .cover:before {}
+    .addattribute {
+      transform: rotateX(180deg);
+      transition: all 1s ease;
+    }
+
+    .mail .letter {}
+    .addattribute1 {
+      top: -80px;
+      transition: all 1s 1s ease;
+    }
+  </style>
     
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+  <script type="text/javascript">
+      $(document).ready(function() {
+          $('.testt').hide();
+      });
+      
+    $.fn.addattribute = function () {
+      var mailCover = $('.mail .cover');
+      mailCover.addClass('addattribute');
+      var mailLetter = $('.mail .letter');
+      mailLetter.addClass('addattribute1');
+    }
 
-    <link rel="stylesheet" href="css/aos.css">
+    setTimeout(function () {
+      $.fn.addattribute();
+    }, 2200);
+      
+    $(function () {
+      var mail = $('.mail');
+      mail.click(function () {
+      mail.fadeOut();
+      $('.testt').show();
+      });
+    });
+  </script>
+</head>
 
-    <link rel="stylesheet" href="css/ionicons.min.css">
-
-    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="css/jquery.timepicker.css">
-
-    
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/icomoon.css">
-	<link rel="stylesheet" href="css/style.css">
-	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
- 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  </head>
-  <body>
-  
-
-
-
-	<div id="colorlib-page">
-		<div include="/menu"></div> <!-- 메뉴 html include 함-->
-		<div id="colorlib-main">
-			<!-- 위에 두가지 화면 사진 부분-->
-			<section class="home-slider js-fullheight owl-carousel">
-	      <div class="slider-item js-fullheight" style="background-image:url(images/bg_2.jpg);">
-	      	<div class="overlay"></div>
-	        <div class="container-fluid">
-	          <div class="row no-gutters slider-text slider-text-2 js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
-	          <div class="col-md-10 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
-	            <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Discover the Place</h1>
-	            <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Find great places to stay, eat, shop, or visit from local experts</p>
-	          </div>
-	        </div>
-	        </div>
-	      </div>
-	      
-
-	      <div class="slider-item js-fullheight" style="background-image:url(images/bg_3.jpg);">
-	      	<div class="overlay"></div>
-	        <div class="container-fluid">
-	          <div class="row no-gutters slider-text slider-text-2 js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
-	          <div class="col-md-10 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
-	            <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Explore and travel</h1>
-	            <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Find great places to stay, eat, shop, or visit from local experts</p>
-	          </div>
-	        </div>
-	        </div>
-	      </div>
-		</section>
-		<!-- 위에 두가지 화면 사진 부분 끝-->
-		<!--아래 화면단 시작 -->
-			<section class="ftco-section">
-	    	<div class="container">
-	    		<div class="row">
-                <div class="cho-1"> <!-- 크기 수정 해둠-->
-                 <div class="row" v-on:click="comment">
-                     <div class="col-md-12">
-                        <div class="blog-entry ftco-animate" id="row1">
-                        </div>
-                        <div>
-                           <div class="form-group">
-                              <textarea name id cols="30" rows="7" class="form-control-cho" placeholder="Message"></textarea>
-                           </div>
-                           <div class="form-group">
-                              <input type="submit" value="댓글 남기기" class="btn btn-primary py-3 px-5">
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="row" v-on:click="comment">
-                     <div class="col-md-12">
-                        <div class="blog-entry ftco-animate" id="row2">
-                        </div>
-                     </div>
-                  </div>
-                  <div class="row" v-on:click="comment">
-                     <div class="col-md-12">
-                        <div class="blog-entry ftco-animate" id="row3">
-                        </div>
-                     </div>
-                  </div>
-                  <div class="row" v-on:click="comment">
-                     <div class="col-md-12">
-                        <div class="blog-entry ftco-animate" id="row4">
-                        </div>
-                     </div>
-                  </div>
-                  <div class="row" v-on:click="comment">
-                     <div class="col-md-12">
-                        <div class="blog-entry ftco-animate" id="row5">
-                        </div>
-                     </div>
-                  </div>
-                  <div class="row" v-on:click="comment">
-                     <div class="col-md-12">
-                        <div class="blog-entry ftco-animate" id="row6">
-                        </div>
-                     </div>
-                  </div>
-                  <div class="row" v-on:click="comment">
-                     <div class="col-md-12">
-                        <div class="blog-entry ftco-animate" id="row7">
-                        </div>
-                     </div>
-                  </div>
-                  <div class="row" v-on:click="comment">
-                     <div class="col-md-12">
-                        <div class="blog-entry ftco-animate" id="row8">
-                        </div>
-                     </div>
-                  </div>
-                  <div class="row" v-on:click="comment">
-                     <div class="col-md-12">
-                        <div class="blog-entry ftco-animate" id="row9">
-                        </div>
-                     </div>
-                  </div>
-                  <div class="row" v-on:click="comment">
-                     <div class="col-md-12">
-                        <div class="blog-entry ftco-animate" id="row10">
-                        </div>
-                     </div>
-                  </div> 
-	    				<!-- <div class="col-md-12">
-	    						<div class="blog-entry ftco-animate">
-	    							<div class="text pt-2 mt-3">
-								  <span class="category mb-1 d-block"><a href="#">Technology</a></span>
-								   카테고리 클래스 카테고리 하이퍼링크 
-							  <h3 class="mb-4"><a href="#">The Newest Technology On This Year 2019</a></h3>
-							  제목 하이퍼링크
-							  <p class="mb-4">Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
-							   글 내용
-				              <div class="author mb-4 d-flex align-items-center">
-				            		<div class="ch-3 info">
-				            			<span>작성자</span>
-				            			<h3>조영욱, <span>2019년 12월 17일</span></h3>
-				            		</div>
-				            	</div>
-				              <div class="meta-wrap d-md-flex align-items-center">
-				              	<div class="half order-md-last text-md-right">
-					              	<p class="meta">
-					              		<span><i class="icon-heart"></i>3</span>
-					              		<span><i class="icon-eye"></i>100</span>
-					              		<span><i class="icon-comment"></i>5</span>
-					              	</p>
-				              	</div>
-				              	<div class="half">
-				              	</div>
-				              </div>
-				            </div>
-	    						</div>
-	    					</div> -->
-
-	    	
-                      
-
+<body>
+    <div include="/menu"></div> <!-- 메뉴 html include 함-->
+  <div class="fade-in">
+    <div class="wrapperdong">
+      <div class="mail">
+        <div class="cover"></div>
+        <div class="letter">
+          <h1>오늘의 메세지</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+	<div class="testt">
+        <div class="header">
+	     <div class="wrap">
+	      <div class="header-top">
+			<!---start-top-nav---->
+			<div class="top-nav">
+					<div class="top-header">
+						<div class="logo">
+							<a href="index.html"><h1>menu</h1></a>
 						</div>
-	    			</div>
-	    		</div>
-	    	<div id="paging">
-      <a id="pageNum1" onclick="getBoard(0)" href="#">1</a>
-      <a id="pageNum1" onclick="getBoard(1)" href="#">2</a>
-      <a id="pageNum1" onclick="getBoard(2)" href="#">3</a>
-      <a id="pageNum1" onclick="getBoard(3)" href="#">4</a>
-      <a id="pageNum1" onclick="getBoard(4)" href="#">5</a>
-      <a id='nextPage' onclick='setPaging(1)' href='#'>다음</a>
-   </div>
-	    </section>
-	    <footer class="ftco-footer ftco-bg-dark ftco-section">
-	      <div class="container px-md-5">
-	        <div class="row">
-	          <div class="col-md-12">
-
-	            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-	  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-	  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-	          </div>
-	        </div>
-	      </div>
-	    </footer>
-		</div><!-- END COLORLIB-MAIN -->
-	</div><!-- END COLORLIB-PAGE -->
-
-  <!-- loader -->
-  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
-
-  <script src="js/include.js"></script>
-  <script src="js/boardlistAxios.js"></script>
-  <script src="js/jquery.min.js"></script>
-  <script src="js/jquery-migrate-3.0.1.min.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/jquery.easing.1.3.js"></script>
-  <script src="js/jquery.waypoints.min.js"></script>
-  <script src="js/jquery.stellar.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/jquery.magnific-popup.min.js"></script>
-  <script src="js/aos.js"></script>
-  <script src="js/jquery.animateNumber.min.js"></script>
-  <script src="js/bootstrap-datepicker.js"></script>
-  <script src="js/jquery.timepicker.min.js"></script>
-  <script src="js/scrollax.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-  <script src="js/google-map.js"></script>
-  <script src="js/main.js"></script>
+					</div>
+				<nav class="nav clearfix">
+					<a id="menu-toggle" class="anchor-link" href="#"></a>
+					
+				</nav>
+			</div>
+		</div>
+		<div class="banner">
+			<div class="banner-text">
+				<span>밤 공기</span>
+						      <h2>밤공기가 너무좋다<br>
+                                 아니 네가 좋은 건가?<br>
+                                 아니 네가 좋은 건가?<br>
+                                 아니 네가 좋은 건가?</h2>
+                <br><br><br>
+                <p>정원호0918</p>
+               <p>2019년 12월 23일 월요일 23:29</p>
+			</div>   
+		</div>
+	</div>
+		 <div class="wrap">
+		   <div class="content">	 	 
+		 	</div>
+        </div>
+            </div>
+        
+        
+        
+        
+		  <div class="footer">
+		    <div class="wrap">
+			   	<div class="copy-right">
+					<p>Copyright (c) websitename All rights reserved. Template by <a href="http://w3layouts.com/" target="_blank"> W3layouts</a></p>
+				</div>
+		</div>
+	</div>
+	</div>
     
-  </body>
+    
+    
+    <script src="js/include.js"></script>
+
+
+
+</body>
 </html>
