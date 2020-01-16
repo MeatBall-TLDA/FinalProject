@@ -1,6 +1,7 @@
 package td.controller;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 
 import javax.servlet.http.HttpSession;
@@ -146,8 +147,14 @@ public class GeneralController {
 
 	// 로그인 API
 	@RequestMapping("/login")
-	public String goToLogin() {
-		return "/login";
+	public String goToLogin(Model model, HttpSession session) {
+		String url = "/thymeleaf/error";
+		try {
+			url = service.login(model, session);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return url;
 	}
 
 	@RequestMapping("/kakaoLogin")

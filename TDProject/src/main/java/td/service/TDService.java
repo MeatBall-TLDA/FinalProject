@@ -1,6 +1,10 @@
 package td.service;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.net.URLEncoder;
+import java.security.SecureRandom;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import td.login.LoginAPI;
 import td.model.dao.ClientRepository;
@@ -416,6 +421,25 @@ public class TDService {
 		return rRepo.findByPlusHeartUserId(plusHeartUserId);
 	}
 	// =================================================================
+	
+	// 로그인 url 만들어서 전달하기
+	public String login(Model model, HttpSession session) throws UnsupportedEncodingException {
+		
+		String clientId = "YgSTzaDFAOIL6DsaS9Cy";//애플리케이션 클라이언트 아이디값";
+		String redirectURI = URLEncoder.encode("http://localhost:8000/naverLogin", "UTF-8");
+		SecureRandom random = new SecureRandom();
+		String state = new BigInteger(130, random).toString();
+		String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+		apiURL += "&client_id=" + clientId;
+		apiURL += "&redirect_uri=" + redirectURI;
+		apiURL += "&state=" + state;
+		session.setAttribute("state", state);
+		
+		model.addAttribute("naverURL", apiURL);
+		model.addAttribute("kakaoURL", "https://kauth.kakao.com/oauth/authorize?client_id=48bdb629c0cc1beac9d7d5f5cdead8b2&redirect_uri=http://localhost:8000/kakaoLogin&response_type=code");
+		
+		return "/thymeleaf/login";
+	}
 
 	// 로그인 API
 	public String kakaoLogin(String code, HttpSession session) {
