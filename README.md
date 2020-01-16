@@ -37,15 +37,15 @@ Elastic Search 7.1.1<br>
 ```
 
 # Authors
-👤 JongSung Kim (https://github.com/SEJSCloud)
+:dog: JongSung Kim (https://github.com/SEJSCloud)
 
-👤 WongTae Kim (https://github.com/angle2v)
+:octocat: WongTae Kim (https://github.com/angle2v)
 
-👤 YoungWook Cho (https://github.com/youngwookjo)
+:sheep: YoungWook Cho (https://github.com/youngwookjo)
 
-👤 DongBeom Kim (https://github.com/rlavkgk45)
+:cloud: DongBeom Kim (https://github.com/rlavkgk45)
 
-# Images
+# 서비스 이미지
 <br>
 <img src="https://user-images.githubusercontent.com/52445900/72497926-37fcdd80-3871-11ea-80fc-c07a5821c4d3.png"></img>
 
@@ -68,3 +68,8 @@ Elastic Search 7.1.1<br>
 
 <br>
 <img src="https://user-images.githubusercontent.com/52445900/72497939-3fbc8200-3871-11ea-8fa2-60dd5bd26c13.png"></img>
+
+# 깃 플로우
+<br>
+<img src="https://user-images.githubusercontent.com/52445900/72500054-e5bebb00-3876-11ea-8d1d-89c49f7e25ec.jpg"></img>
+
