@@ -15,8 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import td.login.LoginAPI;
 import td.model.dao.ClientRepository;
@@ -55,33 +53,51 @@ public class TDService {
 		return true;
 	}
 
-	// 고객 정보
-	public Optional<ClientDTO> findByIdClientDTO(String id) {
-		return cRepo.findById(id);
-	}
-
 	// 고객 회원가입
 	public void saveClientDTO(String serviceName, HttpSession session) {
 		String id = (String) session.getAttribute("id");
 		String nickName = session.getAttribute("nickname").toString();
-		String serviceName1 = serviceName.toString();
-		session.setAttribute("serviceName", serviceName1);
 		String email = session.getAttribute("email").toString();
-		boolean gg = true;
+		session.setAttribute("serviceName", serviceName);
 
-		cRepo.save(new ClientDTO(id, nickName, serviceName1, email, gg, 0));
+		cRepo.save(new ClientDTO(id, nickName, serviceName, email, true, null));
+	}
+	
+	public void saveTest(String serviceName, HttpSession session) {
+		session.setAttribute("serviceName", serviceName);
 	}
 
-	public Optional<HiddenBoardDTO> findByIdClientDTO(HttpSession session) {
-		ClientDTO client = cRepo.findById((String) session.getAttribute("id")).get();
-		return hRepo.findById(client.getRandomMessageId());
+	// 고객 닉네임 수정
+	public void updateServiceName(String serviceName, String updateName) {
+
+		ClientDTO clinet = cRepo.findByServiceName(serviceName);
+		clinet.setServiceName(updateName);
+
+		cRepo.save(clinet);
+	}
+
+	public Optional<HiddenBoardDTO> getTodayMessage(HttpSession session) {
+		Optional<HiddenBoardDTO> entity = null;
+		ClientDTO client = null;
+		
+		try {
+			client = cRepo.findById((String) session.getAttribute("id")).get();
+		}catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		}
+
+		if (client.getRandomMessageId() != null) {
+			entity = hRepo.findById(client.getRandomMessageId());
+		}
+
+		return entity;
 	}
 
 	// =================================================================
 	// 비공개 게시판 정보
 
 	// 모든 비공개 게시글 가져오기
-	public Slice<HiddenBoardDTO> findAll(Pageable pageable) {
+	public Slice<HiddenBoardDTO> hiddenFindAll(Pageable pageable) {
 		return hRepo.findAll(pageable);
 	}
 
@@ -117,14 +133,16 @@ public class TDService {
 
 	// 오늘의 메세지
 	public void sendMessage() {
+		ArrayList<String> hiddenBoardId = new ArrayList<>();
 		Random r = new Random();
-
 		int hiddenboardCount = (int) hRepo.count();
-		int randomMessageId;
+
+		for (HiddenBoardDTO hiddenBoard : hRepo.findAll()) {
+			hiddenBoardId.add(hiddenBoard.getId());
+		}
 
 		for (ClientDTO client : cRepo.findAll()) {
-			randomMessageId = r.nextInt(hiddenboardCount) + 1;
-			client.setRandomMessageId(randomMessageId);
+			client.setRandomMessageId(hiddenBoardId.get(r.nextInt(hiddenboardCount)));
 			System.out.println(client);
 			cRepo.save(client);
 		}
@@ -134,10 +152,10 @@ public class TDService {
 	public void moveToOpen() {
 		String today = new SimpleDateFormat("yyyyMMdd").format(new Date());
 
-		for (HiddenBoardDTO v : hRepo.findByOpenDate(today)) {
+		for (HiddenBoardDTO v : hRepo.findByOpenDate("20200117")) {
 			oRepo.save(new OpenBoardDTO(v.getId(), v.getTitle(), v.getContents(), v.getHashtag(), v.getOpenDate(),
-					v.getHeart(), v.getClaim(), v.getNickname(), v.getCategory(), null, null));
-			// hRepo.deleteById(v.getId());
+					v.getHeart(), v.getClaim(), v.getNickname(), v.getCategory(), v.getPlusHeartUserId(), v.getPlusClaimUserId()));
+			 hRepo.deleteById(v.getId());
 		}
 	}
 
@@ -156,33 +174,33 @@ public class TDService {
 		return hRepo.countByHashtagContaining(hashtag);
 	}
 
-	// 테스트 데이터 삽입
-	public int randomRange(int n1, int n2) {
-		return (int) (Math.random() * (n2 - n1 + 1)) + n1;
-	}
-
-	public void makeTest() {
-		String[] category = { "시", "감성글" };
-		String[] hashtag = { "#SCA", "#PL", "#MLB", "#NBA" };
-
-		for (int i = 1; i <= 99; i++) {
-			String a = String.valueOf(i);
-			HiddenBoardDTO v = new HiddenBoardDTO();
-
-			v.setTitle(a);
-			v.setCategory(category[randomRange(0, 1)]);
-			v.setClaim(0);
-			v.setContents(a);
-			v.setHashtag(hashtag[randomRange(0, 3)]);
-			v.setHeart(0);
-			v.setId(a);
-			v.setNickname(a);
-			v.setOpenDate(i < 10 ? "2020010" + i : "2020010" + i);
-			v.setPostingDate(i < 10 ? "2019120" + i : "201912" + i);
-
-			hRepo.save(v);
-		}
-	}
+//	// 테스트 데이터 삽입
+//	public int randomRange(int n1, int n2) {
+//		return (int) (Math.random() * (n2 - n1 + 1)) + n1;
+//	}
+//
+//	public void makeTest() {
+//		String[] category = { "시", "감성글" };
+//		String[] hashtag = { "#SCA", "#PL", "#MLB", "#NBA" };
+//
+//		for (int i = 1; i <= 99; i++) {
+//			String a = String.valueOf(i);
+//			HiddenBoardDTO v = new HiddenBoardDTO();
+//
+//			v.setTitle(a);
+//			v.setCategory(category[randomRange(0, 1)]);
+//			v.setClaim(0);
+//			v.setContents(a);
+//			v.setHashtag(hashtag[randomRange(0, 3)]);
+//			v.setHeart(0);
+//			v.setId(a);
+//			v.setNickname(a);
+//			v.setOpenDate(i < 10 ? "2020010" + i : "2020010" + i);
+//			v.setPostingDate(i < 10 ? "2019120" + i : "201912" + i);
+//
+//			hRepo.save(v);
+//		}
+//	}
 
 	// 게시글 신고 추가
 	public String plusHiddenBoardClaim(String nickname, String id) {
@@ -248,6 +266,16 @@ public class TDService {
 		return result;
 	}
 
+	// 비공개 게시판 게시글 삭제
+	public boolean deleteHiddenBoardDTO(String boardId) throws ParseException {
+		boolean result = false;
+		if (hRepo.findById(boardId).isPresent()) {
+			hRepo.deleteById(boardId);
+			result = true;
+		}
+		return result;
+	}
+
 	// =================================================================
 
 	// 공개 게시판 정보
@@ -255,9 +283,83 @@ public class TDService {
 		return oRepo.findById(id);
 	}
 
-	// 전체 게시물 조회
-	public Iterable<OpenBoardDTO> getAllOpenBoardDTO() {
-		return oRepo.findAll();
+	// 공개 게시판 전체 게시글 수 가져오기
+	public long getOpenCount() {
+		return oRepo.count();
+	}
+
+	// 전체 카테고리 게시글 수 가져오기
+	public long getOpenCategoryCount(String category) {
+		return oRepo.countByCategoryContaining(category);
+	}
+
+	// 전체 해쉬태그 게시글 수 가져오기
+	public long getOpenHashtagCount(String hashtag) {
+		return oRepo.countByHashtagContaining(hashtag);
+	}
+
+	// 모든 공개 게시글 가져오기
+	public Slice<OpenBoardDTO> openFindAll(Pageable pageable) {
+		return oRepo.findAll(pageable);
+	}
+
+	// hashtag검색
+	public Slice<OpenBoardDTO> openHashtagSearch(Pageable pageable, String hashtag) {
+		return oRepo.findByHashtagContaining(pageable, hashtag);
+	}
+
+	// category검색
+	public Slice<OpenBoardDTO> openCategorySearch(Pageable pageable, String category) {
+		return oRepo.findByCategoryContaining(pageable, category);
+	}
+
+	// 공개 게시글 신고 추가
+	public String plusOpenBoardClaim(String nickname, String id) {
+		OpenBoardDTO boardEntity = oRepo.findById(id).get();
+		ArrayList<String> plusClaimUserList = null;
+		String message = null;
+
+		if (boardEntity.getPlusClaimUserId() != null && boardEntity.getPlusClaimUserId().size() != 0) {
+			plusClaimUserList = boardEntity.getPlusClaimUserId();
+		} else {
+			plusClaimUserList = new ArrayList<>();
+		}
+
+		if (judge(plusClaimUserList, nickname)) {
+			plusClaimUserList.add(nickname);
+			boardEntity.setClaim(boardEntity.getClaim() + 1);
+			boardEntity.setPlusClaimUserId(plusClaimUserList);
+			oRepo.save(boardEntity);
+			message = "신고되었습니다";
+		} else {
+			message = "이미 신고하였습니다";
+		}
+		return message;
+	}
+
+	// 공개 게시글 좋아요 추가
+	public Integer plusOpenBoardHeart(String nickname, String id) {
+		OpenBoardDTO boardEntity = oRepo.findById(id).get();
+		ArrayList<String> plusHeartUserList = null;
+
+		if (boardEntity.getPlusHeartUserId() != null && boardEntity.getPlusHeartUserId().size() != 0) {
+			plusHeartUserList = boardEntity.getPlusHeartUserId();
+		} else {
+			plusHeartUserList = new ArrayList<>();
+		}
+
+		if (judge(plusHeartUserList, nickname)) {
+			plusHeartUserList.add(nickname);
+			boardEntity.setHeart(boardEntity.getHeart() + 1);
+			boardEntity.setPlusHeartUserId(plusHeartUserList);
+			oRepo.save(boardEntity);
+		} else {
+			plusHeartUserList.remove(nickname);
+			boardEntity.setHeart(boardEntity.getHeart() - 1);
+			boardEntity.setPlusHeartUserId(plusHeartUserList);
+			oRepo.save(boardEntity);
+		}
+		return boardEntity.getHeart();
 	}
 
 	// =================================================================
@@ -275,6 +377,10 @@ public class TDService {
 	// 게시판 ID로만 리플 가져오기
 	public Slice<ReplyDTO> getReplyInOpen(Pageable pageable, String repBoardId) {
 		return rRepo.findByRepBoardId(pageable, repBoardId);
+	}
+
+	public long getCountReply(String repBoardId) {
+		return rRepo.countByRepBoardId(repBoardId);
 	}
 
 	// 댓글 저장하기
@@ -412,6 +518,10 @@ public class TDService {
 
 		session.invalidate();
 		return url;
+	}
+
+	public void test(HttpSession session) {
+		System.out.println(session.getAttribute("id"));
 	}
 
 }

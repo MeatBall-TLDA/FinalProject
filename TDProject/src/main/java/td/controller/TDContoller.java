@@ -1,9 +1,8 @@
 package td.controller;
 
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Optional;
-
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import td.model.domain.ClientDTO;
 import td.model.domain.HiddenBoardDTO;
 import td.model.domain.OpenBoardDTO;
 import td.model.domain.ReplyDTO;
@@ -29,25 +27,11 @@ public class TDContoller {
 	@Autowired
 	private TDService service;
 
-	// 고객 정보
-	@GetMapping("/clientTest")
-	public Optional<ClientDTO> findByIdClientDTO(String id) {
-		return service.findByIdClientDTO(id);
-	}
-
-	// 오늘의 메세지 게시물 꺼내오는 메소드
-	@GetMapping("/todayMessage")
-	public Optional<HiddenBoardDTO> todayMessage(HttpSession session) {
-		return service.findByIdClientDTO(session);
-	}
-
-	// =================================================================
-
 	// 미공개 게시판 정보
 	// 페이지 넘버에 따라 게시글 조회
 	@GetMapping("/getHidden")
 	public Slice<HiddenBoardDTO> findAll(@PageableDefault(size = 10) Pageable pageable) {
-		return service.findAll(pageable);
+		return service.hiddenFindAll(pageable);
 	}
 
 	// 전체 게시글 수 조회
@@ -80,12 +64,36 @@ public class TDContoller {
 		return service.plusHiddenBoardClaim(nickname, id);
 	}
 
-	@GetMapping("/makeTest")
-	public void makeTest() {
-		service.makeTest();
+	// 게시글 삭제 로직
+	@PostMapping("/deleteHidden")
+	public String deleteHiddenBoardDTO(String boardId) {
+		System.out.println(boardId);
+		String url = "";
+		try {
+			if (service.deleteHiddenBoardDTO(boardId)) {
+				url = "/thymeleaf/closeBoard";
+			} else {
+				url = "/thymeleaf/error";
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+			url = "/thymeleaf/error";
+		}
+		return url;
 	}
 
+//	@GetMapping("/makeTest")
+//	public void makeTest() {
+//		service.makeTest();
+//	}
+
 	// =================================================================
+
+	// 공개 게시글 전체 가져오기
+	@GetMapping("/getOpen")
+	public Slice<OpenBoardDTO> findOpenAll(@PageableDefault(size = 10) Pageable pageable) {
+		return service.openFindAll(pageable);
+	}
 
 	// 공개 게시판 정보
 	@GetMapping("/openTest")
@@ -93,11 +101,41 @@ public class TDContoller {
 		return service.findByIdOpenBoardDTO(id);
 	}
 
-	// 전체 게시물 조회
-	@GetMapping("/testst")
-	public Iterable<OpenBoardDTO> getAllOpenBoardDTO() {
-		return service.getAllOpenBoardDTO();
+	// 공개 게시판 전체 게시글 수 가져오기
+	@GetMapping("/getOpenCount")
+	public long getOpenCount() {
+		return service.getOpenCount();
 	}
+
+	// 전체 카테고리 게시글 수 가져오기
+	@GetMapping("/getOpenCategoryCount")
+	public long getOpenCategoryCount(String category) {
+		return service.getOpenCategoryCount(category);
+	}
+
+	// 전체 해쉬태그 게시글 수 가져오기
+	@GetMapping("/getOpenHashtagCount")
+	public long getOpenHashtagCount(String hashtag) {
+		return service.getOpenHashtagCount(hashtag);
+	}
+
+	// 공개게시글 좋아요 누를 때 +1 이미 눌렀으면 -1
+	@PostMapping("/plusOpenBoardHeart")
+	public Integer plusOpenBoardHeart(String nickname, String id) {
+		return service.plusOpenBoardHeart(nickname, id);
+	}
+
+	// 공개게시글 신고하기 누를때 +1 이미 눌렀으면 이미신고했다는 메시지 반환
+	@PostMapping("/plusOpenBoardClaim")
+	public String plusOpenBoardClaim(String nickname, String id) {
+		return service.plusOpenBoardClaim(nickname, id);
+	}
+
+//	// 전체 게시물 조회
+//	@GetMapping("/testst")
+//	public Iterable<OpenBoardDTO> getAllOpenBoardDTO() {
+//		return service.getAllOpenBoardDTO();
+//	}
 
 	// =================================================================
 
@@ -110,6 +148,11 @@ public class TDContoller {
 	@GetMapping("/getReply")
 	public ReplyDTO getReply(String repUserId, String repBoardId) {
 		return service.getReply(repUserId, repBoardId);
+	}
+
+	@GetMapping("/getCountReply")
+	public long getCountReply(String repBoardId) {
+		return service.getCountReply(repBoardId);
 	}
 
 	@GetMapping("/getReplyInOpen")
@@ -128,7 +171,6 @@ public class TDContoller {
 		return message;
 	}
 
-//	plusHeart?repUserId=" + "young" + "
 //	댓글 좋아요 누를 때 +1 이미 눌렀으면 -1
 	@PostMapping("/plusHeart")
 	public Integer plusRepHeart(String repUserId, String repBoardId, @RequestParam(required = false) String nickName) {
@@ -149,12 +191,6 @@ public class TDContoller {
 	// 동범 search =================================================================
 	@GetMapping("/hashtagSearch")
 	public Slice<HiddenBoardDTO> hashtagSearch(@PageableDefault(size = 10) Pageable pageable, String hashtag) {
-		System.out.println("=============");
-		System.out.println(hashtag);
-		for (HiddenBoardDTO a : service.hashtagSearch(pageable, hashtag)) {
-
-			System.out.println(a);
-		}
 		return service.hashtagSearch(pageable, hashtag);
 	}
 
@@ -166,5 +202,15 @@ public class TDContoller {
 	@GetMapping("/tagCloud")
 	public HashMap<String, Integer> tagCloud() {
 		return service.tagCloud();
+	}
+
+	@GetMapping("/openHashtagSearch")
+	public Slice<OpenBoardDTO> openHashtagSearch(@PageableDefault(size = 10) Pageable pageable, String hashtag) {
+		return service.openHashtagSearch(pageable, hashtag);
+	}
+
+	@GetMapping("/openCategorySearch")
+	public Slice<OpenBoardDTO> openCategorySearch(@PageableDefault(size = 10) Pageable pageable, String category) {
+		return service.openCategorySearch(pageable, category);
 	}
 }

@@ -34,6 +34,6 @@ public class ClientDTO {
    @Column(nullable = false)
    private boolean alram;
    
-   @Column(length = 100, nullable = false)
-   private int randomMessageId;
+   @Column(length = 100, nullable = true)
+   private String randomMessageId;
 }

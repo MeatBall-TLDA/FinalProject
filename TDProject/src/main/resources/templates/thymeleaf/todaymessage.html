@@ -1,19 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
-  <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="robots" content="noindex, follow" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="x-apple-disable-message-reformatting" />
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1" />
-  <link rel="stylesheet" href="css/todayMessage.css">
-  <link rel="stylesheet" href="css/style.css">
-    
-  <style type="text/css">
-              body {
-            margin: 0!important;
-            padding: 0!important
+    <link rel="stylesheet" href="css/todayMessage.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script th:inline="javascript">
+        const message = [[${ message }]]
+
+        if (message == "") {
+            alert("아직 메시지가 도착하지 않았습니다!")
+            history.go(-1)
+        }
+
+    </script>
+    <style type="text/css">
+        body {
+            margin: 0 !important;
+            padding: 0 !important
         }
 
         p {
@@ -22,12 +31,12 @@
 
         table {
             border-collapse: collapse;
-            min-height: 0!important
+            min-height: 0 !important
         }
 
         td {
             border-collapse: collapse;
-            white-space: -moz-pre-wrap!important;
+            white-space: -moz-pre-wrap !important;
             white-space: -webkit-pre-wrap;
             white-space: -pre-wrap;
             white-space: -o-pre-wrap;
@@ -35,7 +44,7 @@
             word-wrap: normal;
             word-break: normal;
             white-space: normal;
-            border: none!important;
+            border: none !important;
         }
 
         .main-table,
@@ -57,117 +66,149 @@
 
         @media only screen and (max-width:640px) {
             body {
-                width: auto!important
+                width: auto !important
             }
+
             table {
                 border-collapse: initial
             }
+
             .main-table,
             .newsletter-row {
                 width: auto
             }
+
             .newsletter-row .inner-row-table {
                 max-width: 600px;
-                width: 100%!important
+                width: 100% !important
             }
+
             .newsletter-row .inner-row-table {
                 table-layout: fixed
             }
+
             .slot {
-                width: 100%!important;
-                max-width: 100%!important;
+                width: 100% !important;
+                max-width: 100% !important;
                 display: block
             }
+
             .slot.ONE_FOURTH {
-                width: 50%!important;
-                max-width: 50%!important;
+                width: 50% !important;
+                max-width: 50% !important;
                 display: inline-block
             }
+
             .component .newsletter-button-link .button {
-                width: auto!important
+                width: auto !important
             }
+
             .component .image {
                 mso-line-height-rule: exactly
             }
+
             .component,
             .image table {
-                width: 100%!important
+                width: 100% !important
             }
+
             .component .image img {
-                max-width: 100%!important
+                max-width: 100% !important
             }
+
             .slot.HALF .image img.not-resized {
-                max-width: 100%!important;
-                width: 100%!important
+                max-width: 100% !important;
+                width: 100% !important
             }
+
             .slot.ONE_THIRD .image img.not-resized {
-                max-width: 100%!important;
-                width: 100%!important
+                max-width: 100% !important;
+                width: 100% !important
             }
+
             .slot.ONE_FOURTH .image img.not-resized {
-                max-width: 100%!important;
-                width: 100%!important
+                max-width: 100% !important;
+                width: 100% !important
             }
+
             .component .image img.not-resized {
-                width: 100%!important
+                width: 100% !important
             }
+
             .slot-spacing {
                 display: none
             }
+
             .slot .component .newsletter-main-content .image.article-image-container {
-                width: 33.3%!important
+                width: 33.3% !important
             }
+
             #bg_color_table {
                 width: 100%
             }
+
             .non-responsive .slot-spacing {
                 display: table-cell
             }
+
             .non-responsive .slot-spacing.CENTER {
                 display: table-cell
             }
+
             .non-responsive .slot {
                 display: table-cell
             }
+
             .non-responsive .slot.FULL {
-                width: auto!important;
-                max-width: 100%!important
+                width: auto !important;
+                max-width: 100% !important
             }
+
             .non-responsive .slot.ONE_THIRD {
-                width: auto!important;
-                max-width: 33.3%!important
+                width: auto !important;
+                max-width: 33.3% !important
             }
+
             .non-responsive .slot.HALF {
-                width: auto!important;
-                max-width: 50%!important
+                width: auto !important;
+                max-width: 50% !important
             }
+
             .non-responsive .slot.TWO_THIRDS {
-                width: 66.6%!important;
-                max-width: 66.6%!important
+                width: 66.6% !important;
+                max-width: 66.6% !important
             }
+
             .non-responsive .slot.ONE_FOURTH {
-                width: auto!important;
-                max-width: 25%!important
+                width: auto !important;
+                max-width: 25% !important
             }
+
             .non-responsive .slot.FULL .component .image img {
-                max-width: 100%!important
+                max-width: 100% !important
             }
+
             .non-responsive .slot.ONE_THIRD .component .image img {
-                max-width: 100%!important
+                max-width: 100% !important
             }
+
             .non-responsive .slot.HALF .component .image img {
-                max-width: 100%!important
+                max-width: 100% !important
             }
+
             .non-responsive .slot.TWO_THIRDS .component .image img {
-                max-width: 100%!important
+                max-width: 100% !important
             }
+
             .non-responsive .slot.ONE_FOURTH .component .image img {
-                max-width: 100%!important
+                max-width: 100% !important
             }
+
             .non-responsive .slot.HALF .text_container {
                 display: table-cell;
                 width: 530px
             }
+
             .fix-android-mail {
                 display: none
             }
@@ -175,231 +216,382 @@
 
         @media only screen and (max-width:450px) {
             body {
-                width: auto!important
+                width: auto !important
             }
+
             .main-table,
             .newsletter-row {
                 width: auto
             }
+
             table {
                 border-collapse: initial
             }
+
             .newsletter-row .inner-row-table {
                 max-width: 600px;
                 width: 100%
             }
+
             .newsletter-row .inner-row-table {
                 table-layout: fixed
             }
+
             .slot {
-                width: 100%!important;
-                max-width: 100%!important;
+                width: 100% !important;
+                max-width: 100% !important;
                 display: block
             }
+
             .slot.ONE_FOURTH {
-                width: 50%!important;
-                max-width: 50%!important;
+                width: 50% !important;
+                max-width: 50% !important;
                 display: inline-block
             }
+
             .component .newsletter-button-link .button {
-                width: auto!important
+                width: auto !important
             }
+
             .component .image {
                 mso-line-height-rule: exactly
             }
+
             .component,
             .image table {
-                width: 100%!important
+                width: 100% !important
             }
+
             .component .image img {
-                max-width: 100%!important
+                max-width: 100% !important
             }
+
             .slot.HALF .image img.not-resized {
-                max-width: 100%!important;
-                width: 100%!important
+                max-width: 100% !important;
+                width: 100% !important
             }
+
             .slot.ONE_THIRD .image img.not-resized {
-                max-width: 100%!important;
-                width: 100%!important
+                max-width: 100% !important;
+                width: 100% !important
             }
+
             .slot.ONE_FOURTH .image img.not-resized {
-                max-width: 100%!important;
-                width: 100%!important
+                max-width: 100% !important;
+                width: 100% !important
             }
+
             .component .image img.not-resized {
-                width: 100%!important
+                width: 100% !important
             }
+
             .slot-spacing {
                 display: none
             }
+
             .slot .component .newsletter-main-content .image.article-image-container {
-                width: 33.3%!important
+                width: 33.3% !important
             }
+
             #bg_color_table {
                 width: 100%
             }
+
             .non-responsive .slot-spacing {
                 display: table-cell
             }
+
             .non-responsive .slot-spacing.CENTER {
                 display: table-cell
             }
+
             .non-responsive .slot {
                 display: table-cell
             }
+
             .non-responsive .slot.FULL {
-                width: auto!important;
-                max-width: 100%!important
+                width: auto !important;
+                max-width: 100% !important
             }
+
             .non-responsive .slot.ONE_THIRD {
-                width: auto!important;
-                max-width: 33.3%!important
+                width: auto !important;
+                max-width: 33.3% !important
             }
+
             .non-responsive .slot.HALF {
-                width: auto!important;
-                max-width: 50%!important
+                width: auto !important;
+                max-width: 50% !important
             }
+
             .non-responsive .slot.TWO_THIRDS {
-                width: 66.6%!important;
-                max-width: 66.6%!important
+                width: 66.6% !important;
+                max-width: 66.6% !important
             }
+
             .non-responsive .slot.ONE_FOURTH {
-                width: auto!important;
-                max-width: 25%!important
+                width: auto !important;
+                max-width: 25% !important
             }
+
             .non-responsive .slot.FULL .component .image img {
-                max-width: 100%!important
+                max-width: 100% !important
             }
+
             .non-responsive .slot.ONE_THIRD .component .image img {
-                max-width: 100%!important
+                max-width: 100% !important
             }
+
             .non-responsive .slot.HALF .component .image img {
-                max-width: 100%!important
+                max-width: 100% !important
             }
+
             .non-responsive .slot.TWO_THIRDS .component .image img {
-                max-width: 100%!important
+                max-width: 100% !important
             }
+
             .non-responsive .slot.ONE_FOURTH .component .image img {
-                max-width: 100%!important
+                max-width: 100% !important
             }
+
             .non-responsive .slot.HALF .text_container {
                 display: table-cell;
                 width: 530px
             }
+
             .fix-android-mail {
                 display: none
             }
         }
-    .ex_hide {
-      float: left;
-      cursor: pointer
-    }
 
-    .mail .cover:before {}
-    .addattribute {
-      transform: rotateX(180deg);
-      transition: all 1s ease;
-    }
+        .ex_hide {
+            float: left;
+            cursor: pointer
+        }
 
-    .mail .letter {}
-    .addattribute1 {
-      top: -80px;
-      transition: all 1s 1s ease;
-    }
-  </style>
-    
-  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
-  <script type="text/javascript">
-      $(document).ready(function() {
-          $('.testt').hide();
-      });
-      
-    $.fn.addattribute = function () {
-      var mailCover = $('.mail .cover');
-      mailCover.addClass('addattribute');
-      var mailLetter = $('.mail .letter');
-      mailLetter.addClass('addattribute1');
-    }
+        .mail .cover:before {}
 
-    setTimeout(function () {
-      $.fn.addattribute();
-    }, 2200);
-      
-    $(function () {
-      var mail = $('.mail');
-      mail.click(function () {
-      mail.fadeOut();
-      $('.testt').show();
-      });
-    });
-  </script>
+        .addattribute {
+            transform: rotateX(180deg);
+            transition: all 1s ease;
+        }
+
+        .mail .letter {}
+
+        .addattribute1 {
+            top: -80px;
+            transition: all 1s 1s ease;
+        }
+    </style>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.vuet').hide();
+        });
+
+        $.fn.addattribute = function () {
+            var mailCover = $('.mail .cover');
+            mailCover.addClass('addattribute');
+            var mailLetter = $('.mail .letter');
+            mailLetter.addClass('addattribute1');
+        }
+
+        setTimeout(function () {
+            $.fn.addattribute();
+        }, 2200);
+
+        $(function () {
+            var mail = $('.mail');
+            mail.click(function () {
+                mail.fadeOut();
+                $('.vuet').show();
+            });
+        });
+    </script>
 </head>
 
 <body>
-    <div include="/menu"></div> <!-- 메뉴 html include 함-->
-  <div class="fade-in">
-    <div class="wrapperdong">
-      <div class="mail">
-        <div class="cover"></div>
-        <div class="letter">
-          <h1>오늘의 메세지</h1>
-        </div>
-      </div>
-    </div>
-  </div>
-	<div class="testt">
-        <div class="header">
-	     <div class="wrap">
-	      <div class="header-top">
-			<!---start-top-nav---->
-			<div class="top-nav">
-					<div class="top-header">
-						<div class="logo">
-							<a href="index.html"><h1>menu</h1></a>
-						</div>
-					</div>
-				<nav class="nav clearfix">
-					<a id="menu-toggle" class="anchor-link" href="#"></a>
-					
-				</nav>
-			</div>
-		</div>
-		<div class="banner">
-			<div class="banner-text">
-				<span>밤 공기</span>
-						      <h2>밤공기가 너무좋다<br>
-                                 아니 네가 좋은 건가?<br>
-                                 아니 네가 좋은 건가?<br>
-                                 아니 네가 좋은 건가?</h2>
-                <br><br><br>
-                <p>정원호0918</p>
-               <p>2019년 12월 23일 월요일 23:29</p>
-			</div>   
-		</div>
-	</div>
-		 <div class="wrap">
-		   <div class="content">	 	 
-		 	</div>
-        </div>
+    <div> <a href="javascript:void(0)" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+        <aside id="colorlib-aside" role="complementary" class="js-fullheight text-center">
+            <h1 id="colorlib-logo"><a href="/close">틀다</a></h1>
+            <nav id="colorlib-main-menu" role="navigation">
+                <ul>
+                    <li><a href="/writing">글쓰기</a></li>
+                    <li><a href="/search">검색</a></li>
+                    <li><a href="/close">비공개 게시판</a></li>
+                    <li><a href="/public">공개 게시판</a></li>
+                    <li><a href="/todaymessage">오늘의 메세지</a></li>
+                    <li><a href="/mypage">마이 페이지</a></li>
+                </ul>
+            </nav>
+            <div class="colorlib-footer">
+                <p>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;
+                    <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is
+                    made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                        target="_blank">Colorlib</a>
             </div>
-        
-        
-        
-        
-		  <div class="footer">
-		    <div class="wrap">
-			   	<div class="copy-right">
-					<p>Copyright (c) websitename All rights reserved. Template by <a href="http://w3layouts.com/" target="_blank"> W3layouts</a></p>
-				</div>
-		</div>
-	</div>
-	</div>
-    
-    
-    
+        </aside> <!-- END COLORLIB-ASIDE -->
+
+    </div> <!-- 메뉴 html include 함-->
+    <div class="fade-in">
+        <div class="wrapperdong">
+            <div class="mail">
+                <div class="cover"></div>
+                <div class="letter">
+                    <h1>오늘의 메세지</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="vuet" style="padding-top: 100px;">
+        <div class="header">
+            <div class="wrap">
+                <div id="banner" class="banner">
+                    <div class="banner-text" id="row" style="margin-bottom: 0px;" v-on:click="comment">
+                    </div>
+                    <div style="text-align: center;">
+                        <span v-html="boardHeartNum"></span>
+                        <span v-html="plusHeart" v-on:click="boardHeart"></span>
+                        <span v-html="plusClaim" v-on:click="makeClaim"></span>
+                    </div>
+                    <div>
+                        <span v-html="tag" v-if="ifflag"></span>
+                        <div style="text-align: center;">
+                            <span v-html="repHeartNum" v-if="heartflag"></span>
+                            <span v-html="repPlusHeart" v-on:click="repHeart" v-if="heartflag"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="wrap">
+            <div class="content">
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script src="https://kit.fontawesome.com/d8eda33cb8.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="js/include.js"></script>
+    <script src="js/axios.js"></script>
+    <script>
+        const user = sessionStorage.getItem("serviceName")
+
+        function heart(heart) {
+            heart.classList.toggle('far');
+            heart.classList.toggle('fas');
+        }
+
+        function updateDate(date) {
+            var update = "";
+            var year = date.substr(0, 4).concat("년")
+            var month = date.substr(4, 2).concat("월")
+            var day = date.substr(6, 2).concat("일")
+            var update = year + " " + month + " " + day
+            return update
+        }
+
+        var vue = new Vue({
+            el: "#banner",
+            data: {
+                tag: "",
+                ifflag: false,
+                heartflag: false,
+                boardHeartNum: 0,
+                repHeartNum: 0,
+                plusHeart: `<i class="heart far fa-heart" onclick="heart(this)" style="color:red"></i>`,
+                repPlusHeart: `<i class="heart far fa-heart" onclick="heart(this)" style="color:red"></i>`,
+                plusClaim: `<span class="mx-1" style="cursor:pointer;">신고하기</span><i class="fas fa-user-slash"></i>`
+            },
+            methods: {
+                comment: function () {
+                    axios.get("http://192.168.22.62:8000/getReply?repUserId=" + user + "&repBoardId=" + message.id)
+                        .then(resData => {
+                            if (resData.data.length == 0) {
+                                this.ifflag = true
+                                this.heartflag = false
+                                this.tag = `<hr style="color : black"><br><div style="text-align : center"><textarea id="input"class="form-control rounded""
+                   placeholder="5자 이상 입력해주세요" style="resize: none;"></textarea><br>
+                   <button type="button" class="btn btn-outline-secondary py-3 px-5" onclick="makeReply()">댓글 남기기</button></div>`
+
+                            } else {
+                                this.repHeartNum = resData.data.repHeart
+                                this.ifflag = !this.ifflag
+                                this.heartflag = !this.heartflag
+                                this.tag = `<hr style="color : black"><div style="text-align : center; margin-top : 30px;"><h4 style="font-size: 15px">` + resData.data.repContents + `</h4>
+                                <br>
+                                <p>작성자 : ` + resData.data.userId + `</p>
+                                <p>` + updateDate(resData.data.repPostingDate) + `</p></div>`
 
 
+                                if (resData.data.plusHeartUserId != null) {
+                                    resData.data.plusHeartUserId.includes(user) ? this.repPlusHeart = `<i class="heart fas fa-heart" onclick="heart(this)" style="color:red"></i>` : this.repPlusHeart = `<i class="heart far fa-heart" onclick="heart(this)" style="color:red"></i>`
+                                }
+                            }
+                        }).catch(error => {
+                            console.log(error)
+                        })
+                },
+                repHeart: function () {
+                    axios.post("http://192.168.22.62:8000/plusHeart?repUserId=" + user + "&repBoardId=" + message.id)
+                        .then(resData => {
+                            this.repHeartNum = resData.data
+                        }).catch(error => {
+                            console.log(error)
+                        })
+                },
+                boardHeart: function () {
+                    axios.post("http://192.168.22.62:8000/plusBoardHeart?nickname=" + user + "&id=" + message.id)
+                        .then(resData => {
+                            this.boardHeartNum = resData.data
+                        }).catch(error => {
+                            console.log(error)
+                        })
+                },
+                makeClaim: function () {
+                    axios.post("http://192.168.22.62:8000/plusBoardClaim?nickname=" + user + "&id=" + message.id)
+                        .then(resData => {
+                            alert(resData.data)
+                        }).catch(error => {
+                            console.log(error)
+                        })
+                }
+            }
+        })
+
+        function makeReply() {
+            var repContent = document.getElementById("input").value
+            axios.post("http://192.168.22.62:8000/saveReply?userId=" + user + "&repBoardId=" + message.id + "&repContents=" + repContent
+                + "&repPostingDate=" + "20191218" + "&repHeart=" + 0 + "&repClaim=" + 0)
+                .then(resData => {
+                    if (resData.data == 1) {
+                        vue.tag = `<hr style="color : black"><div style="text-align : center; margin-top : 30px;"><h4 style="font-size: 15px">` + repContent + `</h4>
+                                <br>
+                                <p>작성자 : ` + user + `</p>
+                                <p>` + updateDate(message.postingDate) + `</p></div>`
+                        vue.heartflag = !vue.heartflag
+                        vue.repHeartNum = 0
+                    } else {
+                        alert("저장에 실패했습니다")
+                    }
+                }).catch(error => {
+                    console.log(error)
+                })
+        }
+
+        document.getElementById("row").innerHTML = `<span style="font-size: 2rem;">` + message.title + `</span>
+            <h2>` + message.contents + `</h2>
+            <br><br>
+            <p>작성자 : ` + message.nickname + `</p>
+            <p>` + updateDate(message.postingDate) + `</p>`
+        vue.boardHeartNum = message.heart
+        
+    </script>
 
 </body>
+
 </html>

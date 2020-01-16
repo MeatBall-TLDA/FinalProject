@@ -9798,7 +9798,6 @@ h1, h2, h3, h4, h5, .h1, .h2, .h3, .h4, .h5 {
 }
 
 .owl-carousel.home-slider .slider-item {
-	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center center;
 	height: 750px;
@@ -11148,3 +11147,10 @@ px
  
 }
 }
+@media only screen and (max-width: 600px) and (min-width: 100px)  {
+    .backsize {
+           background-size: 650px 500px;} }
+           
+@media only screen and (max-width: 600px) and (min-width: 100px)  {
+    .backsize2 {
+           background-size: 900px 650px;} }

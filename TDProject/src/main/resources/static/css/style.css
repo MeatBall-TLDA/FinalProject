@@ -455,15 +455,11 @@ pre {
   overflow-y: scroll; }
 
 .container {
-  width: 100%;
+  width: 60%;
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto; }
-  .container-kim {
-    width: 100%;
-    margin-right: auto;
-    margin-left: auto; }
   @media (min-width: 576px) {
     .container {
       max-width: 540px; } }
@@ -2236,25 +2232,25 @@ fieldset:disabled a.btn {
       box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.5); }
 
 .btn-outline-primary {
-  color: #78d5ef;
+  color: #f05d23;
   background-color: transparent;
   background-image: none;
-  border-color: #78d5ef; }
+  border-color: #f05d23; }
   .btn-outline-primary:hover {
-    color: #212529;
-    background-color: #78d5ef;
-    border-color: #78d5ef; }
+    color: white;
+    background-color: #f05d23;
+    border-color: #f05d23; }
   .btn-outline-primary:focus, .btn-outline-primary.focus {
     -webkit-box-shadow: 0 0 0 0.2rem rgba(120, 213, 239, 0.5);
     box-shadow: 0 0 0 0.2rem rgba(120, 213, 239, 0.5); }
   .btn-outline-primary.disabled, .btn-outline-primary:disabled {
-    color: #78d5ef;
+    color: #f05d23;
     background-color: transparent; }
   .btn-outline-primary:not(:disabled):not(.disabled):active, .btn-outline-primary:not(:disabled):not(.disabled).active,
   .show > .btn-outline-primary.dropdown-toggle {
     color: #212529;
-    background-color: #78d5ef;
-    border-color: #78d5ef; }
+    background-color: #f05d23;
+    border-color: #f05d23; }
     .btn-outline-primary:not(:disabled):not(.disabled):active:focus, .btn-outline-primary:not(:disabled):not(.disabled).active:focus,
     .show > .btn-outline-primary.dropdown-toggle:focus {
       -webkit-box-shadow: 0 0 0 0.2rem rgba(120, 213, 239, 0.5);
@@ -7928,8 +7924,7 @@ h1, h2, h3, h4, h5,
         border-color: #fff;
         color: #f05d23; }
 
-.blog-entry {
-  margin-bottom: 6em; }
+
   .blog-entry .img {
     display: block;
     height: 400px;
@@ -8036,23 +8031,31 @@ h1, h2, h3, h4, h5,
     border-color: #000000; }
 
 textarea.form-control {
-  height: inherit !important; }
-
+  height: 7em !important;
+}
 textarea.form-control-cho {
-  height: 140px !important; }
+	height: inherit !important; 
+	
+	}
+.padding10-kim{
+    margin-left: 10px;
+    margin-right: 10px;
+	
+}
+	
+/*   height: 140px !important; }
     @media (min-width:200px) {
     .form-control-cho {
-      width: 18.5rem; } }
+      width: 19rem; } }
   @media (min-width: 768px) {
     .form-control-cho {
       width: 22rem; } }
   @media (min-width: 992px) {
     .form-control-cho {
-      width: 28rem; } }
+      width: 24rem; } }
   @media (min-width: 1200px) {
     .form-control-cho {
-      width: 29rem; }}
-
+      width: 25rem; } */
 .ftco-animate {
   opacity: 0;
   visibility: hidden; }
@@ -8066,8 +8069,13 @@ textarea.form-control-cho {
 .about-author .desc h3 {
   font-size: 20px; }
 
-.ftco-section {
+/* 원본 .ftco-section */
+/* .ftco-section {
   padding: 6em 1.8em;
+  position: relative; }
+ */
+.ftco-section {
+  padding: 4em 4em;
   position: relative; }
 
 .ftco-section-cho{
@@ -8455,17 +8463,31 @@ textarea.form-control-cho {
   transform: translateY(-50%);
   color: rgba(255, 255, 255, 0.8); }
 
-.sidebar-box {
+/* .sidebar-box 원본 */
+/* .sidebar-box {
   margin-bottom: 30px;
   padding: 25px;
   font-size: 15px;
+  width: 100%; } */
+.sidebar-box {
+  margin-bottom: 15px;
+  padding: 25px;
+  font-size: 15px;
   width: 100%; }
+  
+  /* .sidebar-box h3.sidebar-heading 원본 */
+ /*    .sidebar-box h3.sidebar-heading {
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 30px; } */
   .sidebar-box h3.sidebar-heading {
     font-size: 14px;
     text-transform: uppercase;
     font-weight: 700;
     letter-spacing: 2px;
-    margin-bottom: 30px; }
+    margin-bottom: 20px; }
   @media (max-width: 767.98px) {
     .sidebar-box {
       padding: 0; } }
@@ -8616,8 +8638,7 @@ textarea.form-control-cho {
 }
 
 .cho-card-size{
-  margin-bottom: 40px;
-  margin-left: 15px;}
+  margin-bottom : 20px;}
   @media (min-width:200px) {
     .cho-card-size {
       width: 20rem; } }
@@ -8629,7 +8650,9 @@ textarea.form-control-cho {
       width: 23rem; } }
   @media (min-width: 1200px) {
     .cho-card-size {
-      width: 26rem; }}
+      width: 26rem;
+      margin: auto;
+      margin-top: 30px; }}
 
 .cho-padding-right{
 	padding-padding-right: 0px;
@@ -8764,4 +8787,36 @@ input:checked + .slider:before {
   @media (min-width: 1200px) {
     .young-margin-left{
       margin-left: 195px; }}
+      
+.nav-padding-left{
+	margin-left:430px;
+}
+@media (min-width:200px) {
+    .nav-padding-left {
+     		margin-left: 240px; } }
+  @media (min-width: 768px) {
+    .nav-padding-left {
+   			margin-left:0px; } }
+  @media (min-width: 992px) {
+    .nav-padding-left{
+      margin-left: 300px; } }
+  @media (min-width: 1200px) {
+    .nav-padding-left{
+      margin-left: 430px; }}
+      
+.nav-padding-cho{
+   margin-left:240px
+}
+@media (min-width:200px) {
+    .nav-padding-cho {
+           margin-left: 240px; } }
+  @media (min-width: 768px) {
+    .nav-padding-cho {
+            margin-left:240px; } }
+  @media (min-width: 992px) {
+    .nav-padding-cho{
+      margin-left: 240px; } }
+  @media (min-width: 1200px) {
+    .nav-padding-cho{
+      margin-left: 345px; }}
       

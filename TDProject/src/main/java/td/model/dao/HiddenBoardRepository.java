@@ -28,6 +28,5 @@ public interface HiddenBoardRepository extends ElasticsearchRepository<HiddenBoa
 
    Optional<HiddenBoardDTO> findById(String id);
    
-   Optional<HiddenBoardDTO> findById(int id);
 }
 

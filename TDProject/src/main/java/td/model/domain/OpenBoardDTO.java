@@ -30,5 +30,5 @@ public class OpenBoardDTO {
 	  private String nickname;
 	  private String category;
 	  private ArrayList<String> plusHeartUserId;
-	  private ArrayList<String> claimHeartUserId;
+	  private ArrayList<String> plusClaimUserId;
 }

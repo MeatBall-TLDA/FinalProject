@@ -42,6 +42,7 @@ public class LoginAPI {
          sb.append("&code=" + authorize_code);
          bw.write(sb.toString());
          bw.flush();
+         System.out.println("sb : "+sb);
 
          // 결과 코드가 200이라면 성공
          int responseCode = conn.getResponseCode();
@@ -110,11 +111,11 @@ public class LoginAPI {
          JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 
          String id = element.getAsJsonObject().get("id").getAsString();
-         String nickname = properties.getAsJsonObject().get("nickname").getAsString();
+         String nickName = properties.getAsJsonObject().get("nickname").getAsString();
          String email = kakao_account.getAsJsonObject().get("email").getAsString();
 
          userInfo.put("id", id);
-         userInfo.put("nickname", nickname);
+         userInfo.put("nickName", nickName);
          userInfo.put("email", email);
 
       } catch (IOException e) {
@@ -147,6 +148,8 @@ public class LoginAPI {
          sb.append("&code=" + authorize_code);
          bw.write(sb.toString());
          bw.flush();
+         System.out.println("sb : "+ sb);
+         System.out.println("bw : "+ bw);
 
          // 결과 코드가 200이라면 성공
          int responseCode = conn.getResponseCode();
@@ -226,7 +229,7 @@ public class LoginAPI {
 
          JsonObject properties = element.getAsJsonObject().get("response").getAsJsonObject();
 
-         String nickName = properties.getAsJsonObject().get("nickname").getAsString();
+         String nickName = properties.getAsJsonObject().get("name").getAsString();
          String email = properties.getAsJsonObject().get("email").getAsString();
          String id = properties.getAsJsonObject().get("id").getAsString();
 
