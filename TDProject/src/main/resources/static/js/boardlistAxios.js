@@ -39,7 +39,7 @@ function getCount() {
       url = countUrl + "?hashtag=" + sessionStorage.getItem("hashtagKind")
    }
 
-   axios.get("http://192.168.22.62:8000/" + url)
+   axios.get("http://localhost:8000/" + url)
       .then(resData => {
          count = resData.data
       }).catch(error => {
@@ -59,12 +59,12 @@ function getBoard(pageNum, sorting) {
       sortKind = "heart"
    }
 
-   var url = "http://192.168.22.62:8000/getHidden?page=" + pageNum + "&sort=" + sortKind + "," + scKind
+   var url = "http://localhost:8000/getHidden?page=" + pageNum + "&sort=" + sortKind + "," + scKind
 
    if (sessionStorage.getItem("boardKind") == 0 && sessionStorage.getItem("categoryKind") != null) {
-      url = "http://192.168.22.62:8000/categorySearch?page=" + pageNum + "&sort=" + sortKind + "," + scKind + "&category=" + sessionStorage.getItem("categoryKind")
+      url = "http://localhost:8000/categorySearch?page=" + pageNum + "&sort=" + sortKind + "," + scKind + "&category=" + sessionStorage.getItem("categoryKind")
    } else if (sessionStorage.getItem("boardKind") == 0 && sessionStorage.getItem("hashtagKind") != null) {
-      url = "http://192.168.22.62:8000/hashtagSearch?page=" + pageNum + "&sort=" + sortKind + "," + scKind + "&hashtag=" + sessionStorage.getItem("hashtagKind").replace("#", "")
+      url = "http://localhost:8000/hashtagSearch?page=" + pageNum + "&sort=" + sortKind + "," + scKind + "&hashtag=" + sessionStorage.getItem("hashtagKind").replace("#", "")
    } 
 
    axios.get(url)
@@ -147,7 +147,7 @@ for (let i = 1; i <= 10; i++) {
       methods: {
          comment: function () {
 
-            axios.get("http://192.168.22.62:8000/getReply?repUserId=" + user + "&repBoardId=" + boardArray[i - 1].id)
+            axios.get("http://localhost:8000/getReply?repUserId=" + user + "&repBoardId=" + boardArray[i - 1].id)
                .then(resData => {
                   if (resData.data.length == 0) {
                      this.ifflag = true
@@ -175,7 +175,7 @@ for (let i = 1; i <= 10; i++) {
                })
          },
          repHeart: function () {
-            axios.post("http://192.168.22.62:8000/plusHeart?repUserId=" + user + "&repBoardId=" + boardArray[i - 1].id)
+            axios.post("http://localhost:8000/plusHeart?repUserId=" + user + "&repBoardId=" + boardArray[i - 1].id)
                .then(resData => {
                   this.repHeartNum = resData.data
                }).catch(error => {
@@ -183,7 +183,7 @@ for (let i = 1; i <= 10; i++) {
                })
          },
          boardHeart: function () {
-            axios.post("http://192.168.22.62:8000/plusBoardHeart?nickname=" + user + "&id=" + boardArray[i - 1].id)
+            axios.post("http://localhost:8000/plusBoardHeart?nickname=" + user + "&id=" + boardArray[i - 1].id)
                .then(resData => {
                   this.boardHeartNum = resData.data
                }).catch(error => {
@@ -191,7 +191,7 @@ for (let i = 1; i <= 10; i++) {
                })
          },
          makeClaim: function () {
-            axios.post("http://192.168.22.62:8000/plusBoardClaim?nickname=" + user + "&id=" + boardArray[i - 1].id)
+            axios.post("http://localhost:8000/plusBoardClaim?nickname=" + user + "&id=" + boardArray[i - 1].id)
                .then(resData => {
                   alert(resData.data)
                }).catch(error => {
@@ -199,7 +199,7 @@ for (let i = 1; i <= 10; i++) {
                })
          },
          deleteBoard: function(){
-            axios.post("http://192.168.22.62:8000/deleteHidden?boardId=" + boardArray[i - 1].id)
+            axios.post("http://localhost:8000/deleteHidden?boardId=" + boardArray[i - 1].id)
             .then(resData => {
                document.getElementById("row" + i).innerHTML = "<h2 class='cho-font'>삭제되었습니다</h2>" 
             }).catch(error =>{
@@ -300,7 +300,7 @@ function makeReply(replyNum) {
       repContent += element + "<br>"
    });
 
-   axios.post("http://192.168.22.62:8000/saveReply?userId=" + user + "&repBoardId=" + boardArray[replyNum - 1].id + "&repContents=" + repContent
+   axios.post("http://localhost:8000/saveReply?userId=" + user + "&repBoardId=" + boardArray[replyNum - 1].id + "&repContents=" + repContent
       + "&repPostingDate=" + yyyy + mm + dd + "&repHeart=0&repClaim=0")
       .then(resData => {
          if (resData.data == 1) {
@@ -331,7 +331,7 @@ function getAxios() {
       url = countUrl + "?hashtag=" + sessionStorage.getItem("hashtagKind").replace("#", "")
    }
 
-   axios.get("http://192.168.22.62:8000/" + url)
+   axios.get("http://localhost:8000/" + url)
       .then(resData => {
          count = resData.data
          // 첫번째 페이지 게시글 가져오고 화면에 뿌려주기

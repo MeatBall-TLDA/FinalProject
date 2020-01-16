@@ -369,14 +369,10 @@
             cursor: pointer
         }
 
-        .mail .cover:before {}
-
         .addattribute {
             transform: rotateX(180deg);
             transition: all 1s ease;
         }
-
-        .mail .letter {}
 
         .addattribute1 {
             top: -80px;
@@ -509,7 +505,7 @@
             },
             methods: {
                 comment: function () {
-                    axios.get("http://192.168.22.62:8000/getReply?repUserId=" + user + "&repBoardId=" + message.id)
+                    axios.get("http://localhost:8000/getReply?repUserId=" + user + "&repBoardId=" + message.id)
                         .then(resData => {
                             if (resData.data.length == 0) {
                                 this.ifflag = true
@@ -537,7 +533,7 @@
                         })
                 },
                 repHeart: function () {
-                    axios.post("http://192.168.22.62:8000/plusHeart?repUserId=" + user + "&repBoardId=" + message.id)
+                    axios.post("http://localhost:8000/plusHeart?repUserId=" + user + "&repBoardId=" + message.id)
                         .then(resData => {
                             this.repHeartNum = resData.data
                         }).catch(error => {
@@ -545,7 +541,7 @@
                         })
                 },
                 boardHeart: function () {
-                    axios.post("http://192.168.22.62:8000/plusBoardHeart?nickname=" + user + "&id=" + message.id)
+                    axios.post("http://localhost:8000/plusBoardHeart?nickname=" + user + "&id=" + message.id)
                         .then(resData => {
                             this.boardHeartNum = resData.data
                         }).catch(error => {
@@ -553,7 +549,7 @@
                         })
                 },
                 makeClaim: function () {
-                    axios.post("http://192.168.22.62:8000/plusBoardClaim?nickname=" + user + "&id=" + message.id)
+                    axios.post("http://localhost:8000/plusBoardClaim?nickname=" + user + "&id=" + message.id)
                         .then(resData => {
                             alert(resData.data)
                         }).catch(error => {
@@ -565,7 +561,7 @@
 
         function makeReply() {
             var repContent = document.getElementById("input").value
-            axios.post("http://192.168.22.62:8000/saveReply?userId=" + user + "&repBoardId=" + message.id + "&repContents=" + repContent
+            axios.post("http://localhost:8000/saveReply?userId=" + user + "&repBoardId=" + message.id + "&repContents=" + repContent
                 + "&repPostingDate=" + "20191218" + "&repHeart=" + 0 + "&repClaim=" + 0)
                 .then(resData => {
                     if (resData.data == 1) {

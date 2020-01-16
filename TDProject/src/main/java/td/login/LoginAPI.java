@@ -71,14 +71,13 @@ public class LoginAPI {
          br.close();
          bw.close();
       } catch (IOException e) {
-         // TODO Auto-generated catch block
          e.printStackTrace();
       }
 
       return access_Token;
    }
 
-   public static HashMap<String, Object> getKakaoUserInfo(String access_Token) {
+   public HashMap<String, Object> getKakaoUserInfo(String access_Token) {
 
       // 요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
       HashMap<String, Object> userInfo = new HashMap<>();
@@ -119,7 +118,6 @@ public class LoginAPI {
          userInfo.put("email", email);
 
       } catch (IOException e) {
-         // TODO Auto-generated catch block
          e.printStackTrace();
       }
 
@@ -178,7 +176,6 @@ public class LoginAPI {
          br.close();
          bw.close();
       } catch (IOException e) {
-         // TODO Auto-generated catch block
          e.printStackTrace();
       }
 
@@ -199,7 +196,7 @@ public class LoginAPI {
    }
 
    
-   public static HashMap<String, Object> getNaverUserInfo(String access_Token) {
+   public HashMap<String, Object> getNaverUserInfo(String access_Token) {
       // 요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
       HashMap<String, Object> userInfo = new HashMap<>();
       String reqURL = "https://openapi.naver.com/v1/nid/me";
@@ -238,7 +235,6 @@ public class LoginAPI {
          userInfo.put("id", id);
 
       } catch (IOException e) {
-         // TODO Auto-generated catch block
          e.printStackTrace();
       }
 
@@ -266,7 +262,6 @@ public class LoginAPI {
          }
          System.out.println(result);
       } catch (IOException e) {
-         // TODO Auto-generated catch block
          e.printStackTrace();
       }
    }

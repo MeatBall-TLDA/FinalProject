@@ -2,7 +2,6 @@ package td.controller;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,10 +10,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import td.model.domain.HiddenBoardDTO;
 import td.service.TDService;
@@ -30,41 +27,19 @@ public class GeneralController {
 		return "/thymeleaf/intro";
 	}
 
-	@RequestMapping("/hidden")
-	public String goToHidden() {
-		return "/thymeleaf/HiddenBoard";
-	}
-
-	@RequestMapping("/open")
-	public String goToOpen() {
-		return "/thymeleaf/OpenBoard";
-	}
-
 	@RequestMapping("/menu")
 	public String goToMenu() {
 		return "/thymeleaf/menu";
 	}
 
 	@RequestMapping("/mypage")
-	public String goToMyPage(HttpSession session) {
+	public String goToMyPage() {
 		return "/thymeleaf/mypage";
 	}
 
 	@RequestMapping("/search")
 	public String goToSearch() {
 		return "/thymeleaf/search";
-	}
-
-	@RequestMapping("/todaymessage")
-	public String goToTodayMessage(Model model, HttpSession session) {
-		Object test = "";
-		try {
-			test = service.getTodayMessage(session).get();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		model.addAttribute("message", test);
-		return "/thymeleaf/todayMessage";
 	}
 
 	@RequestMapping("/writing")
@@ -85,44 +60,47 @@ public class GeneralController {
 	// 세션 확인하는 로직
 	@RequestMapping("/index")
 	public String sessionCheck(HttpSession session) {
-		System.out.println(session.getAttribute("id"));
 		if (session.getAttribute("id") == null) {
 			return "/thymeleaf/intro";
 		} else {
 			return "/thymeleaf/close";
 		}
 	}
+	
+	// 오늘의 메시지 정보 가져오기
+	@RequestMapping("/todaymessage")
+	public String goToTodayMessage(Model model, HttpSession session) {
+		Object test = "";
+		try {
+			test = service.getTodayMessage(session).get();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("message", test);
+		return "/thymeleaf/todayMessage";
+	}
 
-	// 오늘의 메세지 기능
-//   @Scheduled(initialDelay = 10000, fixedDelay = 10000)
+	// 오늘의 메세지 유저에게 보내기
+   @Scheduled(cron = "0 0 0 * * *")
 	public void sendMessage() {
 		System.out.println("오늘의 메세지 기능 작동(스케쥴러)");
 		service.sendMessage();
 	}
 
 	// 공개 날짜에 맞추어 게시글 데이터 이동 메소드
-	@Scheduled(cron = "0 30 17 * * *")
+	@Scheduled(cron = "0 0 0 * * *")
 	public void moveToOpen() {
 		service.moveToOpen();
 	}
 
+	// 닉네임 설정
 	@PostMapping("/serviceName")
-	public String saveClientDTO(@RequestParam("serviceName") String serviceName, HttpSession session) {
+	public String saveClientDTO(String serviceName, HttpSession session) {
 		service.saveClientDTO(serviceName, session);
 		return "/thymeleaf/closeBoard";
 	}
 
-	@RequestMapping("/test")
-	public String test() {
-		return "/thymeleaf/test";
-	}
-
-	@PostMapping("/goTest")
-	public String saveTest(@RequestParam("serviceName") String serviceName, HttpSession session) {
-		service.saveTest(serviceName, session);
-		return "/thymeleaf/closeBoard";
-	}
-
+	// 닉네임 수정
 	@PostMapping("/updateServiceName")
 	   public String updateServiceName(HttpSession session, String updateName) {
 	      service.updateServiceName((String) session.getAttribute("serviceName"), updateName);
@@ -146,27 +124,47 @@ public class GeneralController {
 		}
 		return url;
 	}
+	
+	// 게시글 삭제 로직
+	@PostMapping("/deleteHidden")
+	public String deleteHiddenBoardDTO(String boardId) {
+		String url = "";
+		try {
+			if (service.deleteHiddenBoardDTO(boardId)) {
+				url = "/thymeleaf/closeBoard";
+			} else {
+				url = "/thymeleaf/error";
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+			url = "/thymeleaf/error";
+		}
+		return url;
+	}
+	
 	// =====================================
 
 	// 로그인 API
 	@RequestMapping("/login")
-	public String view(ModelMap model) {
+	public String goToLogin() {
 		return "/login";
 	}
 
 	@RequestMapping("/kakaoLogin")
-	public String login(String code, HttpSession session) {
+	public String kakaoLogin(String code, HttpSession session) {
 		return service.kakaoLogin(code, session);
 	}
 
 	@RequestMapping("/naverLogin")
 	public String naverLogin(String code, String state, HttpSession session) {
+		String url = null;
 		try {
-			return service.naverLogin(code, state, session);
+			url = service.naverLogin(code, state, session);
 		} catch (IOException e) {
+			url = "/thymeleaf/error.html";
 			e.printStackTrace();
-			return "/thymeleaf/error.html";
 		}
+		return url;
 	}
 
 	@RequestMapping("/logout")

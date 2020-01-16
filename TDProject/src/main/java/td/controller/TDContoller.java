@@ -1,6 +1,5 @@
 package td.controller;
 
-import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -64,29 +63,6 @@ public class TDContoller {
 		return service.plusHiddenBoardClaim(nickname, id);
 	}
 
-	// 게시글 삭제 로직
-	@PostMapping("/deleteHidden")
-	public String deleteHiddenBoardDTO(String boardId) {
-		System.out.println(boardId);
-		String url = "";
-		try {
-			if (service.deleteHiddenBoardDTO(boardId)) {
-				url = "/thymeleaf/closeBoard";
-			} else {
-				url = "/thymeleaf/error";
-			}
-		} catch (ParseException e) {
-			e.printStackTrace();
-			url = "/thymeleaf/error";
-		}
-		return url;
-	}
-
-//	@GetMapping("/makeTest")
-//	public void makeTest() {
-//		service.makeTest();
-//	}
-
 	// =================================================================
 
 	// 공개 게시글 전체 가져오기
@@ -130,12 +106,6 @@ public class TDContoller {
 	public String plusOpenBoardClaim(String nickname, String id) {
 		return service.plusOpenBoardClaim(nickname, id);
 	}
-
-//	// 전체 게시물 조회
-//	@GetMapping("/testst")
-//	public Iterable<OpenBoardDTO> getAllOpenBoardDTO() {
-//		return service.getAllOpenBoardDTO();
-//	}
 
 	// =================================================================
 
@@ -199,6 +169,7 @@ public class TDContoller {
 		return service.categorySearch(pageable, category);
 	}
 
+	// 태그 클라우드 값 가져오기
 	@GetMapping("/tagCloud")
 	public HashMap<String, Integer> tagCloud() {
 		return service.tagCloud();

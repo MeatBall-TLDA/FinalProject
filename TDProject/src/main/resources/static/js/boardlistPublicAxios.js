@@ -49,7 +49,7 @@ function makeUrl(){
 
 // 전체 게시글 수 얻어오기
 function getCount() {
-   axios.get("http://192.168.22.62:8000/" + makeUrl())
+   axios.get("http://localhost:8000/" + makeUrl())
       .then(resData => {
          count = resData.data
       }).catch(error => {
@@ -74,7 +74,7 @@ function getBoard(pageNum, sorting) {
       url = "openHashtagSearch?page=" + pageNum + "&sort=" + sortKind + ",desc&hashtag=" + sessionStorage.getItem("hashtagKind").replace("#", "")
    }
 
-   axios.get("http://192.168.22.62:8000/" + url)
+   axios.get("http://localhost:8000/" + url)
       .then(resData => {
          getCount()
          boardArray = resData.data.content
@@ -105,7 +105,7 @@ function setBoard(boardCount, boardArray, pageNum) {
       <h4 class="cho-font"><span class="h5 text-secondary cho-font">` + updateDate(board.postingDate) + `</span></h4>
       </div></div></div>`
 
-      axios.get("http://192.168.22.62:8000/getCountReply?repBoardId=" + boardArray[i].id)
+      axios.get("http://localhost:8000/getCountReply?repBoardId=" + boardArray[i].id)
          .then(resData => {
             vueInstance[i].repCount = resData.data
          }).catch(error => {
@@ -158,7 +158,7 @@ for (let i = 1; i <= 10; i++) {
                template: `<div>${this.tag}</div>`,
                methods: {
                   repHeart: function (num) {
-                     axios.post("http://192.168.22.62:8000/plusHeart?repUserId=" + repData[i - 1].repUserId[num] + "&repBoardId=" + boardArray[i - 1].id + "&nickName=" + user)
+                     axios.post("http://localhost:8000/plusHeart?repUserId=" + repData[i - 1].repUserId[num] + "&repBoardId=" + boardArray[i - 1].id + "&nickName=" + user)
                         .then(resData => {
                            vueInstance[i - 1].dynamicComponent.data().repHeartNum.splice(num, 1, resData.data)
                         }).catch(error => {
@@ -166,7 +166,7 @@ for (let i = 1; i <= 10; i++) {
                         })
                   },
                   moreReply: function (loopNum) {
-                     axios.get("http://192.168.22.62:8000/getReplyInOpen?page=" + loopNum + "&repBoardId=" + boardArray[i - 1].id)
+                     axios.get("http://localhost:8000/getReplyInOpen?page=" + loopNum + "&repBoardId=" + boardArray[i - 1].id)
                         .then(resData => {
 
                            var repTag = ""
@@ -215,7 +215,7 @@ for (let i = 1; i <= 10; i++) {
                         })
                   },
                   repMakeClaim: function (num) {
-                     axios.post("http://192.168.22.62:8000/plusRepClaim?repUserId=" + repData[i - 1].repUserId[num] + "&repBoardId=" + boardArray[i - 1].id)
+                     axios.post("http://localhost:8000/plusRepClaim?repUserId=" + repData[i - 1].repUserId[num] + "&repBoardId=" + boardArray[i - 1].id)
                         .then(resData => {
                            alert(resData.data)
                         }).catch(error => {
@@ -237,7 +237,7 @@ for (let i = 1; i <= 10; i++) {
       methods: {
          comment: function () {
             if (repData[i - 1].ifflag == false) {
-               axios.get("http://192.168.22.62:8000/getReplyInOpen?repBoardId=" + boardArray[i - 1].id)
+               axios.get("http://localhost:8000/getReplyInOpen?repBoardId=" + boardArray[i - 1].id)
                   .then(resData => {
 
                      var repTag = ""
@@ -289,7 +289,7 @@ for (let i = 1; i <= 10; i++) {
 
          },
          boardHeart: function () {
-            axios.post("http://192.168.22.62:8000/plusOpenBoardHeart?nickname=" + user + "&id=" + boardArray[i - 1].id)
+            axios.post("http://localhost:8000/plusOpenBoardHeart?nickname=" + user + "&id=" + boardArray[i - 1].id)
                .then(resData => {
                   this.boardHeartNum = resData.data
                }).catch(error => {
@@ -297,7 +297,7 @@ for (let i = 1; i <= 10; i++) {
                })
          },
          makeClaim: function () {
-            axios.post("http://192.168.22.62:8000/plusOpenBoardClaim?nickname=" + user + "&id=" + boardArray[i - 1].id)
+            axios.post("http://localhost:8000/plusOpenBoardClaim?nickname=" + user + "&id=" + boardArray[i - 1].id)
                .then(resData => {
                   alert(resData.data)
                }).catch(error => {
@@ -386,7 +386,7 @@ $(document).on("click", "#topheader .pagination a", function () {
 // 페이지 로딩시 바로 실행되는 로직
 function getAxios() {
 
-   axios.get("http://192.168.22.62:8000/" + makeUrl())
+   axios.get("http://localhost:8000/" + makeUrl())
       .then(resData => {
          count = resData.data
          // 첫번째 페이지 게시글 가져오고 화면에 뿌려주기

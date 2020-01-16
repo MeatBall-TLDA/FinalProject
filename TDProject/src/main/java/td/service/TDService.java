@@ -62,10 +62,6 @@ public class TDService {
 
 		cRepo.save(new ClientDTO(id, nickName, serviceName, email, true, null));
 	}
-	
-	public void saveTest(String serviceName, HttpSession session) {
-		session.setAttribute("serviceName", serviceName);
-	}
 
 	// 고객 닉네임 수정
 	public void updateServiceName(String serviceName, String updateName) {
@@ -76,6 +72,7 @@ public class TDService {
 		cRepo.save(clinet);
 	}
 
+	// 오늘의 메시지 가져오기
 	public Optional<HiddenBoardDTO> getTodayMessage(HttpSession session) {
 		Optional<HiddenBoardDTO> entity = null;
 		ClientDTO client = null;
@@ -150,9 +147,7 @@ public class TDService {
 
 	// 공개 날짜에 맞추어 게시글 공개 메소드
 	public void moveToOpen() {
-		String today = new SimpleDateFormat("yyyyMMdd").format(new Date());
-
-		for (HiddenBoardDTO v : hRepo.findByOpenDate("20200117")) {
+		for (HiddenBoardDTO v : hRepo.findByOpenDate(new SimpleDateFormat("yyyyMMdd").format(new Date()))) {
 			oRepo.save(new OpenBoardDTO(v.getId(), v.getTitle(), v.getContents(), v.getHashtag(), v.getOpenDate(),
 					v.getHeart(), v.getClaim(), v.getNickname(), v.getCategory(), v.getPlusHeartUserId(), v.getPlusClaimUserId()));
 			 hRepo.deleteById(v.getId());
@@ -173,34 +168,6 @@ public class TDService {
 	public long getHashtagCount(String hashtag) {
 		return hRepo.countByHashtagContaining(hashtag);
 	}
-
-//	// 테스트 데이터 삽입
-//	public int randomRange(int n1, int n2) {
-//		return (int) (Math.random() * (n2 - n1 + 1)) + n1;
-//	}
-//
-//	public void makeTest() {
-//		String[] category = { "시", "감성글" };
-//		String[] hashtag = { "#SCA", "#PL", "#MLB", "#NBA" };
-//
-//		for (int i = 1; i <= 99; i++) {
-//			String a = String.valueOf(i);
-//			HiddenBoardDTO v = new HiddenBoardDTO();
-//
-//			v.setTitle(a);
-//			v.setCategory(category[randomRange(0, 1)]);
-//			v.setClaim(0);
-//			v.setContents(a);
-//			v.setHashtag(hashtag[randomRange(0, 3)]);
-//			v.setHeart(0);
-//			v.setId(a);
-//			v.setNickname(a);
-//			v.setOpenDate(i < 10 ? "2020010" + i : "2020010" + i);
-//			v.setPostingDate(i < 10 ? "2019120" + i : "201912" + i);
-//
-//			hRepo.save(v);
-//		}
-//	}
 
 	// 게시글 신고 추가
 	public String plusHiddenBoardClaim(String nickname, String id) {
@@ -518,10 +485,6 @@ public class TDService {
 
 		session.invalidate();
 		return url;
-	}
-
-	public void test(HttpSession session) {
-		System.out.println(session.getAttribute("id"));
 	}
 
 }

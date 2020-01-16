@@ -138,7 +138,7 @@
 		// 해쉬태그 빈도 수 내림차순 정렬
 		var hashFrequency = []
 
-		axios.get("http://192.168.22.62:8000/tagCloud")
+		axios.get("http://localhost:8000/tagCloud")
 			.then(resData => {
 				for (key in resData.data) {
 					if(key != ""){
@@ -166,7 +166,7 @@
 		var $j = jQuery.noConflict();
 
 		$j(function () {    //화면 다 뜨면 시작
-			axios.get("http://192.168.22.62:8000/tagCloud")
+			axios.get("http://localhost:8000/tagCloud")
 				.then(resData => {
 					for (key in resData.data) {
 						hashtagArray.push(key)
