@@ -16,6 +16,9 @@
 > * 검색기능(게시판별 카테고리, 해시태그 자동완성, 태그 클라우드)<br>
 > * 오늘의 메시지(사용자들이 무작위로 받게되는 비공개 게시판의 작품)
 
+# 발표자료 <br>
+* Document/presentation.pptx or presentation.pdf <br>
+
 
 # 개발 환경
 
