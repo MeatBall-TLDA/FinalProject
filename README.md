@@ -47,7 +47,7 @@ Elastic Search 7.1.1<br>
 
 # 서비스 이미지
 <br>
-<img src="https://user-images.githubusercontent.com/52445900/72497926-37fcdd80-3871-11ea-80fc-c07a5821c4d3.png">{:.aligncenter}</img>
+<center><img src="https://user-images.githubusercontent.com/52445900/72497926-37fcdd80-3871-11ea-80fc-c07a5821c4d3.png"></img><center>
 
 <br>
 <img src="https://user-images.githubusercontent.com/52445900/72497934-3b906480-3871-11ea-8887-48ab01974083.png"></img>
