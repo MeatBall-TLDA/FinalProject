@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<title>마이페이지</title>
+<meta charset="utf-8">
+<meta name="viewport"
+   content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link
+   href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"
+   rel="stylesheet">
+<link
+   href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700"
+   rel="stylesheet">
+
+<link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+<link rel="stylesheet" href="css/animate.css">
+
+<link rel="stylesheet" href="css/owl.carousel.min.css">
+<link rel="stylesheet" href="css/owl.theme.default.min.css">
+<link rel="stylesheet" href="css/magnific-popup.css">
+
+<link rel="stylesheet" href="css/aos.css">
+
+<link rel="stylesheet" href="css/ionicons.min.css">
+
+<link rel="stylesheet" href="css/bootstrap-datepicker.css">
+<link rel="stylesheet" href="css/jquery.timepicker.css">
+
+
+<link rel="stylesheet" href="css/flaticon.css">
+<link rel="stylesheet" href="css/icomoon.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/cho.css">
+<link
+   href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script&display=swap"
+   rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script
+   src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+
+   <!--  닉네임값 띄워주기 xxx에 <p th:text="${session.nickname}" th:unless="${session == null}"></p> -->
+   <div id="colorlib-page">
+      <a href="javascript:void(0)"
+         class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+      <aside id="colorlib-aside" role="complementary"
+         class="js-fullheight text-center">
+         <h1 id="colorlib-logo">
+            <a href="/close">틀다</a>
+         </h1>
+         <nav id="colorlib-main-menu" role="navigation">
+            <ul>
+               <li><a href="/writing">글쓰기</a></li>
+               <li><a href="/search">검색</a></li>
+               <li><a href="/close">비공개 게시판</a></li>
+               <li><a href="/public">공개 게시판</a></li>
+               <li><a href="/todaymessage">오늘의 메세지</a></li>
+               <li><a href="/mypage">마이 페이지</a></li>
+            </ul>
+         </nav>
+         <div class="colorlib-footer">
+            <p>
+               <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+               Copyright &copy;
+               <script>document.write(new Date().getFullYear());</script>
+               All rights reserved | This template is made with <i
+                  class="icon-heart" aria-hidden="true"></i> by <a
+                  href="https://colorlib.com" target="_blank">Colorlib</a>
+         </div>
+      </aside>
+      <!-- END COLORLIB-ASIDE -->
+
+      <div id="colorlib-main">
+         <h2 class="font-weight-bold text-center mt-5">My Page</h2>
+         <div class="container">
+            <h4 class="cho-font my-5 mx-2 text-center">
+               <script>document.write(sessionStorage.getItem("serviceName"))</script>
+               님 어서오세요.<br> 틀다에 오신걸 환영합니다 :)
+            </h4>
+         </div>
+         <div>
+            <div class="container justify-content-center col-xs-4 col-md-6">
+               <form action="updateServiceName" class="cho-padding-size py-2"
+                  method="post">
+                  <div class="form-group form-inline">
+                     <label for="user" class="h4 cho-font">닉네임 수정</label> <input
+                        type="text" class="form-control-young rounded ml-2 ml-lg-3"
+                        id="user" name="updateName" placeholder="닉네임을 입력해주세요">
+                  </div>
+                  <div class="form-group form-inline">
+                     <p class="h4 cho-font">알림 수신 여부</p>
+                     <label class="switch young-margin-left"><input
+                        type="checkbox"> <span class="slider round"></span> </label>
+                  </div>
+                  <p class="h4 mb-4 cho-font">개인정보 취급동의</p>
+                  <p class="h4 mb-2 cho-font">서비스 이용약관</p>
+                  <div class="pt-5 pb-3 " style="text-align: center;">
+                     <button type="submit" class="mr-1 btn btn-outline-secondary"
+                        onclick="document.location.reload();">수정하기</button>
+                     <!-- <button onclick="window.location.reload();" class="btn btn-outline-secondary" >reload</button> -->
+                     <button type="submit" class="mr-1 btn btn-outline-secondary">취소하기</button>
+                     <button class="mr-1 btn btn-outline-secondary" onclick="logout()">로그아웃</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+   <script src="js/include.js"></script>
+   <script src="js/jquery.min.js"></script>
+   <script src="js/jquery-migrate-3.0.1.min.js"></script>
+   <script src="js/popper.min.js"></script>
+   <script src="js/bootstrap.min.js"></script>
+   <script src="js/jquery.easing.1.3.js"></script>
+   <script src="js/jquery.waypoints.min.js"></script>
+   <script src="js/jquery.stellar.min.js"></script>
+   <script src="js/owl.carousel.min.js"></script>
+   <script src="js/jquery.magnific-popup.min.js"></script>
+   <script src="js/aos.js"></script>
+   <script src="js/jquery.animateNumber.min.js"></script>
+   <script src="js/bootstrap-datepicker.js"></script>
+   <script src="js/jquery.timepicker.min.js"></script>
+   <script src="js/scrollax.min.js"></script>
+   <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+   <script src="js/google-map.js"></script>
+   <script src="js/main.js"></script>
+   <script type="text/javascript">
+   
+      function logout(){
+         sessionStorage.clear()
+         location.href='/logout'
+      }
+      
+   </script>
+   <script th:inline="javascript">
+      sessionStorage.setItem("serviceName", [[${session.serviceName}]])
+      const user = sessionStorage.getItem("serviceName")
+   </script>
+
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+   <title>틀다</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
+
+   <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+   <link rel="stylesheet" href="css/animate.css">
+
+   <link rel="stylesheet" href="css/owl.carousel.min.css">
+   <link rel="stylesheet" href="css/owl.theme.default.min.css">
+   <link rel="stylesheet" href="css/magnific-popup.css">
+
+   <link rel="stylesheet" href="css/aos.css">
+
+   <link rel="stylesheet" href="css/ionicons.min.css">
+
+   <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+   <link rel="stylesheet" href="css/jquery.timepicker.css">
+
+
+   <link rel="stylesheet" href="css/flaticon.css">
+   <link rel="stylesheet" href="css/icomoon.css">
+   <link rel="stylesheet" href="css/style.css">
+   <link rel="stylesheet" href="css/cho.css">
+   <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+
+   <div id="colorlib-page">
+      <div include="/menu"></div> <!-- 메뉴 html include 함-->
+      <div id="colorlib-main">
+         <section class="ftco-section-cho ftco-section contact-section mt-5">
+            <div class="container">
+               <div class="container-fluid mb-3 text-center">
+                  <h2 class="h1 font-weight-bold cho-font">글쓰기</h2>
+               </div>
+               <div class="row block-9 justify-content-center">
+                  <div class="col-md-6 order-md-last pr-md-5">
+                     <form action="/saveHidden" method="POST">
+                        <div class="form-group dropdown">
+                           <!-- <label for="title" class="h4 mt-3 cho-font">제목</label> -->
+                           <input type="text" class="form-control rounded cho-font" placeholder="제목" id=title
+                              name="title" style="font-size: 20px;">
+                        </div>
+                        <div class="form-group">
+                           <textarea id="contents" cols="60" rows="15" class="form-control rounded cho-font"
+                              placeholder="내용" style="resize: none; font-size: 22px;" name="contents"></textarea>
+                        </div>
+                        <span for="hashtag" class="h4 cho-font" style="float: left;">해시태그</span>
+                        <div class="form-group form-inline">
+                           <div class="ml-2">
+                              <span id=hashtag>
+                                 <input type="text" class="form-control rounded" placeholder="#hashtag" v-model="info">
+                                 <input type="hidden" id="infomation" name="hashtag" required>
+                                 <component :is="dynamicComponent" />
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group form-inline">
+                           <span for="category" class="h4 cho-font">카테고리</span>
+                           <div class="ml-4">
+                              <select class="custom-select" required name="category">
+                                 <option value="">선택</option>
+                                 <option value="시">시</option>
+                                 <option value="감성글">감성글</option>
+                              </select>
+                           </div>
+                        </div>
+                        <div class="form-group form-inline">
+                           <label for="date" class="h4 cho-font">작품개봉일</label>
+                           <div>
+                              <input class="form-control rounded ml-lg-3" type="date" data-date="" data-date-format="YYYYMMDD" name="openDate" required>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="form-group ml-auto mr-3 mt-1">
+                              <input type="submit" value="등록하기" class="btn btn-outline-secondary">
+                           </div>
+                        </div>
+                        <input id="postingDate" type="hidden" name="postingDate" value="">
+                        <input id="heart" type="hidden" name="heart" value="0">
+                        <input id="claim" type="hidden" name="claim" value="0">
+                        <input id="nickname" type="hidden" name="nickname" value="">
+                     </form>
+
+                  </div>
+
+               </div>
+            </div>
+         </section>
+      </div><!-- END COLORLIB-MAIN -->
+   </div><!-- END COLORLIB-PAGE -->
+
+   <!-- loader -->
+   <div id="ftco-loader" class="show fullscreen">
+      <svg class="circular" width="48px" height="48px">
+         <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+         <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+            stroke="#F96D00" />
+      </svg>
+   </div>
+
+
+
+   <script src="js/include.js"></script>
+   <script src="js/jquery.min.js"></script>
+   <script src="js/jquery-migrate-3.0.1.min.js"></script>
+   <script src="js/popper.min.js"></script>
+   <script src="js/bootstrap.min.js"></script>
+   <script src="js/jquery.easing.1.3.js"></script>
+   <script src="js/jquery.waypoints.min.js"></script>
+   <script src="js/jquery.stellar.min.js"></script>
+   <script src="js/owl.carousel.min.js"></script>
+   <script src="js/jquery.magnific-popup.min.js"></script>
+   <script src="js/aos.js"></script>
+   <script src="js/jquery.animateNumber.min.js"></script>
+   <script src="js/bootstrap-datepicker.js"></script>
+   <script src="js/jquery.timepicker.min.js"></script>
+   <script src="js/scrollax.min.js"></script>
+   <script src="js/main.js"></script>
+   <script src="../../js/axios.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+   <script type="text/javascript">
+      // 유저
+      const user = sessionStorage.getItem("serviceName")
+
+      var today = new Date()
+      var dd = today.getDate()
+      var mm = today.getMonth() + 1
+      var yyyy = today.getFullYear()
+
+      dd = dd < 10 ? "0" + dd : dd
+      mm = mm < 10 ? "0" + mm : mm
+
+      var hash = new Vue({
+         el: "#hashtag",
+         data: {
+            counter: 0,
+            length: 0,
+            hashtagArray: [],
+            tag: ""
+         },
+         computed: {
+            info: {
+               get: function () {
+                  return ""
+               },
+               set: function (info) {
+                  if (info.startsWith("#") && info.endsWith(" ")) {
+                     const infoLength = 22 + 15 * (info.length - 1)
+                     const count = ++this.counter
+                     const obj = `<span id=hashtag` + count + ` class="tag-item">` + info + `<a v-on:click="remove(` + count + `)" class="del-btn" href="javascript:void(0);">x</a></span>  `
+                     
+                     if(this.length + infoLength > 135){
+                        this.length = infoLength
+                        this.tag += "<br>"
+                     }else{
+                        this.length += infoLength
+                     }
+                     
+                     this.tag += obj
+                     this.hashtagArray[count - 1] = obj
+
+                     document.getElementById("infomation").value += info
+                  }
+               }
+            },
+            dynamicComponent: function () {
+               return {
+                  template: `<div>${this.tag}</div>`,
+                  methods: {
+                     remove: function(id){
+                        hash.tag = hash.tag.replace(hash.hashtagArray[id - 1], "").replace("<br>", "")
+                        document.getElementById("infomation").value = document.getElementById("infomation").value.replace(document.getElementById("hashtag" + id).innerText.replace("x", ""), "")
+                        document.getElementById("hashtag" + id).remove()
+                     }
+                  }
+               }
+            }
+         }
+      })
+
+      document.getElementById("postingDate").value = yyyy + "" + mm + "" + dd
+      document.getElementById("nickname").value = user
+      
+
+
+   </script>
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+footer {
+    position: fixed;
+    height: 60px;
+    bottom: 0;
+    margin-top: 120px;
+    width: 100%;
+}
+.cho-font{
+    font-family: 'Nanum Pen Script', cursive;
+}

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+<link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="css/login_util.css">
+<link rel="stylesheet" type="text/css" href="css/login_main.css">
+<link rel="stylesheet" type="text/css" href="css/style-login.css">
+<link
+	href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script&display=swap"
+	rel="stylesheet">
+<title>닉네임 설정</title>
+</head>
+<body>
+	<!-- 
+	<p th:text="${session.nickname}" th:unless="${session == null}"></p>
+	<p th:text="${session.email}" th:unless="${session == null}"></p>
+	<p th:text="${session.id}" th:unless="${session == null}"></p>
+
+	<form action="serviceName" method="post">
+		ServiceName:<br> <input id="serviceName" type="text"
+			name="serviceName" value="틀다에서 사용할 닉네임을 입력 해주세요">
+		<button type="submit">완료</button>
+	</form> -->
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100 p-t-90 p-b-30">
+				<div class="login100-form validate-form">
+					<span class="login100-form-title p-b-40"> 틀다 </span>
+					<div class="loginContainer">
+						<h2 class="text-black form-group">틀린게 아니라 다른거야</h2>
+						<h2 class="text-black form-group ">틀다에 오신것을 환영합니다.</h2>
+						<form action="serviceName" method="post">
+							<input
+								class="form-control btn-light text-dark border-3 mb-3 mb-md-0 text-center"
+								type="text" name="serviceName" id="serviceName"
+								placeholder="닉네임을 입력해주세요"> <input
+								class="btn btn-light form-group my-3 btn-lg border-3 btn-outline-dark"
+								type="submit" value="확인"> 
+								<button onclick="" value="로그아웃"></button>
+						</form>
+					</div>
+				</div>
+				<div class="text-center p-t-55 p-b-30">
+					<span class="txt1"> Not a wrong just different </span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

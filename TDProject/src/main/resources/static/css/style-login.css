@@ -1,0 +1,60 @@
+
+body {
+    margin: 0;
+    font-family: 'Nanum Pen Script', cursive;
+    font-size: 1rem;
+    font-weight: 900;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+}
+.loginContainer{
+	text-align: center;
+	line-height: 3;
+}
+.loginbtn {
+	border-radius: 7px;
+	-moz-border-radius: 7px;
+	-khtml-border-radius: 7px;
+	-webkit-border-radius: 7px;
+	height:45px;
+	width:200px;
+}
+.container-login100{
+	font-family: 'Nanum Pen Script', cursive;
+	opacity:0.8;
+	background: white;
+	width: 100%;
+    min-height: 100vh;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    position: relative;
+    background-color: white;
+}
+* {
+	margin: 0px; 
+	padding: 0px; 
+	box-sizing: border-box;
+}
+.p-b-40{
+	font-family: 'Nanum Pen Script', cursive;
+    font-weight: 900;
+    color: black;
+    font-size: 50px;
+}
+ .txt1{
+ font-family: 'Nanum Pen Script', cursive;
+    font-weight: 900;
+    color: black;
+    font-size: 22px;
+ }
+ .text-white{
+    color: white;
+ }

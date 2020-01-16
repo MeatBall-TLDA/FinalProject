@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+   <title>틀다</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
+
+   <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+   <link rel="stylesheet" href="css/animate.css">
+
+   <link rel="stylesheet" href="css/owl.carousel.min.css">
+   <link rel="stylesheet" href="css/owl.theme.default.min.css">
+   <link rel="stylesheet" href="css/magnific-popup.css">
+
+   <link rel="stylesheet" href="css/aos.css">
+
+   <link rel="stylesheet" href="css/ionicons.min.css">
+
+   <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+   <link rel="stylesheet" href="css/jquery.timepicker.css">
+
+
+   <link rel="stylesheet" href="css/flaticon.css">
+   <link rel="stylesheet" href="css/icomoon.css">
+   <link rel="stylesheet" href="css/style.css">
+   <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+   <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+   <style>
+      a {
+         text-decoration: none;
+      }
+
+      .modal-window {
+         position: fixed;
+         background-color: rgba(1, 1, 1, 0.15);
+         top: 0;
+         right: 0;
+         bottom: 0;
+         left: 0;
+         z-index: 999;
+         opacity: 0;
+         pointer-events: none;
+         -webkit-transition: all 0.3s;
+         -moz-transition: all 0.3s;
+         transition: all 0.3s;
+      }
+
+      .modal-window:target {
+         opacity: 1;
+         pointer-events: auto;
+      }
+
+      .modal-window>div {
+         height: 500px;
+         position: relative;
+         margin: 10% auto;
+         padding: 2rem;
+         background: #f3f3f3;
+         color: #444;
+      }
+
+      .modal-window header {
+         font-weight: bold;
+      }
+
+      .modal-close {
+         color: #aaa;
+         line-height: 50px;
+         font-size: 80%;
+         right: 0;
+         text-align: right;
+         top: 0;
+         width: 70px;
+         text-decoration: none;
+      }
+
+      .modal-close:hover {
+         color: #000;
+      }
+      .banner{
+    border-top:2px solid #f8bdbd;
+    border-left:2px solid #f8bdbd;
+    border-right:2px solid #f8bdbd;
+    border-bottom:2px solid #f8bdbd;
+	background-color: white;
+	padding:2%;
+	padding-bottom:0;
+	border-radius: 10px 10px 10px 10px;
+	-webkit-border-radius:  10px 10px 10px 10px;
+	-moz-border-radius: 10px 10px 10px 10px;
+	-o-border-radius:  10px 10px 10px 10px;
+}
+   </style>
+</head>
+
+<body>
+
+
+
+
+   <div id="colorlib-page">
+      <div> <a href="javascript:void(0)" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+         <aside id="colorlib-aside" role="complementary" class="js-fullheight text-center">
+            <h1 id="colorlib-logo"><a href="/close">틀다</a></h1>
+            <nav id="colorlib-main-menu" role="navigation">
+               <ul>
+                  <li><a href="/writing">글쓰기</a></li>
+                  <li><a href="/search">검색</a></li>
+                  <li><a href="/close">비공개 게시판</a></li>
+                  <li><a href="/public">공개 게시판</a></li>
+                  <li><a href="/todaymessage">오늘의 메세지</a></li>
+                  <li><a href="/mypage">마이 페이지</a></li>
+               </ul>
+            </nav>
+            <div class="colorlib-footer">
+               <p>
+                  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                  Copyright &copy;
+                  <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made
+                  with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                     target="_blank">Colorlib</a>
+            </div>
+         </aside> <!-- END COLORLIB-ASIDE -->
+      </div> <!-- 메뉴 html include 함-->
+      <div id="colorlib-main">
+         <!-- 위에 두가지 화면 사진 부분-->
+         <section class="home-slider js-fullheight owl-carousel" style="height: 550px;">
+            <div class="slider-item js-fullheight" style="background-image: url(images/a1.jpg); height: 550px;">
+               <div class="overlay"></div>
+               <div class="container-fluid">
+                  <div
+                     class="row no-gutters slider-text slider-text-2 js-fullheight align-items-center justify-content-center"
+                     data-scrollax-parent="true">
+                     <div class="col-md-10 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+
+            <div class="slider-item js-fullheight" style="background-image:url(images/a2.jpg); height: 550px;">
+               <div class="overlay"></div>
+               <div class="container-fluid">
+                  <div
+                     class="row no-gutters slider-text slider-text-2 js-fullheight align-items-center justify-content-center"
+                     data-scrollax-parent="true">
+                     <div class="col-md-10 text-center ftco-animate" data-scrollax=" properties: { translateY: '40%' }">
+                     </div>
+                  </div>
+               </div>
+            </div>
+            
+            <div class="slider-item js-fullheight" style="background-image:url(images/a3.jpg); height: 550px;">
+               <div class="overlay"></div>
+               <div class="container-fluid">
+                  <div
+                     class="row no-gutters slider-text slider-text-2 js-fullheight align-items-center justify-content-center"
+                     data-scrollax-parent="true">
+                     <div class="col-md-10 text-center ftco-animate" data-scrollax=" properties: { translateY: '40%' }">
+                     </div>
+                  </div>
+               </div>
+            </div>
+            
+            <div class="slider-item js-fullheight" style="background-image:url(images/a4.jpg); height: 550px;">
+               <div class="overlay"></div>
+               <div class="container-fluid">
+                  <div
+                     class="row no-gutters slider-text slider-text-2 js-fullheight align-items-center justify-content-center"
+                     data-scrollax-parent="true">
+                     <div class="col-md-10 text-center ftco-animate" data-scrollax=" properties: { translateY: '40%' }">
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <!-- 위에 두가지 화면 사진 부분 끝-->
+
+         <!--아래 화면단 시작 -->
+         <section class="ftco-section-cho ftco-section">
+            <div id="dropdown" class="navbar-nav nav-padding-cho" style="align-items: center;">
+               <div class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" id="navbarDropdown1" aria-haspopup="true" aria-expanded="false"
+                     data-toggle="dropdown" href="">정렬하기</a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                     <a id="sorting2" class="dropdown-item" href="#"
+                        onclick="getBoardAndSetPage(0, document.getElementById('sorting2').innerText)">게시날짜</a>
+                     <a id="sorting3" class="dropdown-item" href="#"
+                        onclick="getBoardAndSetPage(0, document.getElementById('sorting3').innerText)">좋아요</a>
+                  </div>
+               </div>
+            </div>
+            <div class="container">
+
+               <div class="row justify-content-center">
+                  <div class="cho-1 text-center">
+                     <div id="open-moda" class="modal-window">
+                        <div style="width: 366px;">
+                           <div style="text-align: right;">
+                              <a href="#modal-close" title="Close" class="modal-close">Close</a>
+                           </div>
+                           <div id="modal-contents" class="banner cho-font" style="text-align: center;font-size: 22px;"></div>
+                        </div>
+                     </div>
+                     <div id="parent1" class="cho-card-size card">
+                        <div class="ml-2" id="row1">
+                           <div class="blog-entry ftco-animate" id="child1" style="margin-bottom: 0px;"
+                              v-on:click="comment">
+                           </div>
+                           <div class="ftco-animate mb-4">
+                              <span v-html="boardHeartNum"></span>
+                              <span v-html="plusHeart" v-on:click="boardHeart"></span>
+                              <span v-html="plusClaim" v-on:click="makeClaim"></span>
+                              <span>댓글 수 : </span>
+                              <span v-html="repCount"></span>
+                           </div>
+                           <component :is="dynamicComponent" />
+                        </div>
+                     </div>
+                     <div id="parent2" class="cho-card-size card">
+                        <div class="ml-2" id="row2">
+                           <div class="blog-entry ftco-animate" id="child2" style="margin-bottom: 0px;"
+                              v-on:click="comment">
+                           </div>
+                           <div class="ftco-animate mb-4">
+                              <span v-html="boardHeartNum"></span>
+                              <span v-html="plusHeart" v-on:click="boardHeart"></span>
+                              <span v-html="plusClaim" v-on:click="makeClaim"></span>
+                              <span>댓글 수 : </span>
+                              <span v-html="repCount"></span>
+                           </div>
+                           <component :is="dynamicComponent" />
+                        </div>
+                     </div>
+                     <div id="parent3" class="cho-card-size card">
+                        <div class="ml-2" id="row3">
+                           <div class="blog-entry ftco-animate" id="child3" style="margin-bottom: 0px;"
+                              v-on:click="comment">
+                           </div>
+                           <div class="ftco-animate mb-4">
+                              <span v-html="boardHeartNum"></span>
+                              <span v-html="plusHeart" v-on:click="boardHeart"></span>
+                              <span v-html="plusClaim" v-on:click="makeClaim"></span>
+                              <span>댓글 수 : </span>
+                              <span v-html="repCount"></span>
+                           </div>
+                           <component :is="dynamicComponent" />
+                        </div>
+                     </div>
+
+
+                     <div id="parent4" class="cho-card-size card">
+                        <div class="ml-2" id="row4">
+                           <div class="blog-entry ftco-animate" id="child4" style="margin-bottom: 0px;"
+                              v-on:click="comment">
+                           </div>
+                           <div class="ftco-animate mb-4">
+                              <span v-html="boardHeartNum"></span>
+                              <span v-html="plusHeart" v-on:click="boardHeart"></span>
+                              <span v-html="plusClaim" v-on:click="makeClaim"></span>
+                              <span>댓글 수 : </span>
+                              <span v-html="repCount"></span>
+                           </div>
+                           <component :is="dynamicComponent" />
+                        </div>
+                     </div>
+
+                     <div id="parent5" class="cho-card-size card">
+                        <div class="ml-2" id="row5">
+                           <div class="blog-entry ftco-animate" id="child5" style="margin-bottom: 0px;"
+                              v-on:click="comment">
+                           </div>
+                           <div class="ftco-animate mb-4">
+                              <span v-html="boardHeartNum"></span>
+                              <span v-html="plusHeart" v-on:click="boardHeart"></span>
+                              <span v-html="plusClaim" v-on:click="makeClaim"></span>
+                              <span>댓글 수 : </span>
+                              <span v-html="repCount"></span>
+                           </div>
+                           <component :is="dynamicComponent" />
+                        </div>
+                     </div>
+
+                     <div id="parent6" class="cho-card-size card">
+                        <div class="ml-2" id="row6">
+                           <div class="blog-entry ftco-animate" id="child6" style="margin-bottom: 0px;"
+                              v-on:click="comment">
+                           </div>
+                           <div class="ftco-animate mb-4">
+                              <span v-html="boardHeartNum"></span>
+                              <span v-html="plusHeart" v-on:click="boardHeart"></span>
+                              <span v-html="plusClaim" v-on:click="makeClaim"></span>
+                              <span>댓글 수 : </span>
+                              <span v-html="repCount"></span>
+                           </div>
+                           <component :is="dynamicComponent" />
+                        </div>
+                     </div>
+
+                     <div id="parent7" class="cho-card-size card">
+                        <div class="ml-2" id="row7">
+                           <div class="blog-entry ftco-animate" id="child7" style="margin-bottom: 0px;"
+                              v-on:click="comment">
+                           </div>
+                           <div class="ftco-animate mb-4">
+                              <span v-html="boardHeartNum"></span>
+                              <span v-html="plusHeart" v-on:click="boardHeart"></span>
+                              <span v-html="plusClaim" v-on:click="makeClaim"></span>
+                              <span>댓글 수 : </span>
+                              <span v-html="repCount"></span>
+                           </div>
+                           <component :is="dynamicComponent" />
+                        </div>
+                     </div>
+
+                     <div id="parent8" class="cho-card-size card">
+                        <div class="ml-2" id="row8">
+                           <div class="blog-entry ftco-animate" id="child8" style="margin-bottom: 0px;"
+                              v-on:click="comment">
+                           </div>
+                           <div class="ftco-animate mb-4">
+                              <span v-html="boardHeartNum"></span>
+                              <span v-html="plusHeart" v-on:click="boardHeart"></span>
+                              <span v-html="plusClaim" v-on:click="makeClaim"></span>
+                              <span>댓글 수 : </span>
+                              <span v-html="repCount"></span>
+                           </div>
+                           <component :is="dynamicComponent" />
+                        </div>
+                     </div>
+
+                     <div id="parent9" class="cho-card-size card">
+                        <div class="ml-2" id="row9">
+                           <div class="blog-entry ftco-animate" id="child9" style="margin-bottom: 0px;"
+                              v-on:click="comment">
+                           </div>
+                           <div class="ftco-animate mb-4">
+                              <span v-html="boardHeartNum"></span>
+                              <span v-html="plusHeart" v-on:click="boardHeart"></span>
+                              <span v-html="plusClaim" v-on:click="makeClaim"></span>
+                              <span>댓글 수 : </span>
+                              <span v-html="repCount"></span>
+                           </div>
+                           <component :is="dynamicComponent" />
+                        </div>
+                     </div>
+
+                     <div id="parent10" class="cho-card-size card">
+                        <div class="ml-2" id="row10">
+                           <div class="blog-entry ftco-animate" id="child10" style="margin-bottom: 0px;"
+                              v-on:click="comment">
+                           </div>
+                           <div class="ftco-animate mb-4">
+                              <span v-html="boardHeartNum"></span>
+                              <span v-html="plusHeart" v-on:click="boardHeart"></span>
+                              <span v-html="plusClaim" v-on:click="makeClaim"></span>
+                              <span>댓글 수 : </span>
+                              <span v-html="repCount"></span>
+                           </div>
+                           <component :is="dynamicComponent" />
+                        </div>
+                     </div>
+
+                     <!--    <div class="container">
+                        <div class="col-6 col-md-8 col-xl-8 mb-3">
+                           <div class="blog-entry ftco-animate">
+                              <div class="text pt-2 mt-3">
+                                 <span class="category mb-1 d-block"><a href="#">Technology</a></span>
+                                 <!-- 카테고리 클래스 카테고리 하이퍼링크  
+                                 <h3 class="mb-4"><a href="#">The Newest Technology On This Year 2019</a></h3>
+                                 <!-- 제목 하이퍼링크 
+                                 <p class="h5 mb-4 cho-font" style="color:darkgray">Even the all-powerful Pointing has
+                                    no control about the blind texts it is
+                                    an almost
+                                    unorthographic life One day however a small line of blind text by the name of Lorem
+                                    Ipsum
+                                    decided to leave for the far World of Grammar.</p>
+                                 <!-- 글 내용  
+                                 <div class="author d-flex align-items-center">
+                                    <div class="ch-3 info">
+                                       <span>작성자</span>
+                                       <h5 class="cho-font">조영욱, <span>2019년 12월 17일</span></h5>
+                                       <h5 class="cho-font">감성개봉일, <span>2020년 12월 17일</span></h5>
+                                    </div>
+                                 </div>
+                                 <div class="meta-wrap d-md-flex align-items-center">
+                                    <div class="half order-md-last text-md-right">
+                                       <p class="meta">
+                                          <button class="p-0 btn btn-white"><span><i
+                                                   class="icon-heart"></i>3</span></button>
+                                          <button class="p-0 btn btn-white"><span><i
+                                                   class="fas fa-exclamation-triangle">10</i></span></button>
+                                       </p>
+                                    </div>
+                                 </div>
+                                 <!-- 덧글 쓰기  
+                                 <div>
+                                    <textarea class="form-control-cho col-12 col-md-12 col-xl-12 rounded"
+                                       placeholder="Message" style="width: 650px; resize: none;"></textarea>
+                                    <input type="submit" value="댓글 남기기" class="btn btn-outline-secondary py-3 px-5">
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <!-- 덧글 내용 
+                        <div class="blog-entry">
+                           <div class="text pt-2 mt-3">
+                              <div class="author mb-4 d-flex align-items-center">
+                                 <div class="col-6">
+                                    <h4 class="cho-font">김종성, <span>2019년 12월 17일</span></h4>
+                                    <h5 class="cho-font text-secondary">행님들 국밥 한그릇 하시래요? 예 아시겠어요? 예?<h5>
+                                          <div class="meta-wrap d-md-flex align-items-center">
+                                             <div class="half order-md-last text-md-right">
+                                                <p class="meta">
+                                                   <span><i class="icon-heart"></i>3</span>
+                                                </p>
+                                             </div>
+                                          </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>  -->
+
+
+                  </div>
+               </div>
+
+            </div>
+
+            <br>
+            <div id="topheader">
+               <ul id="paging" class="pagination justify-content-center">
+                  <li class="page-item active"><a class="page-link" id="pageNum1" onclick="getBoard(0)"
+                        href="javascript:void(0)">1</a></li>
+                  <li class="page-item"><a class="page-link" id="pageNum2" onclick="getBoard(1)"
+                        href="javascript:void(0)">2</a>
+                  </li>
+                  <li class="page-item"><a class="page-link" id="pageNum3" onclick="getBoard(2)"
+                        href="javascript:void(0)">3</a>
+                  </li>
+                  <li class="page-item"><a class="page-link" id="pageNum4" onclick="getBoard(3)"
+                        href="javascript:void(0)">4</a>
+                  </li>
+                  <li class="page-item"><a class="page-link" id="pageNum5" onclick="getBoard(4)"
+                        href="javascript:void(0)">5</a>
+                  </li>
+                  <li class="page-item"><a class="page-link" onclick="setPaging(1)" href="javascript:void(0)">다음</a>
+                  </li>
+               </ul>
+            </div>
+
+
+         </section>
+      </div><!-- END COLORLIB-MAIN -->
+   </div><!-- END COLORLIB-PAGE -->
+
+   <!-- loader -->
+   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+         <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+         <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+            stroke="#F96D00" /></svg></div>
+
+
+
+
+
+   <script src="https://kit.fontawesome.com/d8eda33cb8.js" crossorigin="anonymous"></script>
+   <script src="js/axios.js"></script>
+   <script src="js/include.js"></script>
+   <script src="js/boardlistPublicAxios.js"></script>
+   <script src="js/jquery.min.js"></script>
+   <script src="js/jquery-migrate-3.0.1.min.js"></script>
+   <script src="js/popper.min.js"></script>
+   <script src="js/bootstrap.min.js"></script>
+   <script src="js/jquery.easing.1.3.js"></script>
+   <script src="js/jquery.waypoints.min.js"></script>
+   <script src="js/jquery.stellar.min.js"></script>
+   <script src="js/owl.carousel.min.js"></script>
+   <script src="js/jquery.magnific-popup.min.js"></script>
+   <script src="js/aos.js"></script>
+   <script src="js/jquery.animateNumber.min.js"></script>
+   <script src="js/bootstrap-datepicker.js"></script>
+   <script src="js/jquery.timepicker.min.js"></script>
+   <script src="js/scrollax.min.js"></script>
+   <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+   <script src="js/google-map.js"></script>
+   <script src="js/main.js"></script>
+
+</body>
+
+</html>

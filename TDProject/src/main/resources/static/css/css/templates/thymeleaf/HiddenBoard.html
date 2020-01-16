@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+   <meta charset="UTF-8">
+   <title>HiddenBoard.html</title>
+   <style type="text/css">
+      h3,
+      div.row,
+      div.notRow {
+         padding-left: 30px;
+         padding-top: 5px;
+      }
+
+      div#paging {
+         text-align: center;
+      }
+
+      div#content {
+         text-align: center;
+      }
+   </style>
+</head>
+
+<body>
+   <div id="content">
+      <h3>1</h3>
+      <div id="row1" class="row" v-on:click="comment">
+         <span id="child1"></span>
+         <span v-html="tag" v-if="ifflag"></span>
+      </div>
+      <br>
+      <hr>
+      <h3>2</h3>
+      <div id="row2" class="row" v-on:click="comment">
+         <span id="child2"></span>
+         <span v-html="tag" v-if="ifflag"></span>
+      </div>
+      <br>
+      <hr>
+      <h3>3</h3>
+      <div id="row3" class="row" v-on:click="comment">
+         <span id="child3"></span>
+         <span v-html="tag" v-if="ifflag"></span>
+      </div>
+      <br>
+      <hr>
+      <h3>4</h3>
+      <div id="row4" class="row" v-on:click="comment">
+         <span id="child4"></span>
+         <span v-html="tag" v-if="ifflag"></span>
+      </div>
+      <br>
+      <hr>
+      <h3>5</h3>
+      <div id="row5" class="row" v-on:click="comment">
+         <span id="child5"></span>
+         <span v-html="tag" v-if="ifflag"></span>
+      </div>
+      <br>
+      <hr>
+      <h3>6</h3>
+      <div id="row6" class="row" v-on:click="comment">
+         <span id="child6"></span>
+         <span v-html="tag" v-if="ifflag"></span>
+      </div>
+      <br>
+      <hr>
+      <h3>7</h3>
+      <div id="row7" class="row" v-on:click="comment">
+         <span id="child7"></span>
+         <span v-html="tag" v-if="ifflag"></span>
+      </div>
+      <br>
+      <hr>
+      <h3>8</h3>
+      <div id="row8" class="row" v-on:click="comment">
+         <span id="child8"></span>
+         <span v-html="tag" v-if="ifflag"></span>
+      </div>
+      <br>
+      <hr>
+      <h3>9</h3>
+      <div id="row9" class="row" v-on:click="comment">
+         <span id="child9"></span>
+         <span v-html="tag" v-if="ifflag"></span>
+      </div>
+      <br>
+      <hr>
+      <h3>10</h3>
+      <div id="row10" class="row" v-on:click="comment">
+         <span id="child10"></span>
+         <span v-html="tag" v-if="ifflag"></span>
+      </div>
+   </div>
+   <div id="paging">
+      <a id="pageNum1" onclick="getBoard(0)" href="javascript:void(0)">1</a>
+      <a id="pageNum1" onclick="getBoard(1)" href="javascript:void(0)">2</a>
+      <a id="pageNum1" onclick="getBoard(2)" href="javascript:void(0)">3</a>
+      <a id="pageNum1" onclick="getBoard(3)" href="javascript:void(0)">4</a>
+      <a id="pageNum1" onclick="getBoard(4)" href="javascript:void(0)">5</a>
+      <a id='nextPage' onclick='setPaging(1)' href='javascript:void(0)'>다음</a>
+   </div>
+
+
+   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+   <script type="text/javascript">
+
+      // 전체 게시글 수 받을 변수
+      var count
+
+      // 전체 게시글 리스트
+      var boardArray
+
+      // vue객체 받아줄 변수 리스트
+      var vueInstance = []
+
+      // 전체 게시글 수 얻어오기
+      function getCount() {
+         axios.get("http://127.0.0.1:8000/getCount")
+            .then(resData => {
+               count = resData.data
+            }).catch(error => {
+               console.log(error)
+            })
+      }
+
+      function getBoard(pageNum) {
+         axios.get("http://127.0.0.1:8000/getHidden?page=" + pageNum + "&sort=hashtag,desc")
+            .then(resData => {
+               getCount()
+               boardArray = resData.data.content
+               setBoard(count, resData.data.content, pageNum)
+            }).catch(error => {
+               console.log(error)
+            })
+      }
+
+      function setBoard(boardCount, boardArray, pageNum) {
+         var forNum = boardCount - pageNum * 10 < 10 ? boardCount - pageNum * 10 : 10
+         for (let i = 0; i < forNum; i++) {
+            vueInstance[i].tag = ""
+            document.getElementById("child" + (i + 1)).innerHTML =
+               "id : " + boardArray[i].id + "<br>"
+               + "contents : " + boardArray[i].contents + "<br>"
+               + "hashtag : " + boardArray[i].hashtag + "<br>"
+               + "postingDate : " + boardArray[i].postingDate + "<br>"
+               + "openDate : " + boardArray[i].openDate + "<br>"
+               + "heart : " + boardArray[i].heart + "<br>"
+               + "claim : " + boardArray[i].claim + "<br>"
+               + "nickname : " + boardArray[i].nickname + "<br>"
+               + "category : " + boardArray[i].category + "<br>"
+         }
+         for (let j = forNum; j < 10; j++) {
+            vueInstance[j].tag = ""
+            document.getElementById("child" + (j + 1)).innerHTML = "<span></span>"
+         }
+      }
+
+      for (let i = 1; i <= 10; i++) {
+         vueInstance[i - 1] = new Vue({
+            el: "#row" + i,
+            data: {
+               tag: "",
+               inputTag: "",
+               ifflag: false
+            },
+            methods: {
+               comment: function () {
+                  axios.get("http://127.0.0.1:8000/getReply?userId=" + "young" + "&boardId=" + boardArray[i - 1].id)
+                     .then(resData => {
+                        console.log(resData.data)
+                        if (resData.data == "") {
+                           this.ifflag = true
+                           this.tag = "<input id='input" + i + "' placeholder='5자이상 입력해주세요'></input><button onclick='makeReply(" + i + ")'>댓글 남기기</button>"
+                        } else {
+                           this.ifflag = !this.ifflag
+                           this.tag = "<br>유저아이디 : " + resData.data.userId + "<br>"
+                              + "댓글 내용 : " + resData.data.repContents + "<br>"
+                              + "게시 날짜 : " + resData.data.repPostingDate + "<br>"
+                              + "좋아요 : " + resData.data.repHeart + "<br>"
+                              + "신고 횟수 : " + resData.data.repClaim + "<br>"
+                        }
+                     }).catch(error => {
+                        console.log(error)
+                     })
+               }
+            }
+         })
+      }
+
+      function makeReply(replyNum) {
+         console.log(1)
+         var repContent = document.getElementById("input" + replyNum).value
+         axios.post("http://127.0.0.1:8000/saveReply?userId=" + "young" + "&repBoardId=" + boardArray[replyNum - 1].id + "&repContents=" + repContent
+            + "&repPostingDate=" + "20191218" + "&repHeart=" + 0 + "&repClaim=" + 0)
+            .then(resData => {
+               if(resData.data == 1){
+                  vueInstance[replyNum - 1].tag = "<br>유저아이디 : " + "young" + "<br>"
+                  + "댓글 내용 : " + repContent + "<br>"
+                  + "게시 날짜 : " + "20191218" + "<br>"
+                  + "좋아요 : " + 0 + "<br>"
+                  + "신고 횟수 : " + 0 + "<br>"
+               }else{
+                  alert("저장에 실패했습니다")
+               }
+            }).catch(error => {
+               console.log(error)
+            })
+      }
+
+      // 페이징 처리 로직
+      function setPaging(direction) {
+         // 실시간 전체 게시글 수 동기화
+         getCount()
+
+         // innerHTML 받아줄 변수 선언
+         var paging = ""
+
+         // 페이징 처리를 위해 기준값 계산
+         var standard = parseInt(document.getElementById('pageNum1').innerText / 5)
+
+         var nowNum = Number(document.getElementById('pageNum1').innerText) + 4
+
+         // 끝나는 페이지값 계산
+         var endPoint = parseInt(count / 10) + 1
+         parseInt(count / 10) + 1
+
+         // 실제로 들어갈 페이지값
+         var nextPage = (standard + 1) * 5
+         var prevPage = (standard - 1) * 5
+
+         // 반복되는 구문 초기화
+         const next = " <a id='nextPage' onclick='setPaging(1)' href='javascript:void(0)'>다음</a>"
+         const prev = "<a id='prevPage' onclick='setPaging(2)' href='javascript:void(0)'>이전</a>"
+
+         // 다음버튼 클릭시
+         if (direction == 1) {
+            getBoard(nextPage)
+            paging = prev
+            paging += Number(nowNum) + 5 > endPoint ? setPageNumber(nextPage, endPoint - (standard + 1) * 5) : setPageNumber(nextPage, 5) + next
+            // 이전버튼 클릭시   
+         } else {
+            getBoard(prevPage + 4)
+            paging += standard == 1 ? setPageNumber(prevPage, 5) : prev + setPageNumber(prevPage, 5)
+            paging += next
+         }
+         document.getElementById("paging").innerHTML = paging
+      }
+
+      // innerHTML코드 반복문 함수화
+      function setPageNumber(pageNum, loopNum) {
+         paging = ""
+         for (var i = 1; i <= loopNum; i++) {
+            paging += " <a id='pageNum" + i + "' onclick='getBoard(" + (pageNum + i - 1) + ")' href='javascript:void(0)'>" + (pageNum + i) + "</a>"
+         }
+         return paging
+      }
+
+      // 페이지 로딩시 바로 실행되는 로직
+      axios.get("http://127.0.0.1:8000/getCount")
+         .then(resData => {
+            // 첫번째 페이지 게시글 가져오고 화면에 뿌려주기
+            getBoard(0)
+            if (resData.data <= 50) {
+               // 전체 게시글수가 50 이하일경우 다음 페이지가 나오면 안되기 때문에 조건식 생성
+               document.getElementById("paging").innerHTML = setPageNumber(0, parseInt((resData.data - 1) / 10) + 1)
+            }
+         }).catch(error => {
+            console.log(error)
+         })
+
+
+   </script>
+</body>
+</html>

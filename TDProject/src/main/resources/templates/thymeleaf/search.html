@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<title>검색</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- 자동완성 스타일시트 -->
+	<link rel="stylesheet" href="as/css/autocomplete.css">
+	<script type="text/javascript" src="as/js/autocomplete.js"></script>
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+
+	
+	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
+
+	<link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+	<link rel="stylesheet" href="css/animate.css">
+
+	<link rel="stylesheet" href="css/owl.carousel.min.css">
+	<link rel="stylesheet" href="css/owl.theme.default.min.css">
+	<link rel="stylesheet" href="css/magnific-popup.css">
+
+	<link rel="stylesheet" href="css/aos.css">
+
+	<link rel="stylesheet" href="css/ionicons.min.css">
+
+	<link rel="stylesheet" href="css/bootstrap-datepicker.css">
+	<link rel="stylesheet" href="css/jquery.timepicker.css">
+
+
+	<link rel="stylesheet" href="css/flaticon.css">
+	<link rel="stylesheet" href="css/icomoon.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/cho.css">
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+	<div id="colorlib-page">
+		<div>
+		<a href="javascript:void(0)" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+		<aside id="colorlib-aside" role="complementary" class="js-fullheight text-center">
+			<h1 id="colorlib-logo"><a href="/close">틀다</a></h1>
+			<nav id="colorlib-main-menu" role="navigation">
+				<ul>
+					<li><a href="/writing">글쓰기</a></li>
+					<li><a href="/search">검색</a></li>
+					<li><a href="/close">비공개 게시판</a></li>
+					<li><a href="/public">공개 게시판</a></li>
+					<li><a href="/todaymessage">오늘의 메세지</a></li>
+					<li><a href="/mypage">마이 페이지</a></li>
+				</ul>
+			</nav>
+			<div class="colorlib-footer">
+				<p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+			  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+			</div>
+		</aside> <!-- END COLORLIB-ASIDE -->
+	</div>
+
+		<div id="colorlib-main">
+
+			<section class="ftco-section" style="padding-left: 0px; padding-right: 0px;">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12 mx">
+							<div class="row">
+								<div class="col" style="padding-left: 25px;">
+								
+									<div class="sidebar-box">
+									<h3 class="sidebar-heading text-center">게시판 선택　</h3>
+									<div class="custom-control custom-radio">
+										<input type="radio" name="jb-radio" id="jb-radio-1" class="custom-control-input"
+											value="0" checked>
+										<label class="custom-control-label" for="jb-radio-1">미공개 게시판</label>
+									</div>
+									<div class="custom-control custom-radio">
+										<input type="radio" name="jb-radio" id="jb-radio-2" class="custom-control-input"
+											value="1">
+										<label class="custom-control-label" for="jb-radio-2">공개	 게시판</label>
+									</div>
+									</div>
+									<br>
+
+								</div>
+							</div>
+							<div class="row">
+
+
+								<div class="sidebar-box">
+									<h3 class="sidebar-heading text-center">Tag Search</h3>
+									<form action="#" class="search-form">
+										<div class="form-group">
+											<a class="icon icon-search" href="#" onclick="hashtag(document.getElementById('searchInput').value)"></a> <input id="searchInput"
+											autocomplete="on" type="text" name="name" class="form-control">
+										</div>
+									</form><br>
+
+
+									<h3 class="sidebar-heading text-center">Tag Cloud</h3>
+									<ul id="tagcloud" class="tagcloud text-center">
+									</ul><br>
+
+									<h3 class="sidebar-heading text-center">Categories</h3>
+									<ul class="categories text-center" style="font-size: 1rem;">
+										<li><a href="javascript:void(0)" onclick="category(0)">시</a>
+										</li>
+										<li><a href="javascript:void(0)" onclick="category(1)">감성글</a>
+										</li>
+									</ul>
+
+
+
+								</div>
+
+							</div>
+							<!-- END-->
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+		<!-- END COLORLIB-MAIN -->
+	</div>
+	<!-- END COLORLIB-PAGE -->
+	<script src="js/axios.js"></script>
+	<script>
+		// 해쉬태그 빈도 수 내림차순 정렬
+		var hashFrequency = []
+
+		axios.get("http://192.168.22.62:8000/tagCloud")
+			.then(resData => {
+				for (key in resData.data) {
+					if(key != ""){
+						hashFrequency.push([key, resData.data[key]])
+					}
+				}
+
+				hashFrequency.sort(function (a, b) {
+					return b[1] - a[1];
+				});
+
+				const length = hashFrequency.length > 9 ? 10 : hashFrequency.length
+				
+				for (let i = 0; i < length; i++) {
+					document.getElementById("tagcloud").innerHTML +=
+						`<a href="javascript:void(0)" onclick="hashtag('` + hashFrequency[i][0] + `')" class="tag-cloud-link">` + hashFrequency[i][0] + `</a>`
+				}
+
+			}).catch(error => {
+				console.log(error)
+			})
+
+		var hashtagArray = []
+
+		var $j = jQuery.noConflict();
+
+		$j(function () {    //화면 다 뜨면 시작
+			axios.get("http://192.168.22.62:8000/tagCloud")
+				.then(resData => {
+					for (key in resData.data) {
+						hashtagArray.push(key)
+					}
+
+					$j("#searchInput").autocomplete({
+
+						source: function (request, response) {
+							var results = $j.ui.autocomplete.filter(hashtagArray, request.term);
+							response(results.slice(0, 10));
+
+						},
+						select: function (event, ui) {    //아이템 선택시
+							console.log(ui.item);
+						},
+
+						focus: function (event, ui) {    //포커스 가면
+							return false;//한글 에러 잡기용도로 사용됨
+						},
+						matchContains: true,
+						minLength: 1,
+						autoFocus: true, //첫번째 항목 자동 포커스 기본값 false
+						classes: {    //잘 모르겠음
+							"ui-autocomplete": "highlight"
+						},
+
+						close: function (event) {    //자동완성창 닫아질때 호출
+							console.log(event);
+						}
+					})
+				});
+		});
+
+
+
+		function hashtag(hash) {
+			if(hash == ""){
+				alert("해시태그를 선택해주세요")
+			}else{
+				sessionStorage.setItem("boardKind", document.querySelector(".custom-control-input:checked").value)
+				sessionStorage.setItem("hashtagKind", hash)
+				document.querySelector(".custom-control-input:checked").value == 0 ? location.href = "/close" : location.href = "/public"
+			}
+		}
+
+		function category(kind) {
+			sessionStorage.setItem("boardKind", document.querySelector(".custom-control-input:checked").value)
+			sessionStorage.setItem("categoryKind", kind == 0 ? "시" : "감성글")
+			document.querySelector(".custom-control-input:checked").value == 0 ? location.href = "/close" : location.href = "/public"
+		}
+
+		window.onload = function () {
+			sessionStorage.removeItem("categoryKind")
+			sessionStorage.removeItem("hashtagKind")
+			sessionStorage.removeItem("boardKind")
+		}
+	</script>
+	<script src="js/include.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery-migrate-3.0.1.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.easing.1.3.js"></script>
+	<script src="js/jquery.waypoints.min.js"></script>
+	<script src="js/jquery.stellar.min.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/aos.js"></script>
+	<script src="js/jquery.animateNumber.min.js"></script>
+	<script src="js/bootstrap-datepicker.js"></script>
+	<script src="js/jquery.timepicker.min.js"></script>
+	<script src="js/scrollax.min.js"></script>
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+	<script src="js/google-map.js"></script>
+	<script src="js/main.js"></script>
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery-migrate-3.0.1.min.js"></script>
+	<script src="assets/js/popper.min.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
+	<script src="assets/js/jquery.easing.1.3.js"></script>
+	<script src="assets/js/jquery.waypoints.min.js"></script>
+	<script src="assets/js/jquery.stellar.min.js"></script>
+	<script src="assets/js/owl.carousel.min.js"></script>
+	<script src="assets/js/jquery.magnific-popup.min.js"></script>
+	<script src="assets/js/aos.js"></script>
+	<script src="assets/js/jquery.animateNumber.min.js"></script>
+	<script src="assets/js/bootstrap-datepicker.js"></script>
+
+	<script src="assets/js/scrollax.min.js"></script>
+	<script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
